@@ -9,6 +9,11 @@
     "inlineSources": true,
     "types": []
   },
+  "include": [
+    "../src/**/*",
+    "./**/*",
+    "typings.d.ts"
+  ],
   "exclude": [
     "**/*.spec.ts"
   ]

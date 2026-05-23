@@ -3,6 +3,7 @@ import { SwiperContainerEvents, swiperEvents } from './ng-swiper-element-events.
 import { Swiper, SwiperEvents, SwiperOptions } from 'swiper/types';
 import { NgTemplateOutlet } from '@angular/common';
 import { NgSwiperSlideDirective } from './directive/ng-swiper-slide.directive';
+import { NgSwiperButtonDirective } from './directive/ng-swiper-button.directive';
 
 export type OnInterface = {
   [event in keyof SwiperEvents]?: SwiperEvents[event];
@@ -26,7 +27,7 @@ export type BreakPointsType = {
         @let slides = slidesToIterate || [];
         @for(slide of slides; track $index) {
           @let component = slidesComponentToIterate.at($index);
-          @if(component?.lazy) {
+          @if(component?.lazy()) {
             <swiper-slide lazy>
               <ng-container *ngTemplateOutlet="slide"/>
             </swiper-slide>
@@ -38,6 +39,19 @@ export type BreakPointsType = {
         }
       }
     }
+    <!-- @if(slideButtonChildren(); as buttonComponentToIterate) {
+      @if(swiperButtonContentChildren(); as buttonsToIterate) {
+        @let buttons = buttonsToIterate || [];
+        @for(button of buttons; track $index) {
+          @let component = buttonComponentToIterate.at($index);
+          @if(component?.next()) {
+            <ng-container *ngTemplateOutlet="button"/>
+          } @else if(component?.prev()) {
+            <ng-container *ngTemplateOutlet="button"/>
+          }
+        }
+      }
+    } -->
     <ng-content/>
     </swiper-container>
   `,
@@ -58,7 +72,17 @@ export class SwiperElementComponent extends SwiperContainerEvents {
   /**
    * @ignore
    */
+  swiperButtonContentChildren = contentChildren(NgSwiperButtonDirective, {
+    read: TemplateRef
+  });
+  /**
+   * @ignore
+   */
   slideCompContentChildren = contentChildren(NgSwiperSlideDirective);
+  /**
+   * @ignore
+   */
+  slideButtonChildren = contentChildren(NgSwiperButtonDirective);
   /**
    * @ignore
    */
@@ -113,6 +137,8 @@ export class SwiperElementComponent extends SwiperContainerEvents {
   ngAfterViewInit() {
     console.log(this.slideCompContentChildren());
     console.log(this.slidesTemplateContentChildren());
+    console.log(this.slideButtonChildren());
+    console.log(this.swiperButtonContentChildren());
     this.initialize();
     this.reInitialize();
   }

@@ -27,6 +27,14 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "assets": [
+              {
+                "glob": "**/*.{css,scss,less}",
+                "input": "node_modules/swiper/",
+                "output": "/swiper/css/"
+              }
+            ],
+            "styles": ["swiper/swiper-bundle.css","projects/ng-swiper-element/src/styles/styles.css"],
             "tsConfig": "projects/ng-swiper-element/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
@@ -34,6 +42,14 @@
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
+            "assets": [
+              {
+                "glob": "**/*.{css,scss,less}",
+                "input": "node_modules/swiper/",
+                "output": "/swiper/css/"
+              }
+            ],
+            "styles": ["swiper/swiper-bundle.css","projects/ng-swiper-element/src/styles/styles.css"],
             "configDir": "projects/ng-swiper-element/.storybook",
             "browserTarget": "ng-swiper-element:build",
             "compodoc": true,
@@ -44,6 +60,14 @@
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
+            "assets": [
+              {
+                "glob": "**/*.{css,scss,less}",
+                "input": "node_modules/swiper/",
+                "output": "/swiper/css/"
+              }
+            ],
+            "styles": ["swiper/swiper-bundle.css","projects/ng-swiper-element/src/styles/styles.css"],
             "configDir": "projects/ng-swiper-element/.storybook",
             "browserTarget": "ng-swiper-element:build",
             "compodoc": true,
@@ -62,11 +86,21 @@
         "build": {
           "options": {
             "tsConfig": "tsconfig.json",
-            "styles": [],
+            "assets": [
+              {
+                "glob": "/**/*.(css|scss|less)$",
+                "input": "/node_modules/swiper/",
+                "output": "/swiper/css/"
+              }
+            ],
+            "styles": ["swiper/swiper-bundle.css","projects/ng-swiper-element/src/styles/styles.css"],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

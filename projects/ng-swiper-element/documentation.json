@@ -158,6 +158,59 @@
     "classes": [],
     "directives": [
         {
+            "name": "NgSwiperButtonDirective",
+            "id": "directive-NgSwiperButtonDirective-5ab8eadbe4bcbe292f2141cb3d06d9cb8741c49498da44a3ebfbd5ede59a655db74efa091d755b3bb8b7fcc84b84557f35c5506eebaba3919bdcb46453d2cedc",
+            "file": "projects/ng-swiper-element/src/lib/directive/ng-swiper-button.directive.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { Directive, input } from '@angular/core';\r\n\r\n@Directive({\r\n  selector: '[ngSwiperButton]'\r\n})\r\nexport class NgSwiperButtonDirective {\r\n  next = input<string | boolean | undefined>(false);\r\n  prev = input<string | boolean | undefined>(false);\r\n\r\n  constructor() { }\r\n\r\n}\r\n",
+            "selector": "[ngSwiperButton]",
+            "providers": [],
+            "hostDirectives": [],
+            "standalone": false,
+            "inputsClass": [],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "propertiesClass": [
+                {
+                    "name": "next",
+                    "defaultValue": "input<string | boolean | undefined>(false)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 7
+                },
+                {
+                    "name": "prev",
+                    "defaultValue": "input<string | boolean | undefined>(false)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 8
+                }
+            ],
+            "methodsClass": [],
+            "extends": [],
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 8
+            }
+        },
+        {
             "name": "NgSwiperSlideDirective",
             "id": "directive-NgSwiperSlideDirective-e847aaf83484d5cdb1e5f8426728a5e49730e0fdbe3ea319ad5ca57c9e7f548ee18f646a592665e9f19483b0bc735deec4cf673dbafa23289f8c3c76d016a280",
             "file": "projects/ng-swiper-element/src/lib/directive/ng-swiper-slide.directive.ts",
@@ -23120,7 +23173,7 @@
     "components": [
         {
             "name": "SwiperElementComponent",
-            "id": "component-SwiperElementComponent-3704297d5b93ef8022cf5ceca355fff76f0e4820b75db3c42409062d5d6e8f2ee75a4464f443d8ffcc36e669bf629e5ae0779b36fd5e991ec0cd417523da2b88",
+            "id": "component-SwiperElementComponent-0555dbaa11e9ad6f036175a43f92e43570b8789294c9eaf3eaf2e01968afe0a1aa43c8387e7177a1d12af79af3c956227bf68096fa9efbe456a46788c5d6cff2",
             "file": "projects/ng-swiper-element/src/lib/ng-swiper-element.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -23130,7 +23183,7 @@
             "selector": "ng-swiper-element",
             "styleUrls": [],
             "styles": [],
-            "template": "<swiper-container\n  #swiperContainer\n  init=\"false\"\n>\n@if(slideCompContentChildren(); as slidesComponentToIterate) {\n  @if(slidesTemplateContentChildren(); as slidesToIterate) {\n    @let slides = slidesToIterate || [];\n    @for(slide of slides; track $index) {\n      @let component = slidesComponentToIterate.at($index);\n      @if(component?.lazy) {\n        <swiper-slide lazy>\n          <ng-container *ngTemplateOutlet=\"slide\"/>\n        </swiper-slide>\n      } @else {\n        <swiper-slide>\n          <ng-container *ngTemplateOutlet=\"slide\"/>\n        </swiper-slide>\n      }\n    }\n  }\n}\n<ng-content/>\n</swiper-container>\n",
+            "template": "<swiper-container\n  #swiperContainer\n  init=\"false\"\n>\n@if(slideCompContentChildren(); as slidesComponentToIterate) {\n  @if(slidesTemplateContentChildren(); as slidesToIterate) {\n    @let slides = slidesToIterate || [];\n    @for(slide of slides; track $index) {\n      @let component = slidesComponentToIterate.at($index);\n      @if(component?.lazy()) {\n        <swiper-slide lazy>\n          <ng-container *ngTemplateOutlet=\"slide\"/>\n        </swiper-slide>\n      } @else {\n        <swiper-slide>\n          <ng-container *ngTemplateOutlet=\"slide\"/>\n        </swiper-slide>\n      }\n    }\n  }\n}\n<!-- @if(slideButtonChildren(); as buttonComponentToIterate) {\n  @if(swiperButtonContentChildren(); as buttonsToIterate) {\n    @let buttons = buttonsToIterate || [];\n    @for(button of buttons; track $index) {\n      @let component = buttonComponentToIterate.at($index);\n      @if(component?.next()) {\n        <ng-container *ngTemplateOutlet=\"button\"/>\n      } @else if(component?.prev()) {\n        <ng-container *ngTemplateOutlet=\"button\"/>\n      }\n    }\n  }\n} -->\n<ng-content/>\n</swiper-container>\n",
             "templateUrl": [],
             "viewProviders": [],
             "hostDirectives": [],
@@ -34763,7 +34816,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, computed, contentChild, contentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, Signal, TemplateRef, viewChild } from '@angular/core';\r\nimport { SwiperContainerEvents, swiperEvents } from './ng-swiper-element-events.class';\r\nimport { Swiper, SwiperEvents, SwiperOptions } from 'swiper/types';\r\nimport { NgTemplateOutlet } from '@angular/common';\r\nimport { NgSwiperSlideDirective } from './directive/ng-swiper-slide.directive';\r\n\r\nexport type OnInterface = {\r\n  [event in keyof SwiperEvents]?: SwiperEvents[event];\r\n}\r\nexport type EffectType = 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'creative' | 'cards' | string | undefined;\r\nexport type OnAnyType = (handler: (eventName: string, ...args: any[]) => void) => void;\r\nexport type BreakPointsType = {\r\n  [width: number]: SwiperOptions;\r\n  [ratio: string]: SwiperOptions;\r\n};\r\n@Component({\r\n  selector: 'ng-swiper-element',\r\n  imports: [NgTemplateOutlet],\r\n  template: `\r\n    <swiper-container \r\n      #swiperContainer \r\n      init=\"false\"\r\n    >\r\n    @if(slideCompContentChildren(); as slidesComponentToIterate) {\r\n      @if(slidesTemplateContentChildren(); as slidesToIterate) {\r\n        @let slides = slidesToIterate || [];\r\n        @for(slide of slides; track $index) {\r\n          @let component = slidesComponentToIterate.at($index);\r\n          @if(component?.lazy) {\r\n            <swiper-slide lazy>\r\n              <ng-container *ngTemplateOutlet=\"slide\"/>\r\n            </swiper-slide>\r\n          } @else {\r\n            <swiper-slide>\r\n              <ng-container *ngTemplateOutlet=\"slide\"/>\r\n            </swiper-slide>\r\n          }\r\n        }\r\n      }\r\n    }\r\n    <ng-content/>\r\n    </swiper-container>\r\n  `,\r\n  schemas: [CUSTOM_ELEMENTS_SCHEMA],\r\n})\r\nexport class SwiperElementComponent extends SwiperContainerEvents {\r\n  /**\r\n   * @ignore\r\n   */\r\n  swiperInstance: Signal<Swiper> = computed(() => this.swiperContainer()?.nativeElement?.swiper);\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  slidesTemplateContentChildren = contentChildren(NgSwiperSlideDirective, {\r\n    read: TemplateRef\r\n  });\r\n  /**\r\n   * @ignore\r\n   */\r\n  slideCompContentChildren = contentChildren(NgSwiperSlideDirective);\r\n  /**\r\n   * @ignore\r\n   */\r\n  abortController = new AbortController();\r\n  /**\r\n   * @ignore\r\n   */\r\n  eventListenerInitialized = false;\r\n  /**\r\n   * @ignore\r\n   */\r\n  swiperContainer = viewChild.required('swiperContainer', {\r\n    read: ElementRef,\r\n  });\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  @HostListener('window:resize', ['$event'])\r\n  onResize(event: any) {\r\n    this.reInitialize();\r\n  }\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  get _swiperOptionsInternal() {\r\n    const _swiperOptionsInternal: any = {};\r\n    const keys = Object.keys(this);\r\n    for (const key of keys) {\r\n      const signal = (this as any)[key];\r\n      if (signal.toString().includes('[Input Signal')) {\r\n        const value = signal();\r\n        if (value !== undefined) {\r\n          _swiperOptionsInternal[key] = value;\r\n        }\r\n      }\r\n    }\r\n    return {\r\n      ...(this.swiperOptions() || {}), ..._swiperOptionsInternal,\r\n      on: {\r\n        init: function () {\r\n          console.log('swiper initialized');\r\n        },\r\n      }\r\n    };\r\n  }\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  ngAfterViewInit() {\r\n    console.log(this.slideCompContentChildren());\r\n    console.log(this.slidesTemplateContentChildren());\r\n    this.initialize();\r\n    this.reInitialize();\r\n  }\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  ngOnChanges() {\r\n    this.initialize();\r\n    this.reInitialize();\r\n  }\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  reInitialize() {\r\n    const swiperInstance = this.swiperInstance();\r\n    if (swiperInstance) {\r\n      swiperInstance.update();\r\n      swiperInstance.updateAutoHeight();\r\n    }\r\n  }\r\n\r\n  /**\r\n * @ignore\r\n */\r\n  initialize() {\r\n    const swiperParams = this._swiperOptionsInternal;\r\n    const swiperContainer = this.swiperContainer();\r\n    const swiperEl = swiperContainer?.nativeElement;\r\n    if (swiperEl) {\r\n      // now we need to assign all parameters to Swiper element\r\n      Object.assign(swiperEl, swiperParams);\r\n      // and now initialize it\r\n      swiperEl.onAny = this.onAny?.bind(this);\r\n      swiperEl.initialize();\r\n      this.initializeListeners(swiperEl);\r\n    }\r\n  }\r\n\r\n  /**\r\n * @ignore\r\n */\r\n  initializeListeners(swiperEl: any) {\r\n    swiperEvents.forEach((eventName: string) => {\r\n      const output = (this as any)[eventName];\r\n      if (output?.['listeners']?.length) {\r\n        swiperEl.addEventListener(eventName, (...args: any) => {\r\n          if (output) {\r\n            output.emit(args);\r\n          }\r\n        }, { signal: this.abortController.signal });\r\n      }\r\n    })\r\n  }\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  ngOnDestroy() {\r\n    this.abortController?.abort();\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Component, computed, contentChild, contentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, Signal, TemplateRef, viewChild } from '@angular/core';\r\nimport { SwiperContainerEvents, swiperEvents } from './ng-swiper-element-events.class';\r\nimport { Swiper, SwiperEvents, SwiperOptions } from 'swiper/types';\r\nimport { NgTemplateOutlet } from '@angular/common';\r\nimport { NgSwiperSlideDirective } from './directive/ng-swiper-slide.directive';\r\nimport { NgSwiperButtonDirective } from './directive/ng-swiper-button.directive';\r\n\r\nexport type OnInterface = {\r\n  [event in keyof SwiperEvents]?: SwiperEvents[event];\r\n}\r\nexport type EffectType = 'slide' | 'fade' | 'cube' | 'coverflow' | 'flip' | 'creative' | 'cards' | string | undefined;\r\nexport type OnAnyType = (handler: (eventName: string, ...args: any[]) => void) => void;\r\nexport type BreakPointsType = {\r\n  [width: number]: SwiperOptions;\r\n  [ratio: string]: SwiperOptions;\r\n};\r\n@Component({\r\n  selector: 'ng-swiper-element',\r\n  imports: [NgTemplateOutlet],\r\n  template: `\r\n    <swiper-container \r\n      #swiperContainer \r\n      init=\"false\"\r\n    >\r\n    @if(slideCompContentChildren(); as slidesComponentToIterate) {\r\n      @if(slidesTemplateContentChildren(); as slidesToIterate) {\r\n        @let slides = slidesToIterate || [];\r\n        @for(slide of slides; track $index) {\r\n          @let component = slidesComponentToIterate.at($index);\r\n          @if(component?.lazy()) {\r\n            <swiper-slide lazy>\r\n              <ng-container *ngTemplateOutlet=\"slide\"/>\r\n            </swiper-slide>\r\n          } @else {\r\n            <swiper-slide>\r\n              <ng-container *ngTemplateOutlet=\"slide\"/>\r\n            </swiper-slide>\r\n          }\r\n        }\r\n      }\r\n    }\r\n    <!-- @if(slideButtonChildren(); as buttonComponentToIterate) {\r\n      @if(swiperButtonContentChildren(); as buttonsToIterate) {\r\n        @let buttons = buttonsToIterate || [];\r\n        @for(button of buttons; track $index) {\r\n          @let component = buttonComponentToIterate.at($index);\r\n          @if(component?.next()) {\r\n            <ng-container *ngTemplateOutlet=\"button\"/>\r\n          } @else if(component?.prev()) {\r\n            <ng-container *ngTemplateOutlet=\"button\"/>\r\n          }\r\n        }\r\n      }\r\n    } -->\r\n    <ng-content/>\r\n    </swiper-container>\r\n  `,\r\n  schemas: [CUSTOM_ELEMENTS_SCHEMA],\r\n})\r\nexport class SwiperElementComponent extends SwiperContainerEvents {\r\n  /**\r\n   * @ignore\r\n   */\r\n  swiperInstance: Signal<Swiper> = computed(() => this.swiperContainer()?.nativeElement?.swiper);\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  slidesTemplateContentChildren = contentChildren(NgSwiperSlideDirective, {\r\n    read: TemplateRef\r\n  });\r\n  /**\r\n   * @ignore\r\n   */\r\n  swiperButtonContentChildren = contentChildren(NgSwiperButtonDirective, {\r\n    read: TemplateRef\r\n  });\r\n  /**\r\n   * @ignore\r\n   */\r\n  slideCompContentChildren = contentChildren(NgSwiperSlideDirective);\r\n  /**\r\n   * @ignore\r\n   */\r\n  slideButtonChildren = contentChildren(NgSwiperButtonDirective);\r\n  /**\r\n   * @ignore\r\n   */\r\n  abortController = new AbortController();\r\n  /**\r\n   * @ignore\r\n   */\r\n  eventListenerInitialized = false;\r\n  /**\r\n   * @ignore\r\n   */\r\n  swiperContainer = viewChild.required('swiperContainer', {\r\n    read: ElementRef,\r\n  });\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  @HostListener('window:resize', ['$event'])\r\n  onResize(event: any) {\r\n    this.reInitialize();\r\n  }\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  get _swiperOptionsInternal() {\r\n    const _swiperOptionsInternal: any = {};\r\n    const keys = Object.keys(this);\r\n    for (const key of keys) {\r\n      const signal = (this as any)[key];\r\n      if (signal.toString().includes('[Input Signal')) {\r\n        const value = signal();\r\n        if (value !== undefined) {\r\n          _swiperOptionsInternal[key] = value;\r\n        }\r\n      }\r\n    }\r\n    return {\r\n      ...(this.swiperOptions() || {}), ..._swiperOptionsInternal,\r\n      on: {\r\n        init: function () {\r\n          console.log('swiper initialized');\r\n        },\r\n      }\r\n    };\r\n  }\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  ngAfterViewInit() {\r\n    console.log(this.slideCompContentChildren());\r\n    console.log(this.slidesTemplateContentChildren());\r\n    console.log(this.slideButtonChildren());\r\n    console.log(this.swiperButtonContentChildren());\r\n    this.initialize();\r\n    this.reInitialize();\r\n  }\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  ngOnChanges() {\r\n    this.initialize();\r\n    this.reInitialize();\r\n  }\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  reInitialize() {\r\n    const swiperInstance = this.swiperInstance();\r\n    if (swiperInstance) {\r\n      swiperInstance.update();\r\n      swiperInstance.updateAutoHeight();\r\n    }\r\n  }\r\n\r\n  /**\r\n * @ignore\r\n */\r\n  initialize() {\r\n    const swiperParams = this._swiperOptionsInternal;\r\n    const swiperContainer = this.swiperContainer();\r\n    const swiperEl = swiperContainer?.nativeElement;\r\n    if (swiperEl) {\r\n      // now we need to assign all parameters to Swiper element\r\n      Object.assign(swiperEl, swiperParams);\r\n      // and now initialize it\r\n      swiperEl.onAny = this.onAny?.bind(this);\r\n      swiperEl.initialize();\r\n      this.initializeListeners(swiperEl);\r\n    }\r\n  }\r\n\r\n  /**\r\n * @ignore\r\n */\r\n  initializeListeners(swiperEl: any) {\r\n    swiperEvents.forEach((eventName: string) => {\r\n      const output = (this as any)[eventName];\r\n      if (output?.['listeners']?.length) {\r\n        swiperEl.addEventListener(eventName, (...args: any) => {\r\n          if (output) {\r\n            output.emit(args);\r\n          }\r\n        }, { signal: this.abortController.signal });\r\n      }\r\n    })\r\n  }\r\n\r\n  /**\r\n   * @ignore\r\n   */\r\n  ngOnDestroy() {\r\n    this.abortController?.abort();\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -34923,9 +34976,18 @@
     },
     "routes": [],
     "coverage": {
-        "count": 24,
+        "count": 22,
         "status": "low",
         "files": [
+            {
+                "filePath": "projects/ng-swiper-element/src/lib/directive/ng-swiper-button.directive.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "NgSwiperButtonDirective",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
             {
                 "filePath": "projects/ng-swiper-element/src/lib/directive/ng-swiper-slide.directive.ts",
                 "type": "directive",
