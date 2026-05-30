@@ -21,60 +21,64 @@ export interface SlideClasses {
 }
 
 export const swiperEvents = [
-    'swiperinit',
-    'swiperbeforedestroy',
-    'swiperslidesupdated',
-    'swiperslidechange',
-    'swiperslidechangetransitionstart',
-    'swiperslidechangetransitionend',
-    'swiperslidenexttransitionstart',
-    'swiperslidenexttransitionend',
-    'swiperslideprevtransitionstart',
-    'swiperslideprevtransitionend',
-    'swipertransitionstart',
-    'swipertransitionend',
-    'swipertouchstart',
-    'swipertouchmove',
-    'swipertouchmoveopposite',
-    'swiperslidermove',
-    'swipertouchend',
-    'swiperclick',
-    'swipertap',
-    'swiperdoubletap',
-    'swiperprogress',
-    'swiperreachbeginning',
-    'swiperreachend',
-    'swipertoedge',
-    'swiperfromedge',
-    'swipersettranslate',
-    'swipersettransition',
-    'swiperresize',
-    'swiperobserverupdate',
-    'swiperbeforeloopfix',
-    'swiperloopfix',
-    'swiperbreakpoint',
-    'swiperactiveindexchange',
-    'swipersnapindexchange',
-    'swiperrealindexchange',
-    'swiperafterinit',
-    'swiperbeforeinit',
-    'swiperbeforeresize',
-    'swiperbeforeslidechangestart',
-    'swiperbeforetransitionstart',
-    'swiperchangedirection',
-    'swiperdoubleclick',
-    'swiperdestroy',
-    'swipermomentumbounce',
-    'swiperorientationchange',
-    'swiperslideresettransitionstart',
-    'swiperslideresettransitionend',
-    'swipersliderfirstmove',
-    'swiperslideslengthchange',
-    'swiperslidesgridlengthchange',
-    'swipersnapgridlengthchange',
-    'swiperupdate',
-    'swiperlock',
-    'swiperunlock',
+    'init',
+    'beforeDestroy',
+    'slidesUpdated',
+    'slideChange',
+    'slideChangeTransitionStart',
+    'slideChangeTransitionEnd',
+    'slideNextTransitionStart',
+    'slideNextTransitionEnd',
+    'slidePrevTransitionStart',
+    'slidePrevTransitionEnd',
+    'transitionStart',
+    'transitionEnd',
+    'touchStart',
+    'touchMove',
+    'touchMoveOpposite',
+    'sliderMove',
+    'touchEnd',
+    'click',
+    'tap',
+    'doubleTap',
+    'progress',
+    'reachBeginning',
+    'reachEnd',
+    'toEdge',
+    'fromEdge',
+    'setTranslate',
+    'setTransition',
+    'resize',
+    'observerUpdate',
+    'beforeLoopFix',
+    'loopFix',
+    'breakpoint',
+    'activeIndexChange',
+    'snapIndexChange',
+    'realIndexChange',
+    'afterInit',
+    'beforeInit',
+    'beforeResize',
+    'beforeSlideChangeStart',
+    'beforeTransitionStart',
+    'changeDirection',
+    'doubleClick',
+    'destroy',
+    'momentumBounce',
+    'orientationChange',
+    'slideResetTransitionStart',
+    'slideResetTransitionEnd',
+    'sliderFirstMove',
+    'slidesLengthChange',
+    'slidesGridLengthChange',
+    'snapGridLengthChange',
+    'update',
+    'lock',
+    'unlock',
+    'navigationHide',
+    'navigationShow',
+    'navigationNext',
+    'navigationPrev'
 ]
 
 @Directive()
@@ -112,271 +116,290 @@ export class SwiperContainerEvents extends SwiperContainerInputs {
      * });
      * ```
      */
-    swiperinit = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    initEmitter = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired right before Swiper destroyed
      *  @ignore 
      */
-    swiperbeforedestroy = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    beforeDestroy = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired after slides and their sizes are calculated and updated
      *  @ignore 
      */
-    swiperslidesupdated = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slidesUpdated = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when currently active slide is changed
      *  @ignore 
      */
-    swiperslidechange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slideChange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired in the beginning of animation to other slide (next or previous).
      *  @ignore 
      */
-    swiperslidechangetransitionstart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slideChangeTransitionStart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired after animation to other slide (next or previous).
      *  @ignore 
      */
-    swiperslidechangetransitionend = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slideChangeTransitionEnd = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Same as "slideChangeTransitionStart" but for "forward" direction only
      *  @ignore 
      */
-    swiperslidenexttransitionstart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slideNextTransitionStart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Same as "slideChangeTransitionEnd" but for "forward" direction only
      *  @ignore 
      */
-    swiperslidenexttransitionend = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slideNextTransitionEnd = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Same as "slideChangeTransitionStart" but for "backward" direction only
      *  @ignore 
      */
-    swiperslideprevtransitionstart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slidePrevTransitionStart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Same as "slideChangeTransitionEnd" but for "backward" direction only
      *  @ignore 
      */
-    swiperslideprevtransitionend = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slidePrevTransitionEnd = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired in the beginning of transition.
      *  @ignore 
      */
-    swipertransitionstart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    transitionStart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired after transition.
      *  @ignore 
      */
-    swipertransitionend = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    transitionEnd = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when user touch Swiper. Receives `pointerdown` event as an arguments.
      *  @ignore 
      */
-    swipertouchstart = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    touchStart = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
 
     /** Event will be fired when user touch and move finger over Swiper. Receives `pointermove` event as an arguments.
      *  @ignore 
      */
-    swipertouchmove = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    touchMove = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
 
     /** Event will be fired when user touch and move finger over Swiper in direction opposite to direction parameter. Receives `pointermove` event as an arguments.
      *  @ignore 
      */
-    swipertouchmoveopposite = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    touchMoveOpposite = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
 
     /** Event will be fired when user touch and move finger over Swiper and move it. Receives `pointermove` event as an arguments.
      *  @ignore 
      */
-    swiperslidermove = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    sliderMove = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
 
     /** Event will be fired when user release Swiper. Receives `pointerup` event as an arguments.
      *  @ignore 
      */
-    swipertouchend = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    touchEnd = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
 
     /** Event will be fired when user click/tap on Swiper. Receives `pointerup` event as an arguments.
      *  @ignore 
      */
-    swiperclick = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    click = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
 
     /** Event will be fired when user click/tap on Swiper. Receives `pointerup` event as an arguments.
      *  @ignore 
      */
-    swipertap = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    tap = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
 
     /** Event will be fired when user double tap on Swiper's container. Receives `pointerup` event as an arguments
      *  @ignore 
      */
-    swiperdoubletap = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    doubleTap = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
 
     /** Event will be fired when Swiper progress is changed, as an arguments it receives progress that is always from 0 to 1
      *  @ignore 
      */
-    swiperprogress = output<Pick<SwiperInterfaceOptions, 'swiper' | 'progress'>>();
+    progress = output<Pick<SwiperInterfaceOptions, 'swiper' | 'progress'>>();
 
     /** Event will be fired when Swiper reach its beginning (initial position)
      *  @ignore 
      */
-    swiperreachbeginning = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    reachBeginning = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when Swiper reach last slide
      *  @ignore 
      */
-    swiperreachend = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    reachEnd = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when Swiper goes to beginning or end position
      *  @ignore 
      */
-    swipertoedge = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    toEdge = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when Swiper goes from beginning or end position
      *  @ignore 
      */
-    swiperfromedge = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    fromEdge = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when swiper's wrapper change its position. Receives current translate value as an arguments
      *  @ignore 
      */
-    swipersettranslate = output<Pick<SwiperInterfaceOptions, 'swiper' | 'translate'>>();
+    setTranslate = output<Pick<SwiperInterfaceOptions, 'swiper' | 'translate'>>();
 
     /** Event will be fired everytime when swiper starts animation. Receives current transition duration (in ms) as an arguments
      *  @ignore 
      */
-    swipersettransition = output<Pick<SwiperInterfaceOptions, 'swiper' | 'transition'>>();
+    setTransition = output<Pick<SwiperInterfaceOptions, 'swiper' | 'transition'>>();
 
     /** Event will be fired on window resize right before swiper's onresize manipulation
      *  @ignore 
      */
-    swiperresize = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    resize = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /**Event will be fired if observer is enabled and it detects DOM mutations
      *  @ignore 
      */
-    swiperobserverupdate = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    observerUpdate = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired right before "loop fix"
      *  @ignore 
      */
-    swiperbeforeloopfix = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    beforeLoopFix = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired after "loop fix"
      *  @ignore 
      */
-    swiperloopfix = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    loopFix = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired on breakpoint change
      *  @ignore 
      */
-    swiperbreakpoint = output<Pick<SwiperInterfaceOptions, 'swiper' | 'breakpointParams'>>();
+    breakpoint = output<Pick<SwiperInterfaceOptions, 'swiper' | 'breakpointParams'>>();
 
     /** Event will fired on active index change
      *  @ignore 
      */
-    swiperactiveindexchange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    activeIndexChange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will fired on snap index change
      *  @ignore 
      */
-    swipersnapindexchange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    snapIndexChange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will fired on real index change
      *  @ignore 
      */
-    swiperrealindexchange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    realIndexChange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will fired right after initialization
      *  @ignore 
      */
-    swiperafterinit = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    afterInit = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will fired right before initialization
      *  @ignore 
      */
-    swiperbeforeinit = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    beforeInit = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will fired before resize handler
      *  @ignore 
      */
-    swiperbeforeresize = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    beforeResize = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will fired before slide change transition start
      *  @ignore 
      */
-    swiperbeforeslidechangestart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    beforeSlideChangeStart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will fired before transition start
      *  @ignore 
      */
-    swiperbeforetransitionstart = output<Pick<SwiperInterfaceOptions, 'swiper' | 'speed' | 'internal'>>(); // what is internal?
+    beforeTransitionStart = output<Pick<SwiperInterfaceOptions, 'swiper' | 'speed' | 'internal'>>(); // what is internal?
 
     /** Event will fired on direction change
      *  @ignore 
      */
-    swiperchangedirection = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    changeDirection = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when user double click/tap on Swiper
      *  @ignore 
      */
-    swiperdoubleclick = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    doubleClick = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
 
     /** Event will be fired on swiper destroy
      *  @ignore 
      */
-    swiperdestroy = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    destroy = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired on momentum bounce
      *  @ignore 
      */
-    swipermomentumbounce = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    momentumBounce = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired on orientation change (e.g. landscape -> portrait)
      *  @ignore 
      */
-    swiperorientationchange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    orientationChange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired in the beginning of animation of resetting slide to current one
      *  @ignore 
      */
-    swiperslideresettransitionstart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slideResetTransitionStart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired in the end of animation of resetting slide to current one
      *  @ignore 
      */
-    swiperslideresettransitionend = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slideResetTransitionEnd = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired with first touch/drag move
      *  @ignore 
      */
-    swipersliderfirstmove = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    sliderFirstMove = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
 
     /** Event will be fired when number of slides has changed
      *  @ignore 
      */
-    swiperslideslengthchange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slidesLengthChange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when slides grid has changed
      *  @ignore 
      */
-    swiperslidesgridlengthchange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    slidesGridLengthChange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when snap grid has changed
      *  @ignore 
      */
-    swipersnapgridlengthchange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    snapGridLengthChange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired after swiper.update() call
      *  @ignore 
      */
-    swiperupdate = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    update = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when swiper is locked (when `watchOverflow` enabled)
      *  @ignore 
      */
-    swiperlock = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    lock = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
 
     /** Event will be fired when swiper is unlocked (when `watchOverflow` enabled)
      *  @ignore 
      */
-    swiperunlock = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    unlock = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
     // CORE_EVENTS_END
+
+    // Navigation events
+    /** Event will be fired when navigation hides
+     *  @ignore 
+     */
+    navigationHide = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when navigation shows
+     *  @ignore 
+     */
+    navigationShow = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when navigation next button is clicked
+     *  @ignore 
+     */
+    navigationNext = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    /** Event will be fired when navigation prev button is clicked
+     *  @ignore 
+     */
+    navigationPrev = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    // Navigation events
 }

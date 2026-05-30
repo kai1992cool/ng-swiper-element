@@ -34,7 +34,7 @@
                 "output": "/swiper/css/"
               }
             ],
-            "styles": ["swiper/swiper-bundle.css","projects/ng-swiper-element/src/styles/styles.css"],
+            "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
             "tsConfig": "projects/ng-swiper-element/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
@@ -49,7 +49,7 @@
                 "output": "/swiper/css/"
               }
             ],
-            "styles": ["swiper/swiper-bundle.css","projects/ng-swiper-element/src/styles/styles.css"],
+            "styles": ["node_modules/swiper/swiper-bundle.min.css", "projects/ng-swiper-element/src/styles/styles.css"],
             "configDir": "projects/ng-swiper-element/.storybook",
             "browserTarget": "ng-swiper-element:build",
             "compodoc": true,
@@ -67,7 +67,7 @@
                 "output": "/swiper/css/"
               }
             ],
-            "styles": ["swiper/swiper-bundle.css","projects/ng-swiper-element/src/styles/styles.css"],
+            "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
             "configDir": "projects/ng-swiper-element/.storybook",
             "browserTarget": "ng-swiper-element:build",
             "compodoc": true,
@@ -93,7 +93,7 @@
                 "output": "/swiper/css/"
               }
             ],
-            "styles": ["swiper/swiper-bundle.css","projects/ng-swiper-element/src/styles/styles.css"],
+            "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
             "scripts": []
           }
         }

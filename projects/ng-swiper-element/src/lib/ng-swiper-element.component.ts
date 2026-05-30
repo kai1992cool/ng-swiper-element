@@ -1,4 +1,4 @@
-import { Component, computed, contentChild, contentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, Signal, TemplateRef, viewChild } from '@angular/core';
+import { Component, computed, contentChild, contentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, Signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { SwiperContainerEvents, swiperEvents } from './ng-swiper-element-events.class';
 import { Swiper, SwiperEvents, SwiperOptions } from 'swiper/types';
 import { NgTemplateOutlet } from '@angular/common';
@@ -18,50 +18,36 @@ export type BreakPointsType = {
   selector: 'ng-swiper-element',
   imports: [NgTemplateOutlet],
   template: `
-    <swiper-container 
+   <div  style="position: relative !important;">
+    <swiper-container
       #swiperContainer 
       init="false"
     >
-    @if(slideCompContentChildren(); as slidesComponentToIterate) {
-      @if(slidesTemplateContentChildren(); as slidesToIterate) {
-        @let slides = slidesToIterate || [];
-        @for(slide of slides; track $index) {
-          @let component = slidesComponentToIterate.at($index);
-          @if(component?.lazy()) {
-            <swiper-slide lazy>
-              <ng-container *ngTemplateOutlet="slide"/>
-            </swiper-slide>
-          } @else {
-            <swiper-slide>
-              <ng-container *ngTemplateOutlet="slide"/>
-            </swiper-slide>
+      @if(slideCompContentChildren(); as slidesComponentToIterate) {
+        @if(slidesTemplateContentChildren(); as slidesToIterate) {
+          @let slides = slidesToIterate || [];
+          @for(slide of slides; track $index) {
+            @let component = slidesComponentToIterate.at($index);
+            @if(component?.lazy()) {
+              <swiper-slide lazy>   
+                <ng-container *ngTemplateOutlet="slide"/>
+              </swiper-slide>
+            } @else {
+              <swiper-slide>
+                <ng-container *ngTemplateOutlet="slide"/>
+              </swiper-slide>
+            }
           }
         }
       }
-    }
-    <!-- @if(slideButtonChildren(); as buttonComponentToIterate) {
-      @if(swiperButtonContentChildren(); as buttonsToIterate) {
-        @let buttons = buttonsToIterate || [];
-        @for(button of buttons; track $index) {
-          @let component = buttonComponentToIterate.at($index);
-          @if(component?.next()) {
-            <ng-container *ngTemplateOutlet="button"/>
-          } @else if(component?.prev()) {
-            <ng-container *ngTemplateOutlet="button"/>
-          }
-        }
-      }
-    } -->
-    <ng-content/>
     </swiper-container>
+    <ng-content/>
+    </div>
   `,
+  exportAs: 'ngSwiperElement',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SwiperElementComponent extends SwiperContainerEvents {
-  /**
-   * @ignore
-   */
-  swiperInstance: Signal<Swiper> = computed(() => this.swiperContainer()?.nativeElement?.swiper);
 
   /**
    * @ignore
@@ -127,7 +113,8 @@ export class SwiperElementComponent extends SwiperContainerEvents {
         init: function () {
           console.log('swiper initialized');
         },
-      }
+      },
+      init: false,
     };
   }
 
@@ -141,6 +128,7 @@ export class SwiperElementComponent extends SwiperContainerEvents {
     console.log(this.swiperButtonContentChildren());
     this.initialize();
     this.reInitialize();
+    this.initializeListeners();
   }
 
   /**
@@ -155,7 +143,7 @@ export class SwiperElementComponent extends SwiperContainerEvents {
    * @ignore
    */
   reInitialize() {
-    const swiperInstance = this.swiperInstance();
+    const swiperInstance = this.swiperContainer()?.nativeElement?.swiper;
     if (swiperInstance) {
       swiperInstance.update();
       swiperInstance.updateAutoHeight();
@@ -174,19 +162,28 @@ export class SwiperElementComponent extends SwiperContainerEvents {
       Object.assign(swiperEl, swiperParams);
       // and now initialize it
       swiperEl.onAny = this.onAny?.bind(this);
-      swiperEl.initialize();
-      this.initializeListeners(swiperEl);
+      setTimeout(() => {
+        swiperEl.initialize();
+      })
     }
+  }
+
+  get swiperInstance() {
+    return this.swiperContainer()?.nativeElement?.swiper;
   }
 
   /**
  * @ignore
  */
-  initializeListeners(swiperEl: any) {
+  initializeListeners() {
+    console.log('Initializing listeners');
+    const swiperContainer = this.swiperContainer();
+    const swiperEl = swiperContainer?.nativeElement;
     swiperEvents.forEach((eventName: string) => {
+      const eventNameFinal = `swiper${eventName.toLowerCase()}`
       const output = (this as any)[eventName];
       if (output?.['listeners']?.length) {
-        swiperEl.addEventListener(eventName, (...args: any) => {
+        swiperEl.addEventListener(eventNameFinal, (...args: any) => {
           if (output) {
             output.emit(args);
           }
