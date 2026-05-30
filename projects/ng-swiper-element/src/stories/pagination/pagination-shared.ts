@@ -14,15 +14,14 @@ import {
   SwiperElementComponent,
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
-import { swiperEvents } from '../lib/ng-swiper-element-events.class';
+import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
 const args: any = {};
 
 swiperEvents.forEach((eventName: string) => {
   args[eventName] = fn();
 });
 
-const meta: Meta = {
-  title: 'Ng Swiper Element/Features/Pagination',
+export const paginationSharedMeta: Meta = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
@@ -68,6 +67,11 @@ const meta: Meta = {
       control: 'boolean',
       description: 'Toggle pagination container visibility after click on slider',
       table: { defaultValue: { summary: 'true' } },
+    },
+    bulletElement: {
+      control: 'text',
+      description: 'Defines which HTML tag will be used to represent single pagination bullet. Only for \'bullets\' pagination type.',
+      table: { defaultValue: { summary: 'span' } },
     },
     dynamicBullets: {
       control: 'boolean',
@@ -131,6 +135,9 @@ const meta: Meta = {
     if (args.hideOnClick !== undefined) {
       paginationConfig.hideOnClick = args.hideOnClick;
     }
+    if (args.bulletElement !== undefined) {
+      paginationConfig.bulletElement = args.bulletElement;
+    }
     if (args.dynamicBullets !== undefined) {
       paginationConfig.dynamicBullets = args.dynamicBullets;
     }
@@ -152,6 +159,9 @@ const meta: Meta = {
     if (args.paginationDisabledClass !== undefined) {
       paginationConfig.paginationDisabledClass = args.paginationDisabledClass;
     }
+    if (args.clickable === undefined) {
+      paginationConfig.clickable = args.type === 'bullets'; // Default clickable to true for bullets, false for other types
+    }
     
     return {
       template: `
@@ -172,27 +182,16 @@ const meta: Meta = {
                 }
                 [injectStyles]="['
                   /* Pagination Custom Demo Styles */
-                  .swiper-pagination-disabled-custom {
+                  .swiper-pagination-bullet-custom {
+                      margin: 10px;
+                      height: 10px;
+                      width: 10px;
+                      display: inline-block;
+                      border-radius: 10px;
+                      border: 1px solid yellow !important;
+                  }
+                  .swiper-pagination-bullet-active-custom {
                       border: 2px solid red !important;
-                  }
-                  
-                  .swiper-button-lock-custom {
-                      border: 2px solid red !important;
-                      background-color: purple;
-                      border-radius:50%;
-                      padding:10px;
-                  }
-
-                  .swiper-button-hidden-custom {
-                      background-color: azure;
-                      border-radius:50%;
-                      padding:10px;
-                  }
-                  .swiper-button-disabled-custom {
-                    border: 2px solid red !important;
-                    background-color: gray;
-                    border-radius:50%;
-                    padding:10px;
                   }
                 ']">  
                 @for(slide of slides; track $index)  {
@@ -262,26 +261,17 @@ const meta: Meta = {
             @if(classStory) {
               <div><h3>Custom CSS:</h3></div>
               <code style="white-space: pre-wrap;  padding: 16px; display: block;border: 1px solid red;">
-                /* Pagination Custom Demo Styles - Shadow DOM Styling (Use injectStyles) */
-                .swiper-pagination-disabled-custom &#123;
+                /* Pagination Custom Demo Styles - Shadow DOM Styling (Use injectStyles) */<br/>
+                .swiper-pagination-bullet-custom &#123;
+                    margin: 10px;
+                    height: 10px;
+                    width: 10px;
+                    display: inline-block;
+                    border-radius: 10px;
+                    border: 1px solid yellow !important;
+                &#125;<br/>
+                .swiper-pagination-bullet-active-custom &#123;
                     border: 2px solid red !important;
-                &#125;<br/>
-                .swiper-button-lock-custom &#123;
-                  border: 2px solid red !important;
-                  background-color: purple;
-                  border-radius:50%;
-                  padding:10px;
-                &#125;<br/>
-                .swiper-button-hidden-custom &#123;
-                    background-color: azure;
-                    border-radius:50%;
-                    padding:10px;
-                &#125;<br/>
-                .swiper-button-disabled-custom &#123;
-                  border: 2px solid red !important;
-                  background-color: gray;
-                  border-radius:50%;
-                  padding:10px;
                 &#125;<br/>
                 /* <br/>
                   Important note: When using swiper buttons we should use shadow DOM styling <br/>
@@ -350,24 +340,5 @@ const meta: Meta = {
         }
       },
     };
-  },
-};
-
-export default meta;
-type Story = StoryObj;
-
-export const EnablePagination: Story = {
-  args: {
-    type: 'bullets',
-    enabled: true,
-  } as any,
-  parameters: {
-    storyName: 'Enable Pagination',
-    controls: { include: ['type', 'enabled'] }, 
-    docs: {
-      description: {
-        story: 'Enable pagination with bullets type. Bullets are clickable by default, allowing users to jump to specific slides.',
-      },
-    },
   },
 };

@@ -78,7 +78,11 @@ export const swiperEvents = [
     'navigationHide',
     'navigationShow',
     'navigationNext',
-    'navigationPrev'
+    'navigationPrev',
+    'paginationHide',
+    'paginationShow',
+    'paginationRender',
+    'paginationUpdate',
 ]
 
 @Directive()
@@ -402,4 +406,23 @@ export class SwiperContainerEvents extends SwiperContainerInputs {
      */
     navigationPrev = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
     // Navigation events
+
+    // Pagination events
+    /** Event will be fired when pagination hides
+     *  @ignore 
+     */
+    paginationHide = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when pagination shows
+     *  @ignore 
+     */
+    paginationShow = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when pagination is rendered
+     *  @ignore 
+     */
+    paginationRender = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    /** Event will be fired when pagination is updated
+     *  @ignore 
+     */
+    paginationUpdate = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    // Pagination events
 }

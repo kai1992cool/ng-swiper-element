@@ -13,7 +13,7 @@ import {
   SwiperElementComponent,
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
-import { swiperEvents } from '../lib/ng-swiper-element-events.class';
+import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
 import { Component } from '@angular/core';
 const args: any = {};
 
@@ -21,7 +21,7 @@ swiperEvents.forEach((eventName: string) => {
   args[eventName] = fn();
 });
 
-const meta: Meta = {
+export const navigationSharedMeta: Meta = {
   title: 'Ng Swiper Element/Features/Navigation',
   tags: ['autodocs'],
   decorators: [
@@ -331,177 +331,5 @@ const meta: Meta = {
         }
       },
     };
-  },
-};
-
-export default meta;
-type Story = StoryObj;
-
-export const EnableNavigation: Story = {
-  args: {
-    enabled: true,
-  } as any,
-  parameters: {
-    storyName: 'Enable Navigation - navigation.enabled',
-    controls: { include: ['enabled'] }, 
-    docs: {
-      description: {
-        story: 'Boolean property to use with breakpoints to enable/disable navigation on certain breakpoints',
-      },
-    },
-  },
-};
-
-export const NavigationWithHideOnClick: Story = {
-  args: {
-    hideOnClick: true,
-  } as any,
-  parameters: {
-    storyName: 'Navigation with Hide on Click - navigation.hideOnClick',
-    controls: { include: ['hideOnClick'] }, 
-    docs: {
-      description: {
-        story: 'Toggle navigation buttons visibility after click on Slider\'s container',
-      },
-    },
-  },
-};
-
-export const NavigationWithoutIcons: Story = {
-  args: {
-    enabled: true,
-    addIcons: false,
-  } as any,
-  parameters: {
-    storyName: 'Navigation without Icons - navigation.addIcons',
-    controls: { include: ['enabled', 'addIcons'] },
-    docs: {
-      description: {
-        story: 'Boolean property to add SVG icons to navigation buttons',
-      },
-    },
-  },
-};
-
-export const NavigationCustomDisabledClass: Story = {
-  args: {
-    enabled: false,
-    navigationDisabledClass: 'swiper-navigation-disabled-custom',
-  } as any,
-  parameters: {
-    storyName: 'Navigation with Custom Disabled Class - navigation.navigationDisabledClass',
-    classStory: true,
-    controls: { include: ['enabled', 'navigationDisabledClass'] },
-    docs: {
-      description: {
-        story: 'CSS class name added on swiper container when navigation is disabled by breakpoint',
-      },
-    },
-  },
-};
-
-export const NavigationLockClass: Story = {
-  args: {
-    enabled: true,
-    lockClass: 'swiper-button-lock-custom',
-  } as any,
-  parameters: {
-    storyName: 'Navigation with Custom Lock Class - navigation.lockClass',
-    classStory: true,
-    numberOfSlides: 1,
-    controls: { include: ['enabled', 'lockClass'] },
-    docs: {
-      description: {
-        story: 'CSS class name added to navigation button when it is disabled',
-      },
-    },
-  },
-};
-
-export const NavigationDisabledClass: Story = {
-  args: {
-    enabled: true,
-    disabledClass: 'swiper-button-disabled-custom',
-  } as any,
-  parameters: {
-    storyName: 'Navigation with Custom Disabled Class - navigation.disabledClass',
-    classStory: true,
-    numberOfSlides: 2,
-    controls: { include: ['enabled', 'disabledClass'] },
-    docs: {
-      description: {
-        story: 'CSS class name added to navigation button when it becomes disabled',
-      },
-    },
-  },
-};
-
-export const NavigationHiddenClass: Story = {
-  args: {
-    enabled: true,
-    hiddenClass: 'swiper-button-hidden-custom',
-    hideOnClick: true,
-  } as any,
-  parameters: {
-    storyName: 'Navigation with Custom Hidden Class - navigation.hiddenClass',
-    classStory: true,
-    controls: { include: ['enabled', 'hiddenClass', 'hideOnClick'] },
-    docs: {
-      description: {
-        story: 'CSS class name added to navigation button when it becomes hidden',
-      },
-    },
-  },
-};
-
-export const NavigationCustomHTMLButtons: Story = {
-  args: {
-    enabled: true,
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  } as any,
-  parameters: {
-    storyName: 'Navigation with Custom HTML Buttons - navigation.nextEl & navigation.prevEl',
-    showCustomNavButtons: true,
-    controls: { include: ['enabled', 'nextEl', 'prevEl'] },
-    docs: {
-      description: {
-        story: 'String with CSS selector or HTML element of the element that will work like "next" & "prev" button after click on it',
-      },
-    },
-  },
-};
-
-export const NavigationEvents: Story = {
-  args: {
-    enabled: true,
-    hideOnClick: true,
-  } as any,
-  parameters: {
-    storyName: 'Navigation events demo - `navigationHide`, `navigationShow`, `navigationNext`, `navigationPrev`',
-    eventsShowcase: true,
-    controls: { include: ['enabled', 'hideOnClick'] },
-    docs: {
-      description: {
-        story: 'Showcase of events like `navigationHide`, `navigationShow`, `navigationNext`, `navigationPrev` emitted by swiper element on navigation actions',
-      },
-    },
-  },
-};
-
-export const NavigationPropertiesAndMethods: Story = {
-  args: {
-    enabled: true,
-    hideOnClick: true,
-  } as any,
-  parameters: {
-    storyName: 'Navigation properties and methods demo',
-    propAndMethodsDemo: true,
-    controls: { include: ['enabled', 'hideOnClick'] },
-    docs: {
-      description: {
-        story: 'Showcase of properties and methods',
-      },
-    },
   },
 };
