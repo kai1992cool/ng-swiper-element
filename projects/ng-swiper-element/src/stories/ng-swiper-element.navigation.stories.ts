@@ -21,16 +21,6 @@ swiperEvents.forEach((eventName: string) => {
   args[eventName] = fn();
 });
 
-@Component({
-  selector: 'swiper-navigation',
-  template: `
-  
-  `
-})
-export class NavigationComponent {
-
-}
-
 const meta: Meta = {
   title: 'Ng Swiper Element/Features/Navigation',
   tags: ['autodocs'],
@@ -292,7 +282,7 @@ const meta: Meta = {
       props: {
         navigationConfig,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
-        storyName: metadata.story || '',
+        storyName: metadata?.parameters?.storyName || '',
         description: metadata?.parameters?.docs?.description?.story || '',
         showElements: showCustomNavButtons,
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
@@ -348,11 +338,11 @@ export default meta;
 type Story = StoryObj;
 
 export const EnableNavigation: Story = {
-  storyName: 'Enable Navigation - navigation.enabled',
   args: {
     enabled: true,
   } as any,
   parameters: {
+    storyName: 'Enable Navigation - navigation.enabled',
     controls: { include: ['enabled'] }, 
     docs: {
       description: {
@@ -363,11 +353,11 @@ export const EnableNavigation: Story = {
 };
 
 export const NavigationWithHideOnClick: Story = {
-  storyName: 'Navigation with Hide on Click - navigation.hideOnClick',
   args: {
     hideOnClick: true,
   } as any,
   parameters: {
+    storyName: 'Navigation with Hide on Click - navigation.hideOnClick',
     controls: { include: ['hideOnClick'] }, 
     docs: {
       description: {
@@ -378,12 +368,12 @@ export const NavigationWithHideOnClick: Story = {
 };
 
 export const NavigationWithoutIcons: Story = {
-  storyName: 'Navigation without Icons - navigation.addIcons',
   args: {
     enabled: true,
     addIcons: false,
   } as any,
   parameters: {
+    storyName: 'Navigation without Icons - navigation.addIcons',
     controls: { include: ['enabled', 'addIcons'] },
     docs: {
       description: {
@@ -394,12 +384,12 @@ export const NavigationWithoutIcons: Story = {
 };
 
 export const NavigationCustomDisabledClass: Story = {
-  storyName: 'Navigation with Custom Disabled Class - navigation.navigationDisabledClass',
   args: {
     enabled: false,
     navigationDisabledClass: 'swiper-navigation-disabled-custom',
   } as any,
   parameters: {
+    storyName: 'Navigation with Custom Disabled Class - navigation.navigationDisabledClass',
     classStory: true,
     controls: { include: ['enabled', 'navigationDisabledClass'] },
     docs: {
@@ -411,12 +401,12 @@ export const NavigationCustomDisabledClass: Story = {
 };
 
 export const NavigationLockClass: Story = {
-  storyName: 'Navigation with Custom Lock Class - navigation.lockClass',
   args: {
     enabled: true,
     lockClass: 'swiper-button-lock-custom',
   } as any,
   parameters: {
+    storyName: 'Navigation with Custom Lock Class - navigation.lockClass',
     classStory: true,
     numberOfSlides: 1,
     controls: { include: ['enabled', 'lockClass'] },
@@ -429,12 +419,12 @@ export const NavigationLockClass: Story = {
 };
 
 export const NavigationDisabledClass: Story = {
-  storyName: 'Navigation with Custom Disabled Class - navigation.disabledClass',
   args: {
     enabled: true,
     disabledClass: 'swiper-button-disabled-custom',
   } as any,
   parameters: {
+    storyName: 'Navigation with Custom Disabled Class - navigation.disabledClass',
     classStory: true,
     numberOfSlides: 2,
     controls: { include: ['enabled', 'disabledClass'] },
@@ -447,13 +437,13 @@ export const NavigationDisabledClass: Story = {
 };
 
 export const NavigationHiddenClass: Story = {
-  storyName: 'Navigation with Custom Hidden Class - navigation.hiddenClass',
   args: {
     enabled: true,
     hiddenClass: 'swiper-button-hidden-custom',
     hideOnClick: true,
   } as any,
   parameters: {
+    storyName: 'Navigation with Custom Hidden Class - navigation.hiddenClass',
     classStory: true,
     controls: { include: ['enabled', 'hiddenClass', 'hideOnClick'] },
     docs: {
@@ -465,13 +455,13 @@ export const NavigationHiddenClass: Story = {
 };
 
 export const NavigationCustomHTMLButtons: Story = {
-  storyName: 'Navigation with Custom HTML Buttons - navigation.nextEl & navigation.prevEl',
   args: {
     enabled: true,
     nextEl: '.swiper-button-next',
     prevEl: '.swiper-button-prev',
   } as any,
   parameters: {
+    storyName: 'Navigation with Custom HTML Buttons - navigation.nextEl & navigation.prevEl',
     showCustomNavButtons: true,
     controls: { include: ['enabled', 'nextEl', 'prevEl'] },
     docs: {
@@ -483,12 +473,12 @@ export const NavigationCustomHTMLButtons: Story = {
 };
 
 export const NavigationEvents: Story = {
-  storyName: 'Navigation events demo - `navigationHide`, `navigationShow`, `navigationNext`, `navigationPrev`',
   args: {
     enabled: true,
     hideOnClick: true,
   } as any,
   parameters: {
+    storyName: 'Navigation events demo - `navigationHide`, `navigationShow`, `navigationNext`, `navigationPrev`',
     eventsShowcase: true,
     controls: { include: ['enabled', 'hideOnClick'] },
     docs: {
@@ -500,12 +490,12 @@ export const NavigationEvents: Story = {
 };
 
 export const NavigationPropertiesAndMethods: Story = {
-  storyName: 'Navigation properties and methods demo',
   args: {
     enabled: true,
     hideOnClick: true,
   } as any,
   parameters: {
+    storyName: 'Navigation properties and methods demo',
     propAndMethodsDemo: true,
     controls: { include: ['enabled', 'hideOnClick'] },
     docs: {
