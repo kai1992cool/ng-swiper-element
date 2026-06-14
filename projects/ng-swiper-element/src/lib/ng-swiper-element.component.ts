@@ -135,6 +135,7 @@ export class SwiperElementComponent extends SwiperContainerEvents {
    * @ignore
    */
   ngOnChanges() {
+    console.log('ngOnChanges called');
     this.initialize();
     this.reInitialize();
   }
@@ -147,6 +148,10 @@ export class SwiperElementComponent extends SwiperContainerEvents {
     if (swiperInstance) {
       swiperInstance.update();
       swiperInstance.updateAutoHeight();
+      swiperInstance.pagination.init();
+      swiperInstance.pagination.render();
+      swiperInstance.pagination.update();
+      console.log(swiperInstance);
     }
   }
 

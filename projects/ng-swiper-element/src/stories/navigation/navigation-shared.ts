@@ -50,50 +50,41 @@ export const navigationSharedMeta: Meta = {
     addIcons: {
       control: 'boolean',
       description: 'Add SVG icons to navigation buttons',
-      table: { defaultValue: { summary: 'true' } },
     },
     disabledClass: {
       control: 'text',
       description:
         'CSS class name added to swiper container when navigation is disabled',
-      table: { defaultValue: { summary: 'swiper-navigation-disabled' } },
     },
     enabled: {
       control: 'boolean',
       description: 'Enable/disable navigation',
-      table: { defaultValue: { summary: 'false' } },
     },
     hiddenClass: {
       control: 'text',
       description: 'CSS class name added to navigation button when hidden',
-      table: { defaultValue: { summary: 'swiper-button-hidden' } },
     },
     hideOnClick: {
       control: 'boolean',
       description: 'Toggle navigation buttons visibility after click on slider',
-      table: { defaultValue: { summary: 'false' } },
     },
     lockClass: {
       control: 'text',
       description: 'CSS class name added to navigation button when locked',
-      table: { defaultValue: { summary: 'swiper-button-lock' } },
     },
     navigationDisabledClass: {
       control: 'text',
       description: 'CSS class name added to navigation button when disabled',
-      table: { defaultValue: { summary: 'swiper-button-disabled' } },
     },
     prevEl: {
       control: 'text',
       description:
         'String with CSS selector or HTML element of the element that will work like "prev" button after click on it',
-      table: { defaultValue: { summary: 'swiper-button-prev' } },
     },
     nextEl: {
       control: 'text',
       description:
         'String with CSS selector or HTML element of the element that will work like "next" button after click on it',
-      table: { defaultValue: { summary: 'swiper-button-next' } },
     },
   } as any,
   render: (args: any, metadata: any) => {

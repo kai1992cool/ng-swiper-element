@@ -21,6 +21,122 @@ swiperEvents.forEach((eventName: string) => {
   args[eventName] = fn();
 });
 
+export const navigationArgTypes = {
+    type: {
+      control: 'select',
+      options: ['bullets', 'fraction', 'progressbar', 'custom'],
+      description: 'Type of pagination',
+    },
+    clickable: {
+      control: 'boolean',
+      description: 'If true, clicking on pagination button will cause transition to appropriate slide',
+    },
+    enabled: {
+      control: 'boolean',
+      description: 'Boolean property to use with breakpoints to enable/disable pagination on certain breakpoints',
+    },
+    hideOnClick: {
+      control: 'boolean',
+      description: 'Toggle pagination container visibility after click on slider',
+    },
+    progressbarOpposite: {
+      control: 'boolean',
+      description: 'Makes pagination progressbar opposite to Swiper\'s direction parameter, means vertical progressbar for horizontal swiper direction and horizontal progressbar for vertical swiper direction',
+    },
+    bulletElement: {
+      control: 'text',
+      description: 'Defines which HTML tag will be used to represent single pagination bullet. Only for \'bullets\' pagination type.',
+    },
+    dynamicBullets: {
+      control: 'boolean',
+      description: 'Good to enable if you use bullets pagination with a lot of slides',
+    },
+    dynamicMainBullets: {
+      control: 'number',
+      description: 'The number of main bullets visible when dynamicBullets enabled',
+    },
+    bulletClass: {
+      control: 'text',
+      description: 'CSS class name of single pagination bullet',
+    },
+    clickableClass: {
+      control: 'text',
+      description: 'CSS class name set to pagination when it is clickable',
+    },
+    currentClass: {
+      control: 'text',
+      description: 'CSS class name of the element with currently active index in "fraction" pagination',
+    },
+    hiddenClass: {
+      control: 'text',
+      description: 'CSS class name of pagination when it becomes inactive',
+    },
+    horizontalClass: {
+      control: 'text',
+      description: 'CSS class name set to pagination in horizontal Swiper',
+    },
+    modifierClass: {
+      control: 'text',
+      description: 'The beginning of the modifier CSS class name that will be added to pagination depending on parameters',
+    },
+    paginationDisabledClass: {
+      control: 'text',
+      description: 'CSS class name added on swiper container and pagination element when pagination is disabled by breakpoint',
+    },
+    progressbarFillClass: {
+      control: 'text',
+      description: 'CSS class name of pagination progressbar fill element',
+    },
+    progressbarOppositeClass: {
+      control: 'text',
+      description: 'CSS class name of pagination progressbar opposite',
+    },
+    totalClass: {
+      control: 'text',
+      description: 'CSS class name of pagination when it becomes inactive',
+    },
+    verticalClass: {
+      control: 'text',
+      description: 'CSS class name set to pagination in vertical Swiper',
+    },
+    lockClass: {
+      control: 'text',
+      description: 'CSS class name set to pagination when it is disabled',
+    },
+    bulletActiveClass: {
+      control: 'text',
+      description: 'CSS class name of currently active pagination bullet',
+    },
+    el: {
+      control: 'text',
+      description: 'String with CSS selector or HTML element of the container with pagination',
+    },
+    renderBullet: {
+      control: 'function',
+      description: 'This parameter allows totally customize pagination bullets, you need to pass here a function that accepts index number of pagination bullet and required element class name (className). Only for \'bullets\' pagination type',
+    },
+    renderCustom: {
+      control: 'function',
+      description: '	This parameter is required for \'custom\' pagination type where you have to specify how it should be rendered.',
+    },
+    renderFraction: {
+      control: 'function',
+      description: 'This parameter allows to customize "fraction" pagination html. Only for \'fraction\' pagination type',
+    },
+    renderProgressbar: {
+      control: 'function',
+      description: 'This parameter allows to customize "progress" pagination. Only for \'progress\' pagination type',
+    },
+    formatFractionCurrent: {
+      control: 'function',
+      description: 'format fraction pagination current number. Function receives current number, and you need to return formatted value',
+    },
+    formatFractionTotal: {
+      control: 'function',
+      description: 'format fraction pagination total number. Function receives total number, and you need to return formatted value',
+    },
+  } as any;
+
 export const paginationSharedMeta: Meta = {
   tags: ['autodocs'],
   decorators: [
@@ -46,119 +162,25 @@ export const paginationSharedMeta: Meta = {
       </div>
     `),
   ],
-  argTypes: {
-    type: {
-      control: 'select',
-      options: ['bullets', 'fraction', 'progressbar', 'custom'],
-      description: 'Type of pagination',
-      table: { defaultValue: { summary: 'bullets' } },
-    },
-    clickable: {
-      control: 'boolean',
-      description: 'If true, clicking on pagination button will cause transition to appropriate slide',
-      table: { defaultValue: { summary: 'false' } },
-    },
-    enabled: {
-      control: 'boolean',
-      description: 'Boolean property to use with breakpoints to enable/disable pagination on certain breakpoints',
-      table: { defaultValue: { summary: 'true' } },
-    },
-    hideOnClick: {
-      control: 'boolean',
-      description: 'Toggle pagination container visibility after click on slider',
-      table: { defaultValue: { summary: 'true' } },
-    },
-    bulletElement: {
-      control: 'text',
-      description: 'Defines which HTML tag will be used to represent single pagination bullet. Only for \'bullets\' pagination type.',
-      table: { defaultValue: { summary: 'span' } },
-    },
-    dynamicBullets: {
-      control: 'boolean',
-      description: 'Good to enable if you use bullets pagination with a lot of slides',
-      table: { defaultValue: { summary: 'false' } },
-    },
-    dynamicMainBullets: {
-      control: 'number',
-      description: 'The number of main bullets visible when dynamicBullets enabled',
-      table: { defaultValue: { summary: '1' } },
-    },
-    bulletClass: {
-      control: 'text',
-      description: 'CSS class name of single pagination bullet',
-      table: { defaultValue: { summary: 'swiper-pagination-bullet' } },
-    },
-    bulletActiveClass: {
-      control: 'text',
-      description: 'CSS class name of currently active pagination bullet',
-      table: { defaultValue: { summary: 'swiper-pagination-bullet-active' } },
-    },
-    hiddenClass: {
-      control: 'text',
-      description: 'CSS class name of pagination when it becomes inactive',
-      table: { defaultValue: { summary: 'swiper-pagination-hidden' } },
-    },
-    lockClass: {
-      control: 'text',
-      description: 'CSS class name set to pagination when it is disabled',
-      table: { defaultValue: { summary: 'swiper-pagination-lock' } },
-    },
-    paginationDisabledClass: {
-      control: 'text',
-      description: 'CSS class name added when pagination is disabled by breakpoint',
-      table: { defaultValue: { summary: 'swiper-pagination-disabled' } },
-    },
-  } as any,
+  argTypes: navigationArgTypes,
   render: (args: any, metadata: any) => {
     const storyName = metadata?.parameters?.storyName || '';
     const description = metadata?.parameters?.docs?.description?.story || '';
     const numberOfSlides = metadata?.parameters?.numberOfSlides || 5;
+    const isVertical = metadata?.parameters?.isVertical || false;
+    const direction = isVertical ? 'vertical' : 'horizontal';
     const showCustomNavButtons = !!metadata?.parameters?.showCustomNavButtons;
     const eventsShowcase = !!metadata?.parameters?.eventsShowcase;
     const classStory = !!metadata?.parameters?.classStory;
     const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
     
     // Build pagination config from args
-    const paginationConfig: any = {
-      el: '.swiper-pagination',
-    };
-    
-    if (args.type !== undefined) {
-      paginationConfig.type = args.type;
-    }
-    if (args.clickable !== undefined) {
-      paginationConfig.clickable = args.clickable;
-    }
-    if (args.enabled !== undefined) {
-      paginationConfig.enabled = args.enabled;
-    }
-    if (args.hideOnClick !== undefined) {
-      paginationConfig.hideOnClick = args.hideOnClick;
-    }
-    if (args.bulletElement !== undefined) {
-      paginationConfig.bulletElement = args.bulletElement;
-    }
-    if (args.dynamicBullets !== undefined) {
-      paginationConfig.dynamicBullets = args.dynamicBullets;
-    }
-    if (args.dynamicMainBullets !== undefined) {
-      paginationConfig.dynamicMainBullets = args.dynamicMainBullets;
-    }
-    if (args.bulletClass !== undefined) {
-      paginationConfig.bulletClass = args.bulletClass;
-    }
-    if (args.bulletActiveClass !== undefined) {
-      paginationConfig.bulletActiveClass = args.bulletActiveClass;
-    }
-    if (args.hiddenClass !== undefined) {
-      paginationConfig.hiddenClass = args.hiddenClass;
-    }
-    if (args.lockClass !== undefined) {
-      paginationConfig.lockClass = args.lockClass;
-    }
-    if (args.paginationDisabledClass !== undefined) {
-      paginationConfig.paginationDisabledClass = args.paginationDisabledClass;
-    }
+    const paginationConfig: any = {};
+    Object.entries(navigationArgTypes).forEach(([key, value]: any) => {
+      if (args[key] !== undefined) {
+        paginationConfig[key] = args[key];
+      }
+    });
     if (args.clickable === undefined) {
       paginationConfig.clickable = args.type === 'bullets'; // Default clickable to true for bullets, false for other types
     }
@@ -169,6 +191,7 @@ export const paginationSharedMeta: Meta = {
       </style>
             <ng-swiper-element 
                 [pagination]="paginationConfig"
+                [direction]="direction"
                 [injectStylesUrls]="injectStylesUrls"
                 #swiperElement="ngSwiperElement"
                 ${
@@ -188,10 +211,112 @@ export const paginationSharedMeta: Meta = {
                       width: 10px;
                       display: inline-block;
                       border-radius: 10px;
-                      border: 1px solid yellow !important;
+                      border: 1px solid yellow;
                   }
                   .swiper-pagination-bullet-active-custom {
                       border: 2px solid red !important;
+                  }
+                  .custom-progressbar {
+                    background: linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(87, 199, 133, 1) 50%, rgba(237, 221, 83, 1) 100%)   !important;
+                  }
+                  .testy {
+                    padding: 10px;
+                    padding-bottom:12px;
+                  }
+                  /* ==========================================================================
+                    Swiper Pagination Custom Classes
+                    ========================================================================== */
+
+                  /* 1. Fraction Pagination Customizations */
+                  .swiper-pagination-current-custom {
+                    color: #ff5722; /* Vibrant orange for the active page number */
+                    font-weight: bold;
+                    font-size: 1.2em;
+                  }
+                  .swiper-pagination-clickable-custom {
+                    cursor: pointer;
+                    border: 2px solid red !important;
+                  }
+                  .swiper-pagination-total-custom {
+                    color: #757575; /* Muted gray for the total page count */
+                    font-size: 0.9em;
+                  }
+
+                  /* 2. Bullet Pagination Customizations */
+                  .swiper-pagination-bullet-custom {
+                    width: 12px;
+                    height: 12px;
+                    background-color: #e0e0e0;
+                    opacity: 1;
+                    border-radius: 50%;
+                    transition: transform 0.3s ease, background-color 0.3s ease;
+                  }
+
+                  .swiper-pagination-bullet-active-custom {
+                    background-color: red; /* Swiper signature blue or your brand color */
+                    transform: scale(1.3);      /* Makes the active bullet stand out */
+                  }
+
+                  /* 3. Modifier Class Customization 
+                    Note: Swiper appends layout types to this prefix (e.g., .swiper-pagination-custom-bullets)
+                  */
+                  .swiper-pagination-custom- {
+                    /* add if needed */
+                  }
+
+                  /* 4. Progressbar Pagination Customizations */
+                  .swiper-pagination-progressbar-fill-custom {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    transform: scale(0);
+                    transform-origin: left top;
+                    background: linear-gradient(90deg, #4caf50, #8bc34a) !important; /* Green gradient fill */
+                  }
+
+                  .swiper-pagination-progressbar-opposite-custom {
+                    width: var(--swiper-pagination-progressbar-size, 4px) !important;
+                    height: 100% !important;
+                    left: 0 !important;
+                    top: 0 !important;
+                    border: 1px solid red !important;
+                  }
+
+                  /* 5. Hidden State Customization */
+                  .swiper-pagination-hidden-custom {
+                    opacity: 0;
+                    visibility: hidden;
+                    pointer-events: none;
+                    transition: opacity 0.4s ease, visibility 0.4s ease;
+                  }
+
+                  /* 1. Lock Class 
+                  */
+                  .swiper-pagination-lock-custom {
+                    display: block !important;
+                    background-color: blue !important; /* Distinct color to indicate locked state */
+                  }
+
+                  /* 2. Hidden Class 
+                    Triggered when pagination is programmatically toggled or fades out
+                  */
+                  .swiper-pagination-hidden-custom {
+                    opacity: 0;
+                    visibility: hidden;
+                    pointer-events: none;
+                    transition: opacity 0.3s ease, visibility 0.3s ease;
+                  }
+
+                  /* 3. Horizontal Orientation Layout */
+                  .swiper-pagination-horizontal-custom {
+                    border: 1px solid red;
+                  }
+
+                  /* 4. Vertical Orientation Layout */
+                  .swiper-pagination-vertical-custom {
+                    border: 1px solid yellow;
                   }
                 ']">  
                 @for(slide of slides; track $index)  {
@@ -241,6 +366,7 @@ export const paginationSharedMeta: Meta = {
                     </div>
                 }
             </ng-swiper-element>
+            <div class="swiper-pagination"></div>
             @if(propAndMethodsDemo) {
               <h3>Properties</h3>
               <div style="display: flex;gap:20px;">
@@ -273,6 +399,16 @@ export const paginationSharedMeta: Meta = {
                 .swiper-pagination-bullet-active-custom &#123;
                     border: 2px solid red !important;
                 &#125;<br/>
+                .swiper-pagination-clickable-custom &#123;
+                    cursor: pointer;
+                    border: 2px solid red !important;
+                &#125;<br/>
+                .swiper-pagination-current-custom &#123;
+                    border: 2px solid red !important;
+                    background-color: darkgreen;
+                    padding: 10px !important;
+                    border-radius: 50%;
+                &#125;<br/>
                 /* <br/>
                   Important note: When using swiper buttons we should use shadow DOM styling <br/>
                   (injectStyles or injectStylesUrls) to ensure styles are applied correctly, <br/>
@@ -290,6 +426,7 @@ export const paginationSharedMeta: Meta = {
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         showElements: showCustomNavButtons,
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
+        direction,
         classStory,
         propAndMethodsDemo,
         paginationHide: (eventData: unknown) => {
