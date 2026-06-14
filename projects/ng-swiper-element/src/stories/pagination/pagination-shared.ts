@@ -429,6 +429,7 @@ export const paginationSharedMeta: Meta = {
         direction,
         classStory,
         propAndMethodsDemo,
+        eventsShowcase,
         paginationHide: (eventData: unknown) => {
           console.log('Template intercepted event (paginationHide):', eventData);
           alert('Pagination Hidden');

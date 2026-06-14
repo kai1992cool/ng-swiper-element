@@ -83,6 +83,9 @@ export const swiperEvents = [
     'paginationShow',
     'paginationRender',
     'paginationUpdate',
+    'scrollbarDragEnd',
+    'scrollbarDragMove',
+    'scrollbarDragStart',
 ]
 
 @Directive()
@@ -425,4 +428,19 @@ export class SwiperContainerEvents extends SwiperContainerInputs {
      */
     paginationUpdate = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
     // Pagination events
+
+    // Scrollbar events
+    /** Event will be fired when scrollbar drag ends
+     *  @ignore 
+     */
+    scrollbarDragEnd = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when scrollbar drag moves
+     *  @ignore 
+     */
+    scrollbarDragMove = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when scrollbar drag starts
+     *  @ignore 
+     */
+    scrollbarDragStart = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    // Scrollbar events
 }

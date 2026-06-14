@@ -40,3 +40,21 @@ body {
     background: rgba(2, 156, 253, 0.14);
     padding: 5px 10px;
 }
+
+
+.custom-scrollbar {
+    position: absolute;
+    left: var(--swiper-scrollbar-sides-offset, 1%);
+    bottom: var(--swiper-scrollbar-bottom, 4px);
+    top: var(--swiper-scrollbar-top, auto);
+    z-index: 50;
+    height: var(--swiper-scrollbar-size, 4px);
+    width: calc(100% - 2 * var(--swiper-scrollbar-sides-offset, 1%));
+    border-radius: var(--swiper-scrollbar-border-radius, 10px);
+    position: relative;
+    touch-action: none;
+    background: var(--swiper-scrollbar-bg-color, rgba(0, 0, 0, 0.1));
+}
+.swiper-scrollbar-drag {
+    background: linear-gradient(90deg, #4caf50, #8bc34a) !important; /* Green gradient fill */
+}
