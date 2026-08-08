@@ -28,12 +28,13 @@ export type BreakPointsType = {
           @let slides = slidesToIterate || [];
           @for(slide of slides; track $index) {
             @let component = slidesComponentToIterate.at($index);
+            @let autoplayDelay = component?.autoplayDelay() || undefined;
             @if(component?.lazy()) {
-              <swiper-slide lazy>   
+              <swiper-slide lazy  [attr.data-swiper-autoplay]="autoplayDelay">   
                 <ng-container *ngTemplateOutlet="slide"/>
               </swiper-slide>
             } @else {
-              <swiper-slide>
+              <swiper-slide  [attr.data-swiper-autoplay]="autoplayDelay">
                 <ng-container *ngTemplateOutlet="slide"/>
               </swiper-slide>
             }

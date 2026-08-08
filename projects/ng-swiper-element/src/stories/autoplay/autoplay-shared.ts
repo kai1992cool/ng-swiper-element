@@ -21,55 +21,38 @@ swiperEvents.forEach((eventName: string) => {
   args[eventName] = fn();
 });
 
-export const scrollbarArgTypes = {
+export const autoplayArgTypes = {
     enabled: {
       control: 'boolean',
-      description: 'Boolean property to use with breakpoints to enable/disable scrollbar on certain breakpoints',
+      description: 'Boolean property to use with breakpoints to enable/disable autoplay on certain breakpoints',
     },
-    hide: {
-      control: 'boolean',
-      description: 'If true, scrollbar will be hidden',
-    },
-    draggable: {
-      control: 'boolean',
-      description: 'Set to true to enable make scrollbar draggable that allows you to control slider position',
-    },
-    dragClass: {
-      control: 'text',
-      description: 'Scrollbar draggable element CSS class',
-    },
-    dragSize: {
+    delay: {
       control: 'number',
-      description: 'Size of scrollbar draggable element in px',
+      description: 'Delay between transitions (in ms). If this parameter is not specified, auto play will be disabled If you need to specify different delay for specific slides you can do it by usingdata-swiper-autoplay (in ms) attribute on slide.',
     },
-    el: {
-      control: 'text',
-      description: 'String with CSS selector or HTML element of the container with scrollbar.',
-    },
-    horizontalClass: {
-      control: 'text',
-      description: 'CSS class name set to scrollbar in horizontal Swiper',
-    },
-    lockClass: {
-      control: 'text',
-      description: 'Scrollbar element additional CSS class when it is disabled',
-
-    },
-    scrollbarDisabledClass: {
-      control: 'text',
-      description: 'CSS class name added on swiper container and scrollbar element when scrollbar is disabled by breakpoint',
-    },
-    snapOnRelease: {
+    disableOnInteraction: {
       control: 'boolean',
-      description: 'Set to true to snap slider position to slides when you release scrollbar',
+      description: 'Set to false and autoplay will not be disabled after user interactions (swipes), it will be disabled after interactions with navigation elements like buttons or scrollbar. If you use it with disableOnInteraction: false, then autoplay will be only disabled on navigation elements interactions, but will not be disabled on swipes.',
     },
-    verticalClass: {
-      control: 'text',
-      description: 'CSS class name set to scrollbar in vertical Swiper',
+    pauseOnMouseEnter: {
+      control: 'boolean',
+      description: 'When enabled autoplay will be paused on pointer (mouse) enter over Swiper container.',
+    },
+    reverseDirection: {
+      control: 'boolean',
+      description: 'Enables autoplay in reverse direction',
+    },
+    stopOnLastSlide: {
+      control: 'boolean',
+      description: 'Enable this parameter and autoplay will be stopped when it reaches last slide (has no effect in loop mode)',
+    },
+    waitForTransition: {
+      control: 'boolean',
+      description: 'When enabled autoplay will wait for wrapper transition to continue. Can be disabled in case of using Virtual Translate when your slider may not have transition',
     },
   } as any;
 
-export const scrollbarSharedMeta: Meta = {
+export const autoplaySharedMeta: Meta = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
@@ -87,18 +70,19 @@ export const scrollbarSharedMeta: Meta = {
     componentWrapperDecorator((story) => `
       <div style="padding: 2em;">
         <div style="margin-bottom: 20px; padding: 16px; background: transparent; border-radius: 4px;">
-          <h2 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;color: white">{{ story.parameters.storyName }}</h2>
+          <h2 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;color: white">{{ storyName }}</h2>
           <p style="margin: 0; font-size: 14px; color: white;">{{ description }}</p>
         </div>
         ${story}
       </div>
     `),
   ],
-  argTypes: scrollbarArgTypes,
+  argTypes: autoplayArgTypes,
   render: (args: any, metadata: any) => {
     const storyName = metadata?.parameters?.storyName || '';
     const description = metadata?.parameters?.docs?.description?.story || '';
     const numberOfSlides = metadata?.parameters?.numberOfSlides || 5;
+    const slidesDelay = metadata?.parameters?.slidesDelay || [];
     const isVertical = metadata?.parameters?.isVertical || false;
     const direction = isVertical ? 'vertical' : 'horizontal';
     const showCustomNavButtons = !!metadata?.parameters?.showCustomNavButtons;
@@ -106,11 +90,11 @@ export const scrollbarSharedMeta: Meta = {
     const classStory = !!metadata?.parameters?.classStory;
     const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
     
-    // Build scrollbar config from args
-    const scrollbarConfig: any = {};
-    Object.entries(scrollbarArgTypes).forEach(([key, value]: any) => {
+    // Build autoplay config from args
+    const autoplayConfig: any = {};
+    Object.entries(autoplayArgTypes).forEach(([key, value]: any) => {
       if (args[key] !== undefined) {
-        scrollbarConfig[key] = args[key];
+        autoplayConfig[key] = args[key];
       }
     });
     
@@ -119,37 +103,40 @@ export const scrollbarSharedMeta: Meta = {
       <style>
       </style>
             <ng-swiper-element 
-                [scrollbar]="scrollbarConfig"
+                [autoplay]="autoplayConfig"
                 [direction]="direction"
                 [injectStylesUrls]="injectStylesUrls"
                 #swiperElement="ngSwiperElement"
                 ${
                   eventsShowcase ? 
                   `
-                    (scrollbarDragEnd)="scrollbarDragEnd($event)"
-                    (scrollbarDragMove)="scrollbarDragMove($event)"
-                    (scrollbarDragStart)="scrollbarDragStart($event)"
+                    (autoplayEvent)="autoplayEvent($event)"
+                    (autoplayPause)="autoplayPause($event)"
+                    (autoplayResume)="autoplayResume($event)"
+                    (autoplayStart)="autoplayStart($event)"
+                    (autoplayStop)="autoplayStop($event)"
+                    (autoplayTimeLeft)="autoplayTimeLeft($event)"
                   ` : ''
                 }
                 [injectStyles]="['
-                  .swiper-scrollbar-drag {
+                  .swiper-autoplay-drag {
                       background: linear-gradient(90deg, #4caf50, #8bc34a) !important; /* Green gradient fill */
                   }
-                  .swiper-scrollbar-drag-custom {
+                  .swiper-autoplay-drag-custom {
                     border: 2px dashed white; /* Custom drag handle color */
                     border-radius: 4px;
                     cursor: grab;
                   }
 
-                  .swiper-scrollbar-drag-custom:active {
+                  .swiper-autoplay-drag-custom:active {
                     cursor: grabbing;
                   }
 
-                  .swiper-scrollbar-horizontal-custom {
+                  .swiper-autoplay-horizontal-custom {
                     border: 1px solid red;
                   }
 
-                  .swiper-scrollbar-vertical-custom {
+                  .swiper-autoplay-vertical-custom {
                     position: absolute;
                     right: 3px;
                     top: 1%;
@@ -159,17 +146,17 @@ export const scrollbarSharedMeta: Meta = {
                     background: rgba(0, 0, 0, 0.1);
                   }
 
-                  .swiper-scrollbar-lock-custom {
+                  .swiper-autoplay-lock-custom {
                     border: 2px solid red !important;
                   }
 
-                  .swiper-scrollbar-disabled-custom {
+                  .swiper-autoplay-disabled-custom {
                     opacity: 0;
                     pointer-events: none;
                   }
                 ']">  
                 @for(slide of slides; track $index)  {
-                  <ng-template ngSwiperSlide>
+                  <ng-template ngSwiperSlide [autoplayDelay]="slidesDelay?.[$index] || undefined">
                       <div class="swiper-slide">Slide {{slide}}</div>
                   </ng-template>
                 }
@@ -214,21 +201,22 @@ export const scrollbarSharedMeta: Meta = {
                     </svg>
                     </div>
                 }
-              <div class="custom-scrollbar"></div>
+              <div class="custom-autoplay"></div>
             </ng-swiper-element>
             @if(propAndMethodsDemo) {
               <h3>Properties</h3>
               <div style="display: flex;gap:20px;">
-                <button class="btn-ng" (click)="scrollbarEl(swiperElement)">scrollbar El</button>
-                <button class="btn-ng" (click)="scrollbarDragEl(swiperElement)">scrollbar Drag El</button>
+                <button class="btn-ng" (click)="paused(swiperElement)">autoplay Paused</button>
+                <button class="btn-ng" (click)="running(swiperElement)">autoplay Running</button>
+                <button class="btn-ng" (click)="timeLeft(swiperElement)">autoplay Time Left</button>
               </div>
               <br/>
               <h3>Methods</h3>
               <div style="display: flex;gap:20px;">
-                <button class="btn-ng" (click)="destroy(swiperElement)">Destroy scrollbar</button>
-                <button class="btn-ng" (click)="init(swiperElement)">Initialize scrollbar</button>
-                <button class="btn-ng" (click)="setTranslate(swiperElement)">Scrollbar Set Translate</button>
-                <button class="btn-ng" (click)="updateSize(swiperElement)">Scrollbar Update Size</button>
+                <button class="btn-ng" (click)="pause(swiperElement)">Pause autoplay</button>
+                <button class="btn-ng" (click)="resume(swiperElement)">Resume autoplay</button>
+                <button class="btn-ng" (click)="start(swiperElement)">Autoplay Start</button>
+                <button class="btn-ng" (click)="stop(swiperElement)">Autoplay Stop</button>
               </div>
             }
             <br/>
@@ -236,8 +224,8 @@ export const scrollbarSharedMeta: Meta = {
             @if(classStory) {
               <div><h3>Custom CSS:</h3></div>
               <code style="white-space: pre-wrap;  padding: 16px; display: block;border: 1px solid red;">
-                /* scrollbar Custom Demo Styles - Shadow DOM Styling (Use injectStyles) */<br/>
-                .swiper-scrollbar-bullet-custom &#123;
+                /* autoplay Custom Demo Styles - Shadow DOM Styling (Use injectStyles) */<br/>
+                .swiper-autoplay-bullet-custom &#123;
                     margin: 10px;
                     height: 10px;
                     width: 10px;
@@ -245,14 +233,14 @@ export const scrollbarSharedMeta: Meta = {
                     border-radius: 10px;
                     border: 1px solid yellow !important;
                 &#125;<br/>
-                .swiper-scrollbar-bullet-active-custom &#123;
+                .swiper-autoplay-bullet-active-custom &#123;
                     border: 2px solid red !important;
                 &#125;<br/>
-                .swiper-scrollbar-clickable-custom &#123;
+                .swiper-autoplay-clickable-custom &#123;
                     cursor: pointer;
                     border: 2px solid red !important;
                 &#125;<br/>
-                .swiper-scrollbar-current-custom &#123;
+                .swiper-autoplay-current-custom &#123;
                     border: 2px solid red !important;
                     background-color: darkgreen;
                     padding: 10px !important;
@@ -262,7 +250,7 @@ export const scrollbarSharedMeta: Meta = {
                   Important note: When using swiper buttons we should use shadow DOM styling <br/>
                   (injectStyles or injectStylesUrls) to ensure styles are applied correctly, <br/>
                   as swiper buttons are rendered inside the shadow DOM of the swiper element.<br/>
-                  If using custom scrollbar buttons outside of swiper element, we can <br/>
+                  If using custom autoplay buttons outside of swiper element, we can <br/>
                   use regular CSS styling without the need for shadow DOM styling. <br/>
                 */<br/>
               </code>
@@ -271,7 +259,8 @@ export const scrollbarSharedMeta: Meta = {
       props: {
         storyName,
         description,
-        scrollbarConfig,
+        autoplayConfig,
+        slidesDelay,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         showElements: showCustomNavButtons,
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
@@ -279,47 +268,64 @@ export const scrollbarSharedMeta: Meta = {
         classStory,
         propAndMethodsDemo,
         eventsShowcase,
-        scrollbarDragEnd: (eventData: unknown) => {
-          console.log('Template intercepted event (scrollbarDragEnd):', eventData);
-          alert('scrollbar Drag Ended');
+        autoplayEvent: (eventData: unknown) => {
+          console.log('Template intercepted event (autoplayEvent):', eventData);
+          // alert('autoplayEvent Triggered');
         },
-        scrollbarDragMove: (eventData: unknown) => {
-          console.log('Template intercepted event (scrollbarDragMove):', eventData);
-          alert('scrollbar Drag Moved');
+        autoplayPause: (eventData: unknown) => {
+          console.log('Template intercepted event (autoplayPause):', eventData);
+          // alert('autoplay Paused');
         },
-        scrollbarDragStart: (eventData: unknown) => {
-          console.log('Template intercepted event (scrollbarDragStart):', eventData);
-          alert('scrollbar Drag Started');
+        autoplayResume: (eventData: unknown) => {
+          console.log('Template intercepted event (autoplayResume):', eventData);
+          // alert('autoplay Resumed');
         },
-        destroy: (swiperElement: any) => {
-          console.log('Template intercepted method (scrollbar destroy):');
-          alert('scrollbar Destroyed - scrollbar will not work now onwards');
-          swiperElement.swiperInstance?.scrollbar?.destroy();
+        autoplayStart: (eventData: unknown) => {
+          console.log('Template intercepted event (autoplayStart):', eventData);
+          alert('autoplay Started');
         },
-        init: (swiperElement: any) => {
-          console.log('Template intercepted method (scrollbar init):');
-          alert('scrollbar Initialized - scrollbar will work now');
-          swiperElement.swiperInstance?.scrollbar?.init();
+        autoplayStop: (eventData: unknown) => {
+          console.log('Template intercepted event (autoplayStop):', eventData);
+          alert('autoplay Stopped');
         },
-        setTranslate: (swiperElement: any) => {
-          console.log('Template intercepted method (scrollbar setTranslate):');
-          alert('scrollbar Translate Set');
-          swiperElement.swiperInstance?.scrollbar?.setTranslate();
+        autoplayTimeLeft: (eventData: unknown) => {
+          console.log('Template intercepted event (autoplayTimeLeft):', eventData);
+          // alert('autoplay Time Left');
         },
-        updateSize: (swiperElement: any) => {
-          console.log('Template intercepted method (scrollbar updateSize):');
-          alert('scrollbar Size Updated');
-          swiperElement.swiperInstance?.scrollbar?.updateSize();
+        pause: (swiperElement: any) => {
+          console.log('Template intercepted method (autoplay pause):'); 
+          alert('autoplay Paused - autoplay will not work now onwards');
+          swiperElement.swiperInstance?.autoplay?.pause();
         },
-        scrollbarEl: (swiperElement: any) => {
-          console.log('Template intercepted property (scrollbar el):');
-          alert('Check console for scrollbar el property value');
-          console.log(swiperElement.swiperInstance?.scrollbar?.el);
+        resume: (swiperElement: any) => {
+          console.log('Template intercepted method (autoplay resume):');
+          alert('autoplay Resumed - autoplay will work now');
+          swiperElement.swiperInstance?.autoplay?.resume();
         },
-        scrollbarDragEl: (swiperElement: any) => {
-          console.log('Template intercepted property (scrollbar drag el):');
-          alert('Check console for scrollbar drag el property value');
-          console.log(swiperElement.swiperInstance?.scrollbar?.dragEl);
+        start: (swiperElement: any) => {
+          console.log('Template intercepted method (autoplay start):');
+          alert('autoplay Started');
+          swiperElement.swiperInstance?.autoplay?.start();
+        },
+        stop: (swiperElement: any) => {
+          console.log('Template intercepted method (autoplay stop):');
+          alert('autoplay Stopped');
+          swiperElement.swiperInstance?.autoplay?.stop();
+        },
+        paused: (swiperElement: any) => {
+          console.log('Template intercepted property (autoplay paused):');
+          alert('Check console for autoplay paused property value');
+          console.log(swiperElement.swiperInstance?.autoplay?.paused);
+        },
+        running: (swiperElement: any) => {
+          console.log('Template intercepted property (autoplay running):');
+          alert('Check console for autoplay running property value');
+          console.log(swiperElement.swiperInstance?.autoplay?.running);
+        },
+        timeLeft: (swiperElement: any) => {
+          console.log('Template intercepted property (autoplay time left):');
+          alert('Check console for autoplay time left property value');
+          console.log(swiperElement.swiperInstance?.autoplay?.timeLeft);
         }
       },
     };

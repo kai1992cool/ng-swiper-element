@@ -86,6 +86,12 @@ export const swiperEvents = [
     'scrollbarDragEnd',
     'scrollbarDragMove',
     'scrollbarDragStart',
+    'autoplay',
+    'autoplayPause',
+    'autoplayResume',
+    'autoplayStart',
+    'autoplayStop',
+    'autoplayTimeLeft',
 ]
 
 @Directive()
@@ -443,4 +449,31 @@ export class SwiperContainerEvents extends SwiperContainerInputs {
      */
     scrollbarDragStart = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
     // Scrollbar events
+
+    // Autoplay events
+    /** Event will be fired when slide changed with autoplay
+     *  @ignore 
+     */
+    autoplayEvent = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when autoplay is paused
+     *  @ignore 
+     */
+    autoplayPause = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when autoplay is resumed
+     *  @ignore 
+     */
+    autoplayResume = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when autoplay is started
+     *  @ignore 
+     */
+    autoplayStart = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when autoplay is stopped
+     *  @ignore 
+     */
+    autoplayStop = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    /** Event will be fired when time is left for autoplay
+     *  @ignore 
+     */
+    autoplayTimeLeft = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    // Autoplay events
 }

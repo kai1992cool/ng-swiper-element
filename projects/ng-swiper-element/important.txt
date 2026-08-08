@@ -1,0 +1,1 @@
+autoplayEvent is set because autoplay is reserved for input.
