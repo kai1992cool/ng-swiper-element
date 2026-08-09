@@ -6,64 +6,12 @@ import {
 } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { fn } from '@storybook/test';
 import {
   NgSwiperSlideDirective,
   provideSwiper,
   SwiperElementComponent,
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
-import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
-
-const args: any = {};
-
-swiperEvents.forEach((eventName: string) => {
-  args[eventName] = fn();
-});
-
-export const a11yArgTypes = {
-  enabled: {
-    control: 'boolean',
-    description: 'Enables accessibility (a11y) module.',
-  },
-  prevSlideMessage: {
-    control: 'text',
-    description: 'Message for screen readers for previous button.',
-  },
-  nextSlideMessage: {
-    control: 'text',
-    description: 'Message for screen readers for next button.',
-  },
-  firstSlideMessage: {
-    control: 'text',
-    description: 'Message for screen readers when swiper is on first slide.',
-  },
-  lastSlideMessage: {
-    control: 'text',
-    description: 'Message for screen readers when swiper is on last slide.',
-  },
-  paginationBulletMessage: {
-    control: 'text',
-    description: 'Message for screen readers for pagination bullet element. e.g. "Go to slide {{index}}".',
-  },
-  containerMessage: {
-    control: 'text',
-    description: 'Message for screen readers for outer swiper container.',
-  },
-  containerRoleDescriptionMessage: {
-    control: 'text',
-    description: 'Message for screen readers describing the role of outer swiper container.',
-  },
-  itemRoleDescriptionMessage: {
-    control: 'text',
-    description: 'Message for screen readers describing the role of slide element.',
-  },
-  slideLabelMessage: {
-    control: 'text',
-    description: 'Message for screen readers for slide element. e.g. "{{index}} / {{slidesLength}}".',
-  },
-} as any;
-
 export const a11ySharedMeta: Meta = {
   tags: ['autodocs'],
   decorators: [
@@ -89,83 +37,77 @@ export const a11ySharedMeta: Meta = {
       </div>
     `),
   ],
-  argTypes: a11yArgTypes,
   render: (args: any, metadata: any) => {
     const storyName = metadata?.parameters?.storyName || '';
     const description = metadata?.parameters?.docs?.description?.story || '';
-    const numberOfSlides = metadata?.parameters?.numberOfSlides || 5;
-    const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
-    const eventsShowcase = !!metadata?.parameters?.eventsShowcase;
+    const numberOfSlides = metadata?.parameters?.numberOfSlides || 8;
 
-    // Build a11y config object from args
-    const a11yConfig: any = {};
-    Object.keys(a11yArgTypes).forEach((key) => {
-      if (args[key] !== undefined) {
-        a11yConfig[key] = args[key];
-      }
-    });
-
+    const sampleImages = [
+      'https://swiperjs.com/demos/images/nature-1.jpg',
+      'https://swiperjs.com/demos/images/nature-2.jpg',
+      'https://swiperjs.com/demos/images/nature-3.jpg',
+      'https://swiperjs.com/demos/images/nature-4.jpg',
+      'https://swiperjs.com/demos/images/nature-5.jpg',
+      'https://swiperjs.com/demos/images/nature-6.jpg',
+      'https://swiperjs.com/demos/images/nature-7.jpg',
+      'https://swiperjs.com/demos/images/nature-8.jpg',
+    ];
     return {
       template: `
         <style>
-          .btn-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-          }
-          .btn-ng {
-            padding: 8px 16px;
-            background-color: #2196F3;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-          }
           ::ng-deep ng-swiper-element {
-            height: 250px;
+            height: 350px;
+            display: block;
+            border-radius: 8px;
+            overflow: hidden;
           }
           ::ng-deep .swiper-slide {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #2c3e50;
-            border-radius: 8px;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
+            background: #111;
           }
-          .a11y-hint {
+          ::ng-deep .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+          .hint {
             color: #aaa;
             font-size: 13px;
-            margin-top: 8px;
+            margin-bottom: 12px;
           }
         </style>
 
-        @if(propAndMethodsDemo) {
-          <h3>Accessibility Properties & Methods Demo</h3>
-          <div class="btn-group">
-            <button class="btn-ng" (click)="enableA11y(swiperElement)">Enable A11y - swiper.a11y.enable()</button>
-            <button class="btn-ng" (click)="disableA11y(swiperElement)">Disable A11y - swiper.a11y.disable()</button>
-            <button class="btn-ng" (click)="checkA11yStatus(swiperElement)">Check A11y Status</button>
-          </div>
-          <br/>
-        }
-
-        <p class="a11y-hint">♿ Screen reader ARIA labels and keyboard focus ring handling are active for navigation and pagination components.</p>
-
+        <p class="hint">Accessibility features are enabled with <code>a11y</code> configuration.</p>
         <ng-swiper-element 
-            [a11y]="a11yConfig"
-            [pagination]="{ clickable: true }"
-            [injectStylesUrls]="injectStylesUrls"
-            #swiperElement="ngSwiperElement"
-            ${
-              eventsShowcase ? `(slideChange)="slideChange($event)"` : ''
-            }>  
-            @for(slide of slides; track $index) {
+            [a11y]="{
+              enabled: enabled,
+              containerMessage: containerMessage,
+              prevSlideMessage: prevSlideMessage,
+              nextSlideMessage: nextSlideMessage,
+              firstSlideMessage: firstSlideMessage,
+              lastSlideMessage: lastSlideMessage,
+              paginationBulletMessage: paginationBulletMessage,
+              slideLabelMessage: slideLabelMessage,
+              notificationClass: notificationClass,
+              watchSlidesProgress: watchSlidesProgress,
+              watchProgress: watchProgress,
+              prevSlideMessage: prevSlideMessage,
+              nextSlideMessage: nextSlideMessage,
+              firstSlideMessage: firstSlideMessage,
+              lastSlideMessage: lastSlideMessage,
+              paginationBulletMessage: paginationBulletMessage,
+              slideLabelMessage: slideLabelMessage,
+              notificationClass: notificationClass,
+              watchSlidesProgress: watchSlidesProgress,
+              watchProgress: watchProgress
+            }"
+            #swiperElement="ngSwiperElement">
+            @for(imgUrl of images; track $index) {
               <ng-template ngSwiperSlide>
-                  <div class="swiper-slide">Slide {{slide}}</div>
+                  <img [src]="imgUrl" loading="lazy" alt="Slide Image {{$index + 1}}" />
               </ng-template>
             }
             <div class="swiper-button-prev"></div>
@@ -176,29 +118,19 @@ export const a11ySharedMeta: Meta = {
       props: {
         storyName,
         description,
-        a11yConfig,
+        enabled: args.enabled ?? true,
+        containerMessage: args.containerMessage || 'Featured product carousel',
+        prevSlideMessage: args.prevSlideMessage || 'Previous slide',
+        nextSlideMessage: args.nextSlideMessage || 'Next slide',
+        firstSlideMessage: args.firstSlideMessage || 'This is the first slide',
+        lastSlideMessage: args.lastSlideMessage || 'This is the last slide',
+        paginationBulletMessage: args.paginationBulletMessage || 'Go to slide {{index}}',
+        slideLabelMessage: args.slideLabelMessage || 'Slide {{index}} of {{slidesLength}}',
+        notificationClass: args.notificationClass || 'swiper-notification',
+        watchSlidesProgress: args.watchSlidesProgress ?? false,
+        watchProgress: args.watchProgress ?? false,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
-        slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
-
-        // Methods
-        enableA11y: (swiperElement: any) => {
-          swiperElement.swiperInstance?.a11y?.enable();
-          alert('Accessibility module enabled!');
-        },
-        disableA11y: (swiperElement: any) => {
-          swiperElement.swiperInstance?.a11y?.disable();
-          alert('Accessibility module disabled!');
-        },
-        checkA11yStatus: (swiperElement: any) => {
-          const isEnabled = swiperElement.swiperInstance?.a11y?.enabled;
-          alert(`swiper.a11y.enabled = ${isEnabled}`);
-          console.log('A11y Enabled Property:', isEnabled);
-        },
-
-        // Events
-        slideChange: (eventData: unknown) => {
-          console.log('Template intercepted event (slideChange with a11y announcements):', eventData);
-        },
+        images: sampleImages.slice(0, numberOfSlides),
       },
     };
   },

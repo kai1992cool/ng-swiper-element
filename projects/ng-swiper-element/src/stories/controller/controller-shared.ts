@@ -166,6 +166,7 @@ export const controllerSharedMeta: Meta = {
         storyName,
         description,
         controllerConfig,
+        propAndMethodsDemo,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
 

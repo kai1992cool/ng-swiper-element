@@ -30,11 +30,11 @@ export type BreakPointsType = {
             @let component = slidesComponentToIterate.at($index);
             @let autoplayDelay = component?.autoplayDelay() || undefined;
             @if(component?.lazy()) {
-              <swiper-slide lazy  [attr.data-swiper-autoplay]="autoplayDelay">   
+              <swiper-slide lazy  [attr.data-swiper-autoplay]="autoplayDelay" [attr.data-history]="component?.dataHistory()" [attr.data-hash]="component?.dataHash()" >   
                 <ng-container *ngTemplateOutlet="slide"/>
               </swiper-slide>
             } @else {
-              <swiper-slide  [attr.data-swiper-autoplay]="autoplayDelay">
+              <swiper-slide  [attr.data-swiper-autoplay]="autoplayDelay" [attr.data-history]="component?.dataHistory()" [attr.data-hash]="component?.dataHash()" >
                 <ng-container *ngTemplateOutlet="slide"/>
               </swiper-slide>
             }

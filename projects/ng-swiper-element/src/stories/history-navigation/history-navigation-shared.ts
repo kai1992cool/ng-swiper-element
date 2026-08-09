@@ -66,8 +66,6 @@ export const historyNavigationSharedMeta: Meta = {
     const storyName = metadata?.parameters?.storyName || '';
     const description = metadata?.parameters?.docs?.description?.story || '';
     const numberOfSlides = metadata?.parameters?.numberOfSlides || 5;
-    const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
-    const eventsShowcase = !!metadata?.parameters?.eventsShowcase;
 
     const slidePaths = ['slide1', 'slide2', 'slide3', 'slide4', 'slide5'];
 
@@ -118,29 +116,14 @@ export const historyNavigationSharedMeta: Meta = {
           }
         </style>
 
-        @if(propAndMethodsDemo) {
-          <h3>History Navigation Properties & Methods Demo</h3>
-          <div class="btn-group">
-            <button class="btn-ng" (click)="checkHistoryStatus(swiperElement)">Check History Status</button>
-            <button class="btn-ng" (click)="navigateViaHistory(swiperElement, 2)">Go to Slide #3</button>
-            <button class="btn-ng" (click)="navigateViaHistory(swiperElement, 4)">Go to Slide #5</button>
-          </div>
-          <br/>
-        }
-
         <p class="url-hint">💡 Notice browser address bar changing path using HTML5 History API pushState (e.g., <code>{{ historyConfig.key || 'slides' }}/slide1</code>).</p>
 
         <ng-swiper-element 
             [history]="historyConfig"
             [injectStylesUrls]="injectStylesUrls"
-            #swiperElement="ngSwiperElement"
-            ${
-              eventsShowcase
-                ? `(historyChange)="historyChange($event)" (historySet)="historySet($event)"`
-                : ''
-            }>  
+            #swiperElement="ngSwiperElement">  
             @for(slide of slides; track $index) {
-              <ng-template ngSwiperSlide [attr.data-history]="slidePaths[$index]">
+              <ng-template ngSwiperSlide [dataHistory]="slidePaths[$index]">
                   <div class="swiper-slide">
                     <div>Slide {{slide}}</div>
                     <small style="font-size: 13px; opacity: 0.8; margin-top: 6px;">Path: {{historyConfig.key || 'slides'}}//{{slidePaths[$index]}}</small>
@@ -158,24 +141,6 @@ export const historyNavigationSharedMeta: Meta = {
         slidePaths,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
-
-        // Methods
-        checkHistoryStatus: (swiperElement: any) => {
-          const isInitialized = swiperElement.swiperInstance?.history?.initialized;
-          alert(`swiper.history.initialized = ${isInitialized}`);
-          console.log('History Navigation Initialized:', isInitialized);
-        },
-        navigateViaHistory: (swiperElement: any, index: number) => {
-          swiperElement.swiperInstance?.slideTo(index);
-        },
-
-        // Events
-        historyChange: (eventData: unknown) => {
-          console.log('Template intercepted event (historyChange):', eventData);
-        },
-        historySet: (eventData: unknown) => {
-          console.log('Template intercepted event (historySet):', eventData);
-        },
       },
     };
   },

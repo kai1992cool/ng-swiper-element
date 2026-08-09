@@ -71,7 +71,6 @@ export const virtualSlidesSharedMeta: Meta = {
     const description = metadata?.parameters?.docs?.description?.story || '';
     const totalSlides = metadata?.parameters?.totalSlides || 500;
     const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
-    const eventsShowcase = !!metadata?.parameters?.eventsShowcase;
 
     // Build virtual slides config object from args
     const virtualConfig: any = {};
@@ -122,12 +121,12 @@ export const virtualSlidesSharedMeta: Meta = {
         @if(propAndMethodsDemo) {
           <h3>Virtual Slides Properties & Methods Demo</h3>
           <div class="btn-group">
-            <button class="btn-ng" (click)="slideToVirtualIndex(swiperElement, 100)">Slide to Virtual #100</button>
-            <button class="btn-ng" (click)="slideToVirtualIndex(swiperElement, 250)">Slide to Virtual #250</button>
+            <button class="btn-ng" (click)="removeSlideOn(swiperElement, 2)">Remove Slide from Virtual on #2th index</button>
             <button class="btn-ng" (click)="appendVirtualSlide(swiperElement)">Append Virtual Slide</button>
             <button class="btn-ng" (click)="prependVirtualSlide(swiperElement)">Prepend Virtual Slide</button>
             <button class="btn-ng" (click)="removeAllVirtualSlides(swiperElement)">Remove All Slides</button>
             <button class="btn-ng" (click)="updateVirtual(swiperElement)">Update Virtual</button>
+            <button class="btn-ng" (click)="logVirtualProperties(swiperElement)">Log Virtual Properties</button>
           </div>
           <br/>
         }
@@ -139,10 +138,7 @@ export const virtualSlidesSharedMeta: Meta = {
             [slidesPerView]="3"
             [spaceBetween]="20"
             [injectStylesUrls]="injectStylesUrls"
-            #swiperElement="ngSwiperElement"
-            ${
-              eventsShowcase ? `(virtualUpdate)="virtualUpdate($event)"` : ''
-            }>  
+            #swiperElement="ngSwiperElement">  
             @for(slide of slides; track $index) {
               <ng-template ngSwiperSlide>
                   <div class="swiper-slide">Slide {{slide}}</div>
@@ -156,12 +152,13 @@ export const virtualSlidesSharedMeta: Meta = {
         storyName,
         description,
         virtualConfig,
+        propAndMethodsDemo,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         slides: Array.from({ length: totalSlides }, (_, i) => i + 1),
 
         // Methods
-        slideToVirtualIndex: (swiperElement: any, index: number) => {
-          swiperElement.swiperInstance?.virtual?.slideTo(index);
+        removeSlideOn: (swiperElement: any, index: number) => {
+          swiperElement.swiperInstance?.virtual?.removeSlide(index);
         },
         appendVirtualSlide: (swiperElement: any) => {
           const swiper = swiperElement.swiperInstance;
@@ -185,6 +182,19 @@ export const virtualSlidesSharedMeta: Meta = {
         updateVirtual: (swiperElement: any) => {
           swiperElement.swiperInstance?.virtual?.update(true);
           alert('Virtual slides state updated');
+        },
+        logVirtualProperties: (swiperElement: any) => {
+          const swiper = swiperElement.swiperInstance;
+          if (swiper?.virtual) {
+            console.log('Virtual Properties:', {
+              slides: swiper.virtual.slides,
+              cache: swiper.virtual.cache,
+              from: swiper.virtual.from,
+              to: swiper.virtual.to,
+            });
+          } else {
+            console.log('Virtual not available on swiper instance');
+          }
         },
 
         // Events

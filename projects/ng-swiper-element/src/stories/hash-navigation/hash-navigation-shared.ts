@@ -66,7 +66,6 @@ export const hashNavigationSharedMeta: Meta = {
     const storyName = metadata?.parameters?.storyName || '';
     const description = metadata?.parameters?.docs?.description?.story || '';
     const numberOfSlides = metadata?.parameters?.numberOfSlides || 5;
-    const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
     const eventsShowcase = !!metadata?.parameters?.eventsShowcase;
 
     // Custom hash titles for slides
@@ -119,16 +118,6 @@ export const hashNavigationSharedMeta: Meta = {
           }
         </style>
 
-        @if(propAndMethodsDemo) {
-          <h3>Hash Navigation Properties & Methods Demo</h3>
-          <div class="btn-group">
-            <button class="btn-ng" (click)="checkHashStatus(swiperElement)">Check Hash State</button>
-            <button class="btn-ng" (click)="navigateToHash(swiperElement, 'slide3')">Navigate to #slide3</button>
-            <button class="btn-ng" (click)="navigateToHash(swiperElement, 'slide5')">Navigate to #slide5</button>
-          </div>
-          <br/>
-        }
-
         <p class="url-hint">💡 Observe your browser URL bar updating hash anchors (e.g., <code>#slide1</code>, <code>#slide2</code>) as you switch slides.</p>
 
         <ng-swiper-element 
@@ -141,7 +130,7 @@ export const hashNavigationSharedMeta: Meta = {
                 : ''
             }>  
             @for(slide of slides; track $index) {
-              <ng-template ngSwiperSlide [attr.data-hash]="slideHashes[$index]">
+              <ng-template ngSwiperSlide [dataHash]="slideHashes[$index]">
                   <div class="swiper-slide">
                     <div>Slide {{slide}}</div>
                     <small style="font-size: 13px; opacity: 0.8; margin-top: 6px;">URL Hash: #{{slideHashes[$index]}}</small>
@@ -154,18 +143,12 @@ export const hashNavigationSharedMeta: Meta = {
       `,
       props: {
         storyName,
+        eventsShowcase,
         description,
         hashNavigationConfig,
         slideHashes,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
-
-        // Methods
-        checkHashStatus: (swiperElement: any) => {
-          const initialized = swiperElement.swiperInstance?.hashNavigation?.initialized;
-          alert(`swiper.hashNavigation.initialized = ${initialized}`);
-          console.log('Hash Navigation Initialized Status:', initialized);
-        },
         navigateToHash: (swiperElement: any, hash: string) => {
           if (swiperElement.swiperInstance) {
             window.location.hash = hash;
@@ -175,9 +158,11 @@ export const hashNavigationSharedMeta: Meta = {
         // Events
         hashChange: (eventData: unknown) => {
           console.log('Template intercepted event (hashChange):', eventData);
+          alert('Template intercepted event (hashChange): ' + JSON.stringify(eventData));
         },
         hashSet: (eventData: unknown) => {
           console.log('Template intercepted event (hashSet):', eventData);
+          alert('Template intercepted event (hashSet): ' + JSON.stringify(eventData));
         },
       },
     };
