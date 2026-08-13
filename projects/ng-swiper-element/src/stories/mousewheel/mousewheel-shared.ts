@@ -170,6 +170,8 @@ export const mousewheelSharedMeta: Meta = {
       props: {
         storyName,
         description,
+        eventsShowcase,
+        propAndMethodsDemo,
         mousewheelConfig,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),

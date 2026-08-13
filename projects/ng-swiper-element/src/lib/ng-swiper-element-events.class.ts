@@ -92,6 +92,7 @@ export const swiperEvents = [
     'autoplayStart',
     'autoplayStop',
     'autoplayTimeLeft',
+    'scroll',
 ]
 
 @Directive()
@@ -476,4 +477,13 @@ export class SwiperContainerEvents extends SwiperContainerInputs {
      */
     autoplayTimeLeft = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
     // Autoplay events
+
+    // Mousewheel events
+
+    /** Event will be fired when mousewheel is scrolled
+     *  @ignore 
+     */
+    scroll = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
+    
+    // Mousewheel events
 }

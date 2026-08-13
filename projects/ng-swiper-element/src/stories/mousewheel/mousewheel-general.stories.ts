@@ -89,3 +89,36 @@ export const SensitivityAndThresholds: Story = {
     },
   },
 };
+
+export const EventsTarget: Story = {
+  args: {
+    enabled: true,
+    eventsTarget: 'body',
+  } as any,
+  parameters: {
+    storyName: 'Events Target - mousewheel.eventsTarget',
+    controls: { include: ['enabled', 'eventsTarget'] }, 
+    docs: {
+      description: {
+        story: 'Specifies the container element that should receive mousewheel events. Can be a CSS selector or HTML element reference.',
+      },
+    },
+  },
+};
+
+export const NoMousewheelClass: Story = {
+  args: {
+    enabled: true,
+    noMousewheelClass: 'swiper-no-mousewheel',
+  } as any,
+  parameters: {
+    noMousewheelClass: true,
+    storyName: 'No Mousewheel Class - mousewheel.noMousewheelClass',
+    controls: { include: ['enabled', 'noMousewheelClass'] }, 
+    docs: {
+      description: {
+        story: 'Scrolling on elements with this class will be ignored. Elements with this class will not trigger swiper navigation.',
+      },
+    },
+  },
+};

@@ -38,6 +38,30 @@ export const virtualSlidesArgTypes = {
     control: 'boolean',
     description: 'Enables caching of rendered slide DOM elements.',
   },
+  slides: {
+    control: 'object',
+    description: 'Array of slides data to be used for virtual rendering.',
+  },
+  renderSlide: {
+    control: 'function',
+    description: 'Custom function to render individual slides.',
+  },
+  renderExternal: {
+    control: 'function',
+    description: 'Custom function to render external content.',
+  },
+  transform: {
+    control: 'function',
+    description: 'Function to transform slide elements.',
+  },
+  isEnd: {
+    control: 'boolean',
+    description: 'Indicates if the swiper is at the end of slides.',
+  },
+  isBeginning: {
+    control: 'boolean',
+    description: 'Indicates if the swiper is at the beginning of slides.',
+  },
 } as any;
 
 export const virtualSlidesSharedMeta: Meta = {
@@ -138,12 +162,14 @@ export const virtualSlidesSharedMeta: Meta = {
             [slidesPerView]="3"
             [spaceBetween]="20"
             [injectStylesUrls]="injectStylesUrls"
-            #swiperElement="ngSwiperElement">  
-            @for(slide of slides; track $index) {
-              <ng-template ngSwiperSlide>
-                  <div class="swiper-slide">Slide {{slide}}</div>
-              </ng-template>
-            }
+            #swiperElement="ngSwiperElement"> 
+            @if(!virtualConfig?.renderSlide) {
+              @for(slide of slides; track $index) {
+                <ng-template ngSwiperSlide>
+                    <div class="swiper-slide">Slide {{slide}}</div>
+                </ng-template>
+              }
+            } 
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>
