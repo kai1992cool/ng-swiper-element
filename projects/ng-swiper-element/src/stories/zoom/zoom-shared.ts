@@ -14,6 +14,7 @@ import {
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
+import { Zoom } from 'swiper/modules';
 
 const args: any = {};
 
@@ -24,15 +25,15 @@ swiperEvents.forEach((eventName: string) => {
 export const zoomArgTypes = {
   maxRatio: {
     control: 'number',
-    description: 'Maximum image zoom ratio (default: 3).',
+    description: 'Maximum image zoom multiplier (default: 3).',
   },
   minRatio: {
     control: 'number',
-    description: 'Minimum image zoom ratio (default: 1).',
+    description: 'Minimal image zoom multiplier (default: 1).',
   },
   toggle: {
     control: 'boolean',
-    description: 'Enable/disable zoom-in by image double click/tap.',
+    description: 'Enable/disable zoom-in by slide\'s double tap.',
   },
   containerClass: {
     control: 'text',
@@ -40,7 +41,15 @@ export const zoomArgTypes = {
   },
   zoomedSlideClass: {
     control: 'text',
-    description: 'CSS class name of zoomed slide.',
+    description: 'CSS class name of zoomed in container.',
+  },
+  limitToOriginalSize: {
+    control: 'boolean',
+    description: 'When set to true, the image will not be scaled past 100% of its original size.',
+  },
+  panOnMouseMove: {
+    control: 'boolean',
+    description: 'When set to true, a zoomed in image will automatically pan while moving the mouse over the image.',
   },
 } as any;
 
@@ -75,6 +84,7 @@ export const zoomSharedMeta: Meta = {
     const description = metadata?.parameters?.docs?.description?.story || '';
     const numberOfSlides = metadata?.parameters?.numberOfSlides || 3;
     const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
+    const containerZoomCustom = !!metadata?.parameters?.containerZoomCustom;
     const eventsShowcase = !!metadata?.parameters?.eventsShowcase;
 
     // Build zoom config object from args
@@ -88,63 +98,54 @@ export const zoomSharedMeta: Meta = {
     return {
       template: `
         <style>
-          .btn-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-          }
-          .btn-ng {
-            padding: 8px 16px;
-            background-color: #2196F3;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-          }
-          ::ng-deep ng-swiper-element {
-            height: 350px;
-          }
-          ::ng-deep .swiper-slide {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #2c3e50;
-            border-radius: 8px;
-            overflow: hidden;
-          }
-          ::ng-deep .swiper-zoom-container img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-          }
+          // Add CSS classes for styling
+              .swiper-slide-zoomed-custom { 
+                border: 2px solid red !important; 
+                opacity: 0.5 !important;
+              } 
+              .swiper-zoom-container-custom { 
+                border: 2px solid blue !important; 
+              };
         </style>
 
         @if(propAndMethodsDemo) {
-          <h3>Zoom Properties & Methods Demo</h3>
           <div class="btn-group">
-            <button class="btn-ng" (click)="checkZoomScale(swiperElement)">Check Scale - swiper.zoom.scale</button>
+          <h5>Zoom Module Properties:</h5>
+          <hr/>
+          <button class="btn-ng" (click)="getZoomEnabled(swiperElement)">Check Zoom Enabled - swiper.zoom.enabled</button>
+            <button class="btn-ng" (click)="getZoomScale(swiperElement)">Check Zoom Scale - swiper.zoom.scale</button>
+
+          <h5>Zoom Module Methods:</h5>
+          <hr/>
+            <button class="btn-ng" (click)="disableZoom(swiperElement)">Disable Zoom Module</button>
+            <button class="btn-ng" (click)="enableZoom(swiperElement)">Enable Zoom Module</button>
             <button class="btn-ng" (click)="zoomIn(swiperElement)">Zoom In - swiper.zoom.in()</button>
             <button class="btn-ng" (click)="zoomOut(swiperElement)">Zoom Out - swiper.zoom.out()</button>
             <button class="btn-ng" (click)="toggleZoom(swiperElement)">Toggle Zoom - swiper.zoom.toggle()</button>
-            <button class="btn-ng" (click)="enableZoom(swiperElement)">Enable Zoom Module</button>
-            <button class="btn-ng" (click)="disableZoom(swiperElement)">Disable Zoom Module</button>
           </div>
           <br/>
         }
 
         <ng-swiper-element 
+            [modules]="modules"
             [zoom]="zoomConfig"
             [injectStylesUrls]="injectStylesUrls"
+            [injectStyles]="['
+              .swiper-slide-zoomed-custom { 
+                border: 2px solid red !important; 
+                opacity: 0.5 !important;
+              } 
+              .swiper-zoom-container-custom { 
+                border: 2px solid blue !important; 
+              };
+            ']"
             #swiperElement="ngSwiperElement"
-            ${
-              eventsShowcase ? `(zoomChange)="zoomChange($event)"` : ''
-            }>  
+            ${eventsShowcase ? `(zoomChange)="zoomChange($event)"` : ''
+        }>  
             @for(slide of slides; track $index) {
               <ng-template ngSwiperSlide>
-                  <div class="swiper-zoom-container">
-                      <img [src]="'https://swiperjs.com/demos/images/nature-' + (($index % 3) + 1) + '.jpg'" [alt]="'Slide ' + slide" />
+                  <div [class]="containerZoomCustom ? 'swiper-zoom-container-custom' : 'swiper-zoom-container'">
+                      <img style="width:100%;height:auto;" [src]="'https://swiperjs.com/demos/images/nature-' + (($index % 3) + 1) + '.jpg'" [alt]="'Slide ' + slide" />
                   </div>
               </ng-template>
             }
@@ -153,14 +154,24 @@ export const zoomSharedMeta: Meta = {
         </ng-swiper-element>
       `,
       props: {
+        modules: [Zoom],
         storyName,
+        containerZoomCustom,
         description,
         zoomConfig,
+        propAndMethodsDemo,
+        eventsShowcase,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
 
         // Method handlers
-        checkZoomScale: (swiperElement: any) => {
+        getZoomEnabled: (swiperElement: any) => {
+          const enabled = swiperElement.swiperInstance?.zoom?.enabled;
+          alert(`Current Zoom Enabled: ${enabled}`);
+          console.log('Current Zoom Enabled:', enabled);
+        },
+
+        getZoomScale: (swiperElement: any) => {
           const scale = swiperElement.swiperInstance?.zoom?.scale;
           alert(`Current Zoom Scale: ${scale}`);
           console.log('Current Zoom Scale:', scale);
@@ -188,7 +199,7 @@ export const zoomSharedMeta: Meta = {
           console.log('Template intercepted event (zoomChange):', eventData);
           alert('Event Triggered: zoomChange');
         },
-      },
+      } as any,
     };
   },
 };

@@ -43,18 +43,37 @@ export const CustomZoomRatio: Story = {
   },
 };
 
-export const DisableToggleOnDoubleTap: Story = {
+export const PanOnMouseMove: Story = {
   args: {
     maxRatio: 3,
     minRatio: 1,
-    toggle: false,
+    toggle: true,
+    panOnMouseMove: true,
   } as any,
   parameters: {
-    storyName: 'Disable Double Tap - zoom.toggle: false',
-    controls: { include: ['toggle'] }, 
+    storyName: 'Pan On Mouse Move',
+    controls: { include: ['maxRatio', 'minRatio', 'toggle', 'panOnMouseMove'] }, 
     docs: {
       description: {
-        story: 'Set toggle to false to disable automatic zoom-in when double tapping or double clicking on the slide image.',
+        story: 'When set to true, a zoomed in image will automatically pan while moving the mouse over the image.',
+      },
+    },
+  },
+};
+
+export const LimitToOriginalSize: Story = {
+  args: {
+    maxRatio: 3,
+    minRatio: 1,
+    toggle: true,
+    limitToOriginalSize: true,
+  } as any,
+  parameters: {
+    storyName: 'Limit To Original Size',
+    controls: { include: ['maxRatio', 'minRatio', 'toggle', 'limitToOriginalSize'] }, 
+    docs: {
+      description: {
+        story: 'When set to true, the image will not be scaled past 100% of its original size.',
       },
     },
   },

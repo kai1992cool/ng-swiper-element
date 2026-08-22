@@ -1,0 +1,20 @@
+name: New MCP server
+version: 0.0.1
+schema: v1
+mcpServers:
+  - name: Filesystem
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-filesystem"
+      - "D:\\naren"
+  - name: Fetch
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-fetch"  
+  - name: Memory
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-memory"

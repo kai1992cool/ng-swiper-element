@@ -1,0 +1,60 @@
+# Build and deploy documentation + storybooks for all supported Angular versions
+
+name: Build Storybooks for All Versions
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-storybooks:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Read angular versions from config
+      id: read_versions
+      run: |
+        VERSIONS=$(node -e "console.log(require('./angular-versions-config.json').versions.join(','))")
+        echo "versions=$VERSIONS" >> $GITHUB_OUTPUT
+        
+    - name: Build Storybook for each version
+      env:
+        ANGULAR_VERSIONS: ${{ steps.read_versions.outputs.versions }}
+      run: |
+        mkdir -p storybook-static
+        IFS=',' read -ra VERSION_ARRAY <<< "$ANGULAR_VERSIONS"
+        
+        for version in "${VERSION_ARRAY[@]}"; do
+          echo "Building documentation and storybook for Angular v$version"
+          
+          # Create directory for this version
+          mkdir -p "storybook-static/$version"
+          
+          # Update package.json to use specific version 
+          npm run build-storybook -- --output-dir="storybook-static/$version"
+          
+          # Also build with different configuration if needed
+          echo "Built version $version"
+        done
+
+    - name: Deploy Storybooks to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./storybook-static
+        keep_files: true

@@ -24,43 +24,39 @@ swiperEvents.forEach((eventName: string) => {
 export const virtualSlidesArgTypes = {
   enabled: {
     control: 'boolean',
-    description: 'Enables virtual slides functionality.',
+    description: 'Whether the virtual slides are enabled.',
   },
   addSlidesAfter: {
     control: 'number',
-    description: 'Number of slides to render after visible slides.',
+    description: 'Increases amount of pre-rendered slides after active slide.',
   },
   addSlidesBefore: {
     control: 'number',
-    description: 'Number of slides to render before visible slides.',
+    description: 'Increases amount of pre-rendered slides before active slide.',
   },
   cache: {
     control: 'boolean',
-    description: 'Enables caching of rendered slide DOM elements.',
-  },
-  slides: {
-    control: 'object',
-    description: 'Array of slides data to be used for virtual rendering.',
-  },
-  renderSlide: {
-    control: 'function',
-    description: 'Custom function to render individual slides.',
+    description: 'Enables DOM cache of rendering slides html elements. Once they are rendered they will be saved to cache and reused from it.',
   },
   renderExternal: {
     control: 'function',
-    description: 'Custom function to render external content.',
+    description: 'Function for external rendering (e.g. using some other library to handle DOM manipulations and state like React.js or Vue.js).',
   },
-  transform: {
+  renderExternalUpdate: {
+    control: 'boolean',
+    description: 'When enabled (by default) it will update Swiper layout right after renderExternal called. Useful to disable and update swiper manually when used with render libraries that renders asynchronously',
+  },
+  renderSlide: {
     control: 'function',
-    description: 'Function to transform slide elements.',
+    description: 'Function to render slide. As an argument it accepts current slide item for slides array and index number of the current slide. Function must return an outer HTML of the swiper slide or slide HTML element.',
   },
-  isEnd: {
-    control: 'boolean',
-    description: 'Indicates if the swiper is at the end of slides.',
+  slides: {
+    control: 'object',
+    description: 'Array with slides',
   },
-  isBeginning: {
-    control: 'boolean',
-    description: 'Indicates if the swiper is at the beginning of slides.',
+  slidesPerViewAutoSlideSize: {
+    control: 'number',
+    description: 'Slide size for slidesPerView: auto (in px)',
   },
 } as any;
 
@@ -95,7 +91,15 @@ export const virtualSlidesSharedMeta: Meta = {
     const description = metadata?.parameters?.docs?.description?.story || '';
     const totalSlides = metadata?.parameters?.totalSlides || 500;
     const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
-
+    let slidesPerView = undefined;
+    if(metadata?.parameters?.args?.slidesPerView) {
+      slidesPerView = metadata?.parameters?.args?.slidesPerView;
+    }
+    const scopedThis = {
+      virtualData: [],
+      offset: 0,
+      fromIndex: 0,
+    }
     // Build virtual slides config object from args
     const virtualConfig: any = {};
     Object.keys(virtualSlidesArgTypes).forEach((key) => {
@@ -103,6 +107,9 @@ export const virtualSlidesSharedMeta: Meta = {
         virtualConfig[key] = args[key];
       }
     });
+    if (virtualConfig.renderExternal) {
+      virtualConfig.renderExternal = virtualConfig.renderExternal.bind(scopedThis);
+    }
 
     return {
       template: `
@@ -113,32 +120,8 @@ export const virtualSlidesSharedMeta: Meta = {
             flex-wrap: wrap;
             margin-bottom: 20px;
           }
-          .btn-ng {
-            padding: 8px 16px;
-            background-color: #2196F3;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-          }
           ::ng-deep ng-swiper-element {
             height: 250px;
-          }
-          ::ng-deep .swiper-slide {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #2c3e50;
-            border-radius: 8px;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-          }
-          .info-text {
-            color: #aaa;
-            font-size: 13px;
-            margin-bottom: 12px;
           }
         </style>
 
@@ -156,25 +139,52 @@ export const virtualSlidesSharedMeta: Meta = {
         }
 
         <p class="info-text">Rendering <strong>{{ slides.length }}</strong> slides virtually using DOM virtualization.</p>
-
+        @if(scopedThis?.virtualData?.length > 0) {
+          <p class="info-text">
+            Virtual Data Length: 
+            <strong>
+              {{ scopedThis.virtualData.length }}
+            </strong>
+          </p>
+          <p class="info-text">
+            Virtual Config: 
+            <strong>
+              {{ scopedThis | json }}
+            </strong>
+          </p> 
+        } 
         <ng-swiper-element 
             [virtual]="virtualConfig"
-            [slidesPerView]="3"
+            [slidesPerView]="slidesPerView"
             [spaceBetween]="20"
             [injectStylesUrls]="injectStylesUrls"
             #swiperElement="ngSwiperElement"> 
-            @if(!virtualConfig?.renderSlide) {
-              @for(slide of slides; track $index) {
-                <ng-template ngSwiperSlide>
-                    <div class="swiper-slide">Slide {{slide}}</div>
-                </ng-template>
-              }
-            } 
+            @if(scopedThis?.virtualData?.length > 0) {
+                @for(slide of scopedThis.virtualData; let i = $index; track i) {
+                  <div 
+                    class="swiper-slide"
+                    [style.left]="scopedThis?.offset + 'px'"
+                    [attr.data-swiper-slide-index]="scopedThis?.fromIndex + i"
+                  >
+                    Slide {{ i + 1 }}
+                  </div>
+                }
+            } @else {
+              @if(!virtualConfig?.renderSlide && virtualConfig?.slides?.length <= 0) {
+                @for(slide of slides; track $index) {
+                  <ng-template ngSwiperSlide>
+                      <div class="swiper-slide">Slide {{slide}}</div>
+                  </ng-template>
+                }
+              } 
+            }
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>
       `,
       props: {
+        slidesPerView,
+        scopedThis,
         storyName,
         description,
         virtualConfig,

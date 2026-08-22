@@ -93,6 +93,7 @@ export const swiperEvents = [
     'autoplayStop',
     'autoplayTimeLeft',
     'scroll',
+    'zoomChange',
 ]
 
 @Directive()
@@ -486,4 +487,14 @@ export class SwiperContainerEvents extends SwiperContainerInputs {
     scroll = output<Pick<SwiperInterfaceOptions, 'swiper' | 'event'>>();
     
     // Mousewheel events
+
+    // Zoom events
+
+    /** Event will be fired on zoom change
+     *  @ignore 
+     */
+    // zoomChange	(swiper, scale, imageEl, slideEl)	
+    zoomChange = output<Pick<SwiperInterfaceOptions, 'swiper' | 'translate' | 'slideEl'>>();
+    
+    // Zoom events
 }

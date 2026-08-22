@@ -16,7 +16,7 @@ export const DefaultVirtualSlides: Story = {
   parameters: {
     totalSlides: 1000,
     storyName: 'Default Virtual Slides',
-    controls: { include: ['enabled'] }, 
+    controls: { include: ['enabled'] },
     docs: {
       description: {
         story: 'Renders 1000 slides virtually. Keeps only required DOM elements active for optimal performance.',
@@ -34,7 +34,7 @@ export const BufferSlidesBeforeAndAfter: Story = {
   parameters: {
     totalSlides: 500,
     storyName: 'Slides Buffer - addSlidesBefore & addSlidesAfter',
-    controls: { include: ['enabled', 'addSlidesBefore', 'addSlidesAfter'] }, 
+    controls: { include: ['enabled', 'addSlidesBefore', 'addSlidesAfter'] },
     docs: {
       description: {
         story: 'Specifies additional buffer slides rendered before and after visible slides to ensure smoother swiping.',
@@ -51,7 +51,7 @@ export const CachedVirtualSlides: Story = {
   parameters: {
     totalSlides: 500,
     storyName: 'Cache DOM Elements - virtual.cache',
-    controls: { include: ['enabled', 'cache'] }, 
+    controls: { include: ['enabled', 'cache'] },
     docs: {
       description: {
         story: 'Enables caching of rendered slide DOM elements to improve re-rendering efficiency.',
@@ -63,15 +63,21 @@ export const CachedVirtualSlides: Story = {
 export const RenderExternalFunction: Story = {
   args: {
     enabled: true,
-    renderExternal: (data: any) => {
-      // Mock external rendering function
-      return `<div class="external-slide">External Slide ${data.slideIndex}</div>`;
-    },
+    renderExternalUpdate: false,
+    renderExternal: function (data: any) {
+      // Update component state with the slides Swiper wants to render
+      // data.slides contains the HTML strings or objects to display
+      if ((this as any)?.virtualData !== undefined) {
+        (this as any).virtualData = data.slides;
+        (this as any).offset = data.offset;
+        (this as any).fromIndex = data.from;
+      }
+    }
   } as any,
   parameters: {
     totalSlides: 100,
     storyName: 'Render External Function - renderExternal',
-    controls: { include: ['enabled', 'renderExternal'] }, 
+    controls: { include: ['enabled', 'renderExternal'] },
     docs: {
       description: {
         story: 'Function for external rendering (e.g. using some other library to handle DOM manipulations and state like React.js or Vue.js).',
@@ -83,16 +89,21 @@ export const RenderExternalFunction: Story = {
 export const RenderExternalUpdate: Story = {
   args: {
     enabled: true,
-    renderExternal: (data: any) => {
-      // Mock external rendering function
-      return `<div class="external-slide">External Slide ${data.slideIndex}</div>`;
-    },
-    renderExternalUpdate: false,
+    renderExternalUpdate: true,
+    renderExternal: function (data: any) {
+      // Update component state with the slides Swiper wants to render
+      // data.slides contains the HTML strings or objects to display
+      if ((this as any)?.virtualData !== undefined) {
+        (this as any).virtualData = data.slides;
+        (this as any).offset = data.offset;
+        (this as any).fromIndex = data.from;
+      }
+    }
   } as any,
   parameters: {
     totalSlides: 100,
     storyName: 'Render External Update - renderExternalUpdate',
-    controls: { include: ['enabled', 'renderExternal', 'renderExternalUpdate'] }, 
+    controls: { include: ['enabled', 'renderExternal', 'renderExternalUpdate'] },
     docs: {
       description: {
         story: 'When enabled (by default) it will update Swiper layout right after renderExternal called. Useful to disable and update swiper manually when used with render libraries that renders asynchronously.',
@@ -111,15 +122,21 @@ export const RenderSlideFunction: Story = {
       { id: 4, content: 'Slide 4' },
       { id: 5, content: 'Slide 5' },
     ],
-    renderSlide: (slideData: any, index: number) => {
-      // Mock slide rendering function
-      return `<div class="swiper-slide">Custom Slide #${index}</div>`;
-    },
+    renderSlide: (slide: any, index: number) => {
+      return `
+            <div class="swiper-slide" style="width: 200px; height: 200px; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc;">
+              <div style="text-align: center;">
+                <h3>${slide.id}</h3>
+                <p>${slide.content}</p>
+              </div>
+            </div>
+          `;
+    }
   } as any,
   parameters: {
     totalSlides: 100,
     storyName: 'Render Slide Function - renderSlide',
-    controls: { include: ['enabled', 'renderSlide', 'slides'] }, 
+    controls: { include: ['enabled', 'renderSlide', 'slides'] },
     docs: {
       description: {
         story: 'Function to render slide. As an argument it accepts current slide item for slides array and index number of the current slide. Function must return an outer HTML of the swiper slide or slide HTML element.',
@@ -131,17 +148,11 @@ export const RenderSlideFunction: Story = {
 export const CustomSlidesArray: Story = {
   args: {
     enabled: true,
-    slides: [
-      { id: 1, content: 'Slide 1' },
-      { id: 2, content: 'Slide 2' },
-      { id: 3, content: 'Slide 3' },
-      { id: 4, content: 'Slide 4' },
-      { id: 5, content: 'Slide 5' },
-    ],
+    slides: Array.from({ length: 1000 }, (_, i) => `Slide ${i + 1}`),
   } as any,
   parameters: {
     storyName: 'Custom Slides Array - slides',
-    controls: { include: ['enabled', 'slides'] }, 
+    controls: { include: ['enabled', 'slides'] },
     docs: {
       description: {
         story: 'Array with slides',
@@ -159,7 +170,7 @@ export const SlidesPerViewAutoSlideSize: Story = {
   parameters: {
     totalSlides: 50,
     storyName: 'Slides Per View Auto Slide Size - slidesPerViewAutoSlideSize',
-    controls: { include: ['enabled', 'slidesPerView', 'slidesPerViewAutoSlideSize'] }, 
+    controls: { include: ['enabled', 'slidesPerView', 'slidesPerViewAutoSlideSize'] },
     docs: {
       description: {
         story: 'Slide size for slidesPerView: auto (in px)',
