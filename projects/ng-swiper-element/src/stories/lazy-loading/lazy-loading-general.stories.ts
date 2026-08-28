@@ -11,7 +11,6 @@ type Story = StoryObj;
 
 export const NativeLazyLoading: Story = {
   args: {
-    preloadImages: false,
     lazyPreloaderClass: 'swiper-lazy-preloader',
   } as any,
   parameters: {
@@ -25,16 +24,17 @@ export const NativeLazyLoading: Story = {
   },
 };
 
-export const PreloadAllImages: Story = {
+export const LazyPreloadPrevNext: Story = {
   args: {
-    preloadImages: true,
+    lazyPreloaderClass: 'swiper-lazy-preloader',
+    lazyPreloadPrevNext: 2,
   } as any,
   parameters: {
-    storyName: 'Preload All Images - preloadImages: true',
-    controls: { include: ['preloadImages'] }, 
+    storyName: 'Native Lazy Loading with Preloader Prev Next Number',
+    controls: { include: ['lazyPreloaderClass', 'lazyPreloadPrevNext'] }, 
     docs: {
       description: {
-        story: 'Forces Swiper to preload all slide images immediately upon initialization rather than deferring load.',
+        story: 'Number of next and previous slides to preload. Only applicable if using lazy loading.',
       },
     },
   },

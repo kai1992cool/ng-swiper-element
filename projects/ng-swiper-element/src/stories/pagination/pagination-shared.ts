@@ -382,42 +382,6 @@ export const paginationSharedMeta: Meta = {
                 <button class="btn-ng" (click)="update(swiperElement)">Update Pagination</button>
               </div>
             }
-            <br/>
-            <br/>
-            @if(classStory) {
-              <div><h3>Custom CSS:</h3></div>
-              <code style="white-space: pre-wrap;  padding: 16px; display: block;border: 1px solid red;">
-                /* Pagination Custom Demo Styles - Shadow DOM Styling (Use injectStyles) */<br/>
-                .swiper-pagination-bullet-custom &#123;
-                    margin: 10px;
-                    height: 10px;
-                    width: 10px;
-                    display: inline-block;
-                    border-radius: 10px;
-                    border: 1px solid yellow !important;
-                &#125;<br/>
-                .swiper-pagination-bullet-active-custom &#123;
-                    border: 2px solid red !important;
-                &#125;<br/>
-                .swiper-pagination-clickable-custom &#123;
-                    cursor: pointer;
-                    border: 2px solid red !important;
-                &#125;<br/>
-                .swiper-pagination-current-custom &#123;
-                    border: 2px solid red !important;
-                    background-color: darkgreen;
-                    padding: 10px !important;
-                    border-radius: 50%;
-                &#125;<br/>
-                /* <br/>
-                  Important note: When using swiper buttons we should use shadow DOM styling <br/>
-                  (injectStyles or injectStylesUrls) to ensure styles are applied correctly, <br/>
-                  as swiper buttons are rendered inside the shadow DOM of the swiper element.<br/>
-                  If using custom pagination buttons outside of swiper element, we can <br/>
-                  use regular CSS styling without the need for shadow DOM styling. <br/>
-                */<br/>
-              </code>
-            }
             `,
       props: {
         storyName,

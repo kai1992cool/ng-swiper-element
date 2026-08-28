@@ -34,6 +34,10 @@ export const keyboardArgTypes = {
     control: 'boolean',
     description: 'When enabled, page up and page down keys can be used to navigate slides.',
   },
+  speed: {
+    control: 'number',
+    description: 'Set the speed of keyboard navigation transitions (in ms).',
+  },
 } as any;
 
 export const keyboardSharedMeta: Meta = {
@@ -147,6 +151,7 @@ export const keyboardSharedMeta: Meta = {
         storyName,
         description,
         keyboardConfig,
+        propAndMethodsDemo,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
 

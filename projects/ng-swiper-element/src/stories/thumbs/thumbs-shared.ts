@@ -75,6 +75,7 @@ export const thumbsSharedMeta: Meta = {
     const description = metadata?.parameters?.docs?.description?.story || '';
     const numberOfSlides = metadata?.parameters?.numberOfSlides || 6;
     const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
+    const slidesPerView = metadata?.parameters?.slidesPerView || 1;
 
     // Build thumbs config object from args
     const thumbsConfig: any = {};
@@ -83,6 +84,7 @@ export const thumbsSharedMeta: Meta = {
         thumbsConfig[key] = args[key];
       }
     });
+    thumbsConfig.swiper = thumbsConfig.swiper || '.thumbs-swiper-inner';
 
     return {
       template: `
@@ -123,6 +125,14 @@ export const thumbsSharedMeta: Meta = {
             opacity: 1;
             border: 2px solid #2196F3;
           }
+          :host ::ng-deep {
+            .custom-thumb-active {
+              border: 1px solid #ff5722 !important;
+            }
+            .swiper-thumbs-custom {
+              border: 1px solid yellow !important;
+            }
+          }
           .btn-group {
             display: flex;
             gap: 12px;
@@ -144,6 +154,7 @@ export const thumbsSharedMeta: Meta = {
           <h3>Thumbs Properties & Methods Demo</h3>
           <div class="btn-group">
             <button class="btn-ng" (click)="checkThumbsSwiper(mainSwiper)">Check thumbs.swiper Instance</button>
+            <button class="btn-ng" (click)="initThumbs(mainSwiper)">Initialize Thumbs - thumbs.init()</button>
             <button class="btn-ng" (click)="updateThumbs(mainSwiper)">Update Thumbs - thumbs.update()</button>
           </div>
           <br/>
@@ -152,9 +163,18 @@ export const thumbsSharedMeta: Meta = {
         <!-- Main Swiper -->
         <ng-swiper-element 
             class="main-swiper"
-            [thumbs]="{ swiper: thumbsSwiper?.swiperInstance }"
+            [thumbs]="thumbsConfig"
+            [slidesPerView]="slidesPerView"
             [spaceBetween]="10"
             [injectStylesUrls]="injectStylesUrls"
+            [injectStyles]="['
+              .custom-thumb-active {
+                border: 1px solid #ff5722 !important;
+              }
+              .swiper-thumbs-custom {
+                border: 1px solid yellow !important;
+              }
+            ']"
             #mainSwiper="ngSwiperElement">  
             @for(slide of slides; track $index) {
               <ng-template ngSwiperSlide>
@@ -165,10 +185,19 @@ export const thumbsSharedMeta: Meta = {
 
         <!-- Thumbs Swiper -->
         <ng-swiper-element 
-            class="thumbs-swiper"
+         class="thumbs-swiper"
+            [swiperClasses]="'thumbs-swiper-inner'"
             [slidesPerView]="4"
             [spaceBetween]="10"
             [freeMode]="true"
+            [injectStyles]="['
+              .custom-thumb-active {
+                border: 1px solid #ff5722 !important;
+              }
+              .swiper-thumbs-custom {
+                border: 1px solid yellow !important;
+              }
+            ']"
             [watchSlidesProgress]="true"
             [injectStylesUrls]="injectStylesUrls"
             #thumbsSwiper="ngSwiperElement">  
@@ -183,9 +212,11 @@ export const thumbsSharedMeta: Meta = {
         storyName,
         description,
         thumbsConfig,
+        slidesPerView,
+        propAndMethodsDemo,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
-        
+
         checkThumbsSwiper: (swiperElement: any) => {
           const thumbsInstance = swiperElement.swiperInstance?.thumbs?.swiper;
           console.log('Thumbs Swiper Instance:', thumbsInstance);
@@ -195,6 +226,12 @@ export const thumbsSharedMeta: Meta = {
           if (swiperElement.swiperInstance?.thumbs) {
             swiperElement.swiperInstance.thumbs.update(true);
             alert('Thumbs updated successfully!');
+          }
+        },
+        initThumbs: (swiperElement: any) => {
+          if (swiperElement.swiperInstance?.thumbs) {
+            swiperElement.swiperInstance.thumbs.init();
+            alert('Thumbs initialized successfully!');
           }
         },
       },

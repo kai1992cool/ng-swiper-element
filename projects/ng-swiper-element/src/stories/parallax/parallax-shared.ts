@@ -102,6 +102,7 @@ export const parallaxSharedMeta: Meta = {
             height: 100%;
             background-size: cover;
             background-position: center;
+            z-index: -1;
           }
           ::ng-deep .swiper-slide {
             box-sizing: border-box;
@@ -115,27 +116,31 @@ export const parallaxSharedMeta: Meta = {
             font-size: 32px;
             font-weight: bold;
             margin-bottom: 8px;
+            color: white;
           }
           .subtitle {
             font-size: 20px;
             font-weight: 500;
             margin-bottom: 12px;
-            opacity: 0.9;
+            color: white;
           }
           .text {
             font-size: 14px;
             max-width: 400px;
             margin-bottom: 16px;
             line-height: 1.5;
+            color: white;
           }
           .opacity-box {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
+            background: azure;
             padding: 6px 12px;
             border-radius: 4px;
             font-size: 13px;
             margin-bottom: 8px;
             width: fit-content;
+            color: black;
+            margin-right: 10px;
           }
           .scale-box {
             display: inline-block;
@@ -164,38 +169,40 @@ export const parallaxSharedMeta: Meta = {
             ${
               eventsShowcase ? `(slideChange)="slideChange($event)"` : ''
             }>  
-            <!-- Parallax background element -->
-            <div
-              class="parallax-bg"
-              style="background-image:url('https://swiperjs.com/demos/images/nature-1.jpg')"
-              data-swiper-parallax="-23%"
-            ></div>
 
-            @for(slide of slides; track $index) {
+            @for(slide of slides;let i = $index; track i) {
               <ng-template ngSwiperSlide>
-                  <!-- Each slide has parallax title -->
-                  <div class="title" data-swiper-parallax="-100">Slide {{slide}}</div>
-                  
-                  <!-- Parallax subtitle -->
-                  <div class="subtitle" data-swiper-parallax="-200">Subtitle {{slide}}</div>
-                  
-                  <!-- Parallax text with custom transition duration -->
+                  <!-- Parallax background element -->
                   <div
-                    class="text"
-                    data-swiper-parallax="-300"
-                    data-swiper-parallax-duration="600"
-                  >
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum mattis velit, sit amet molestie magna.</p>
-                  </div>
+                    class="parallax-bg"
+                    style="background-image:url('https://swiperjs.com/demos/images/nature-{{i+1}}.jpg')"
+                    data-swiper-parallax="-23%"
+                  ></div>
+                  <div>
+                    <!-- Each slide has parallax title -->
+                    <div class="title" data-swiper-parallax="-100" data-swiper-parallax-duration="600">Slide {{slide}}</div>
+                    
+                    <!-- Parallax subtitle -->
+                    <div class="subtitle" data-swiper-parallax="-200" data-swiper-parallax-duration="600">Subtitle {{slide}}</div>
+                    
+                    <!-- Parallax text with custom transition duration -->
+                    <div
+                      class="text"
+                      data-swiper-parallax="-300"
+                      data-swiper-parallax-duration="600"
+                    >
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dictum mattis velit, sit amet molestie magna.</p>
+                    </div>
 
-                  <!-- Opacity parallax -->
-                  <div class="opacity-box" data-swiper-parallax-opacity="0.5">
-                    I will change opacity
-                  </div>
+                    <!-- Opacity parallax -->
+                    <div class="opacity-box" data-swiper-parallax-opacity="0" data-swiper-parallax-duration="4000">
+                      I will change opacity
+                    </div>
 
-                  <!-- Scale parallax -->
-                  <div class="scale-box" data-swiper-parallax-scale="0.15">
-                    I will change scale
+                    <!-- Scale parallax -->
+                    <div class="scale-box" data-swiper-parallax-scale="0.15" data-swiper-parallax-duration="600">
+                      I will change scale
+                    </div>
                   </div>
               </ng-template>
             }

@@ -1,4 +1,4 @@
-import { Component, computed, contentChild, contentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, Signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
+import { Component, computed, contentChild, contentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, input, Signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { SwiperContainerEvents, swiperEvents } from './ng-swiper-element-events.class';
 import { Swiper, SwiperEvents, SwiperOptions } from 'swiper/types';
 import { NgTemplateOutlet } from '@angular/common';
@@ -21,6 +21,7 @@ export type BreakPointsType = {
    <div  style="position: relative !important;">
     <swiper-container
       #swiperContainer 
+      [class]="swiperClasses()"
       init="false"
     >
       @if(slideCompContentChildren(); as slidesComponentToIterate) {
@@ -49,6 +50,7 @@ export type BreakPointsType = {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SwiperElementComponent extends SwiperContainerEvents {
+  swiperClasses = input<string | undefined>(undefined);
 
   /**
    * @ignore
@@ -191,7 +193,10 @@ export class SwiperElementComponent extends SwiperContainerEvents {
       if (output?.['listeners']?.length) {
         swiperEl.addEventListener(eventNameFinal, (...args: any) => {
           if (output) {
-            output.emit(args);
+            output.emit({
+              event: args?.[0] || undefined,
+              swiperArgs: (args?.[0]?.detail || []),
+            });
           }
         }, { signal: this.abortController.signal });
       }

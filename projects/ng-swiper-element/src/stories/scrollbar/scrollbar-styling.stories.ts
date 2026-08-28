@@ -69,6 +69,7 @@ export const ScrollbarDisabledClass: Story = {
     scrollbarDisabledClass: 'swiper-scrollbar-disabled-custom',
   } as any,
   parameters: {
+    numberOfSlides: 1,
     storyName: 'Disabled Class Customization',
     classStory: true,
     controls: { include: ['enabled', 'scrollbarDisabledClass'] },

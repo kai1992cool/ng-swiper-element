@@ -14,13 +14,13 @@ import {
 } from 'ng-swiper-element';
 
 export const lazyLoadingArgTypes = {
-  preloadImages: {
-    control: 'boolean',
-    description: 'When enabled, Swiper forces preloading of all images.',
-  },
   lazyPreloaderClass: {
     control: 'text',
     description: 'CSS class name of lazy preloader element.',
+  },
+  lazyPreloadPrevNext: {
+    control: 'number',
+    description: 'Number of next and previous slides to preload. Only applicable if using lazy loading.',
   },
 } as any;
 
@@ -98,8 +98,8 @@ export const lazyLoadingSharedMeta: Meta = {
         <p class="hint">⚡ Images use native <code>loading="lazy"</code> with <code>&lt;div class="swiper-lazy-preloader"&gt;&lt;/div&gt;</code> spinners for on-demand loading.</p>
 
         <ng-swiper-element 
-            [preloadImages]="preloadImages"
             [lazyPreloaderClass]="lazyPreloaderClass"
+            [lazyPreloadPrevNext]="lazyPreloadPrevNext"
             [injectStylesUrls]="injectStylesUrls"
             #swiperElement="ngSwiperElement">  
             @for(imgUrl of images; track $index) {
@@ -116,8 +116,8 @@ export const lazyLoadingSharedMeta: Meta = {
       props: {
         storyName,
         description,
-        preloadImages: args.preloadImages ?? false,
         lazyPreloaderClass: args.lazyPreloaderClass || 'swiper-lazy-preloader',
+        lazyPreloadPrevNext: args.lazyPreloadPrevNext || 0,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         images: sampleImages.slice(0, numberOfSlides),
       },

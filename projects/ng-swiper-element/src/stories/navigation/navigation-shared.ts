@@ -234,41 +234,6 @@ export const navigationSharedMeta: Meta = {
                 <button class="btn-ng" (click)="update(swiperElement)">Update Navigation</button>
               </div>
             }
-            <br/>
-            <br/>
-            @if(classStory) {
-              <div><h3>Custom CSS:</h3></div>
-              <code style="white-space: pre-wrap;  padding: 16px; display: block;border: 1px solid red;">
-                /* Navigation Custom Demo Styles - Shadow DOM Styling (Use injectStyles) */
-                .swiper-navigation-disabled-custom &#123;
-                    border: 2px solid red !important;
-                &#125;<br/>
-                .swiper-button-lock-custom &#123;
-                  border: 2px solid red !important;
-                  background-color: purple;
-                  border-radius:50%;
-                  padding:10px;
-                &#125;<br/>
-                .swiper-button-hidden-custom &#123;
-                    background-color: azure;
-                    border-radius:50%;
-                    padding:10px;
-                &#125;<br/>
-                .swiper-button-disabled-custom &#123;
-                  border: 2px solid red !important;
-                  background-color: gray;
-                  border-radius:50%;
-                  padding:10px;
-                &#125;<br/>
-                /* <br/>
-                  Important note: When using swiper buttons we should use shadow DOM styling <br/>
-                  (injectStyles or injectStylesUrls) to ensure styles are applied correctly, <br/>
-                  as swiper buttons are rendered inside the shadow DOM of the swiper element.<br/>
-                  If using custom navigation buttons outside of swiper element, we can <br/>
-                  use regular CSS styling without the need for shadow DOM styling. <br/>
-                */<br/>
-              </code>
-            }
             `,
       props: {
         navigationConfig,

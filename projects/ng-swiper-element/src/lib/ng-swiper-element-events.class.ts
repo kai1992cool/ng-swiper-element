@@ -94,6 +94,9 @@ export const swiperEvents = [
     'autoplayTimeLeft',
     'scroll',
     'zoomChange',
+    'keyPress',
+    'hashChange',
+    'hashSet',
 ]
 
 @Directive()
@@ -497,4 +500,30 @@ export class SwiperContainerEvents extends SwiperContainerInputs {
     zoomChange = output<Pick<SwiperInterfaceOptions, 'swiper' | 'translate' | 'slideEl'>>();
     
     // Zoom events
+
+    // Keyboard events
+
+    /** Event will be fired on key press
+     *  @ignore 
+     */
+    // keyPress (swiper, keyCode)
+    keyPress = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    
+    // Keyboard events
+
+    // Hash Navigation events
+
+    /** Event will be fired on window hash change
+     *  @ignore 
+     */
+    // hashChange (swiper)
+    hashChange = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+
+    /** Event will be fired when swiper updates the hash
+     *  @ignore 
+     */
+    // hashSet (swiper)
+    hashSet = output<Pick<SwiperInterfaceOptions, 'swiper'>>();
+    
+    // Hash Navigation events
 }

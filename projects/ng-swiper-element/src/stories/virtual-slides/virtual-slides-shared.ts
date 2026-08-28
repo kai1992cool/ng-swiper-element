@@ -92,7 +92,7 @@ export const virtualSlidesSharedMeta: Meta = {
     const totalSlides = metadata?.parameters?.totalSlides || 500;
     const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
     let slidesPerView = undefined;
-    if(metadata?.parameters?.args?.slidesPerView) {
+    if (metadata?.parameters?.args?.slidesPerView) {
       slidesPerView = metadata?.parameters?.args?.slidesPerView;
     }
     const scopedThis = {
@@ -126,14 +126,26 @@ export const virtualSlidesSharedMeta: Meta = {
         </style>
 
         @if(propAndMethodsDemo) {
-          <h3>Virtual Slides Properties & Methods Demo</h3>
-          <div class="btn-group">
+          <div>
+          <h5>Virtual Slides Module Properties:</h5>
+          <hr/>
+            <button class="btn-ng" (click)="getVirtualCache(swiperElement)">Get swiper.cache</button>
+            <button class="btn-ng" (click)="getVirtualFrom(swiperElement)">Get swiper.from</button>
+            <button class="btn-ng" (click)="getVirtualSlides(swiperElement)">Get swiper.slides</button>
+            <button class="btn-ng" (click)="getVirtualTo(swiperElement)">Get swiper.to</button>
+
+          <br/>
+          <br/>
+          <h5>Virtual Slides Module Methods:</h5>
+          <hr/>
             <button class="btn-ng" (click)="removeSlideOn(swiperElement, 2)">Remove Slide from Virtual on #2th index</button>
             <button class="btn-ng" (click)="appendVirtualSlide(swiperElement)">Append Virtual Slide</button>
             <button class="btn-ng" (click)="prependVirtualSlide(swiperElement)">Prepend Virtual Slide</button>
             <button class="btn-ng" (click)="removeAllVirtualSlides(swiperElement)">Remove All Slides</button>
             <button class="btn-ng" (click)="updateVirtual(swiperElement)">Update Virtual</button>
-            <button class="btn-ng" (click)="logVirtualProperties(swiperElement)">Log Virtual Properties</button>
+          <br/>
+          <br/>
+          <hr/> 
           </div>
           <br/>
         }
@@ -219,23 +231,25 @@ export const virtualSlidesSharedMeta: Meta = {
           swiperElement.swiperInstance?.virtual?.update(true);
           alert('Virtual slides state updated');
         },
-        logVirtualProperties: (swiperElement: any) => {
+        getVirtualCache: (swiperElement: any) => {
           const swiper = swiperElement.swiperInstance;
-          if (swiper?.virtual) {
-            console.log('Virtual Properties:', {
-              slides: swiper.virtual.slides,
-              cache: swiper.virtual.cache,
-              from: swiper.virtual.from,
-              to: swiper.virtual.to,
-            });
-          } else {
-            console.log('Virtual not available on swiper instance');
-          }
+          console.log('swiper.cache:', swiper.virtual.cache);
+          alert(`swiper.cache: ${swiper.virtual.cache}`);
         },
-
-        // Events
-        virtualUpdate: (eventData: unknown) => {
-          console.log('Template intercepted event (virtualUpdate):', eventData);
+        getVirtualFrom: (swiperElement: any) => {
+          const swiper = swiperElement.swiperInstance;
+          console.log('swiper.from:', swiper.virtual.from);
+          alert(`swiper.from: ${swiper.virtual.from}`);
+        },
+        getVirtualSlides: (swiperElement: any) => {
+          const swiper = swiperElement.swiperInstance;
+          console.log('swiper.slides:', swiper.virtual.slides);
+          alert(`swiper.slides: ${swiper.virtual.slides}`);
+        },
+        getVirtualTo: (swiperElement: any) => {
+          const swiper = swiperElement.swiperInstance;
+          console.log('swiper.to:', swiper.virtual.to);
+          alert(`swiper.to: ${swiper.virtual.to}`);
         },
       },
     };

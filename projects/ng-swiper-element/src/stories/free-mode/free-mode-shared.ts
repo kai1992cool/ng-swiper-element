@@ -87,9 +87,6 @@ export const freeModeSharedMeta: Meta = {
     const storyName = metadata?.parameters?.storyName || '';
     const description = metadata?.parameters?.docs?.description?.story || '';
     const numberOfSlides = metadata?.parameters?.numberOfSlides || 8;
-    const isVertical = metadata?.parameters?.isVertical || false;
-    const direction = isVertical ? 'vertical' : 'horizontal';
-    const showCustomNavButtons = !!metadata?.parameters?.showCustomNavButtons;
 
     // Build freeMode config object from args
     const freeModeConfig: any = {};
@@ -103,7 +100,6 @@ export const freeModeSharedMeta: Meta = {
       template: `
         <ng-swiper-element 
             [freeMode]="freeModeConfig"
-            [direction]="direction"
             [slidesPerView]="3"
             [spaceBetween]="30"
             [injectStylesUrls]="injectStylesUrls"
@@ -124,9 +120,7 @@ export const freeModeSharedMeta: Meta = {
         description,
         freeModeConfig,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
-        showElements: showCustomNavButtons,
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
-        direction,
       },
     };
   },

@@ -87,7 +87,7 @@ export const scrollbarSharedMeta: Meta = {
     componentWrapperDecorator((story) => `
       <div style="padding: 2em;">
         <div style="margin-bottom: 20px; padding: 16px; background: transparent; border-radius: 4px;">
-          <h2 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600;color: white">{{ story.parameters.storyName }}</h2>
+          <h2 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 600; color: white">{{ storyName }}</h2>
           <p style="margin: 0; font-size: 14px; color: white;">{{ description }}</p>
         </div>
         ${story}
@@ -117,6 +117,25 @@ export const scrollbarSharedMeta: Meta = {
     return {
       template: `
       <style>
+      :host ::ng-deep {
+        .custom-scrollbar {
+          position: absolute;
+          bottom: 10px;
+          left: 0;
+          width: 100%;
+          height: 6px;
+          background: rgba(0, 0, 0, 0.1);
+          border-radius: 3px;
+          z-index: 3;
+        }
+
+        /* Style the draggable handle */
+        .custom-scrollbar .swiper-scrollbar-drag {
+          background: #007aff;
+          border-radius: 3px;
+          height: 100%;
+        }
+      }
       </style>
             <ng-swiper-element 
                 [scrollbar]="scrollbarConfig"
@@ -164,7 +183,7 @@ export const scrollbarSharedMeta: Meta = {
                   }
 
                   .swiper-scrollbar-disabled-custom {
-                    opacity: 0;
+                    opacity: 0.5;
                     pointer-events: none;
                   }
                 ']">  
@@ -230,42 +249,6 @@ export const scrollbarSharedMeta: Meta = {
                 <button class="btn-ng" (click)="setTranslate(swiperElement)">Scrollbar Set Translate</button>
                 <button class="btn-ng" (click)="updateSize(swiperElement)">Scrollbar Update Size</button>
               </div>
-            }
-            <br/>
-            <br/>
-            @if(classStory) {
-              <div><h3>Custom CSS:</h3></div>
-              <code style="white-space: pre-wrap;  padding: 16px; display: block;border: 1px solid red;">
-                /* scrollbar Custom Demo Styles - Shadow DOM Styling (Use injectStyles) */<br/>
-                .swiper-scrollbar-bullet-custom &#123;
-                    margin: 10px;
-                    height: 10px;
-                    width: 10px;
-                    display: inline-block;
-                    border-radius: 10px;
-                    border: 1px solid yellow !important;
-                &#125;<br/>
-                .swiper-scrollbar-bullet-active-custom &#123;
-                    border: 2px solid red !important;
-                &#125;<br/>
-                .swiper-scrollbar-clickable-custom &#123;
-                    cursor: pointer;
-                    border: 2px solid red !important;
-                &#125;<br/>
-                .swiper-scrollbar-current-custom &#123;
-                    border: 2px solid red !important;
-                    background-color: darkgreen;
-                    padding: 10px !important;
-                    border-radius: 50%;
-                &#125;<br/>
-                /* <br/>
-                  Important note: When using swiper buttons we should use shadow DOM styling <br/>
-                  (injectStyles or injectStylesUrls) to ensure styles are applied correctly, <br/>
-                  as swiper buttons are rendered inside the shadow DOM of the swiper element.<br/>
-                  If using custom scrollbar buttons outside of swiper element, we can <br/>
-                  use regular CSS styling without the need for shadow DOM styling. <br/>
-                */<br/>
-              </code>
             }
             `,
       props: {

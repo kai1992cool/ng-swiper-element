@@ -158,11 +158,11 @@ export const hashNavigationSharedMeta: Meta = {
         // Events
         hashChange: (eventData: unknown) => {
           console.log('Template intercepted event (hashChange):', eventData);
-          alert('Template intercepted event (hashChange): ' + JSON.stringify(eventData));
+          alert('Template intercepted event (hashChange): ' + eventData);
         },
         hashSet: (eventData: unknown) => {
           console.log('Template intercepted event (hashSet):', eventData);
-          alert('Template intercepted event (hashSet): ' + JSON.stringify(eventData));
+          alert('Template intercepted event (hashSet): ' + eventData);
         },
       },
     };

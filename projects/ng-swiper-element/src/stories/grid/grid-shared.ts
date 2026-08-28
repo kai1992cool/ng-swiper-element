@@ -14,6 +14,7 @@ import {
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
+import { Grid } from 'swiper/modules';
 
 const args: any = {};
 
@@ -63,9 +64,6 @@ export const gridSharedMeta: Meta = {
     const storyName = metadata?.parameters?.storyName || '';
     const description = metadata?.parameters?.docs?.description?.story || '';
     const numberOfSlides = metadata?.parameters?.numberOfSlides || 12;
-    const isVertical = metadata?.parameters?.isVertical || false;
-    const direction = isVertical ? 'vertical' : 'horizontal';
-    const showCustomNavButtons = !!metadata?.parameters?.showCustomNavButtons;
 
     // Build grid config object from args
     const gridConfig: any = {};
@@ -78,24 +76,16 @@ export const gridSharedMeta: Meta = {
     return {
       template: `
         <style>
-          ::ng-deep ng-swiper-element {
+          ::ng-deep swiper-container {
             height: 400px;
           }
           ::ng-deep .swiper-slide {
-            height: calc((100% - 30px) / 2) !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 6px;
-            color: white;
-            font-size: 16px;
+            height: 100% !important;
           }
         </style>
         <ng-swiper-element 
+            [modules]="modules"
             [grid]="gridConfig"
-            [direction]="direction"
             [slidesPerView]="3"
             [spaceBetween]="30"
             [injectStylesUrls]="injectStylesUrls"
@@ -112,13 +102,12 @@ export const gridSharedMeta: Meta = {
         </ng-swiper-element>
       `,
       props: {
+        modules: [Grid],
         storyName,
         description,
         gridConfig,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
-        showElements: showCustomNavButtons,
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
-        direction,
       },
     };
   },

@@ -129,19 +129,26 @@ export const manipulationSharedMeta: Meta = {
           <button 
             class="btn-ng" 
             [class.btn-highlight]="activeMethod === 'addSlide'" 
+            (click)="addSlideAt(swiperElement, 0)">
+            + Add Slide at Index 0
+          </button>
+
+          <button 
+            class="btn-ng" 
+            [class.btn-highlight]="activeMethod === 'addSlide'" 
             (click)="addSlideAt(swiperElement, 1)">
             + Add Slide at Index 1
           </button>
 
           <button 
-            class="btn-ng btn-danger" 
+            class="btn-ng" 
             [class.btn-highlight]="activeMethod === 'removeSlide'" 
             (click)="removeSlideAt(swiperElement, 0)">
             - Remove First Slide
           </button>
 
           <button 
-            class="btn-ng btn-danger" 
+            class="btn-ng" 
             [class.btn-highlight]="activeMethod === 'removeAllSlides'" 
             (click)="removeAllSlides(swiperElement)">
             - Remove All Slides
@@ -187,8 +194,10 @@ export const manipulationSharedMeta: Meta = {
         addSlideAt: function(swiperElement: any, index: number) {
           const swiper = swiperElement.swiperInstance;
           if (swiper) {
-            const newSlide = `<div class="swiper-slide">Slide ${(this as any).slideCounter++}</div>`;
-            swiper.addSlide(index, newSlide);
+            const div = document.createElement('div');
+            div.classList.add('swiper-slide');
+            div.textContent = `Slide ${(this as any).slideCounter++}`;
+            swiper.addSlide(index, [div]);
           }
         },
         removeSlideAt: function(swiperElement: any, index: number) {

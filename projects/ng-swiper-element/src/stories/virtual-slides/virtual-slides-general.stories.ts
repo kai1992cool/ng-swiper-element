@@ -60,6 +60,74 @@ export const CachedVirtualSlides: Story = {
   },
 };
 
+export const CustomSlidesString: Story = {
+  args: {
+    enabled: true,
+    slides: Array.from({ length: 100 }, (_, i) => `Slide ${i + 1}`),
+  } as any,
+  parameters: {
+    totalSlides: 100,
+    storyName: 'String Slides',
+    controls: { include: ['enabled', 'slides'] },
+    docs: {
+      description: {
+        story: 'Array of string slides - simplest form of slide data where each slide is just a text string.',
+      },
+    },
+  },
+};
+
+export const CustomSlidesHtml: Story = {
+  args: {
+    enabled: true,
+    slides: Array.from({ length: 100 }, (_, i) =>
+      `<div class="swiper-slide" style="display: flex; gap:10px;flex-direction:column;"><h3>Slide ${i + 1}</h3><p>HTML Content</p></div>`
+    ),
+  } as any,
+  parameters: {
+    totalSlides: 100,
+    storyName: 'HTML Slides',
+    controls: { include: ['enabled', 'slides'] },
+    docs: {
+      description: {
+        story: 'Array of HTML string slides - more complex slide data with HTML content structure.',
+      },
+    },
+  },
+};
+
+export const CustomSlidesObject: Story = {
+  args: {
+    enabled: true,
+    slides: Array.from({ length: 100 }, (_, i) => ({
+      id: i,
+      title: `Slide ${i + 1}`,
+      image: `https://placehold.co/600x400?text=Slide+${i + 1}`,
+      description: `Description for slide ${i + 1}`
+    })),
+    renderSlide: (slide: any, index: number) => {
+      return `
+        <div class="swiper-slide" style="display:flex; align-items:center; justify-content:center;">
+          <div style="text-align:center;">
+            <img src="${slide.image}" style="max-width:100%; display:block; margin:0 auto 10px;" />
+            <strong>${slide.title}</strong>
+            <p>${slide.description}</p>
+          </div>
+        </div>
+      `;
+    }
+  } as any,
+  parameters: {
+    storyName: 'Object Slides',
+    controls: { include: ['enabled', 'slides', 'renderSlide'] },
+    docs: {
+      description: {
+        story: 'Array of object slides - best for complex slide data with multiple properties that need to be rendered.',
+      },
+    },
+  },
+};
+
 export const RenderExternalFunction: Story = {
   args: {
     enabled: true,
@@ -145,27 +213,22 @@ export const RenderSlideFunction: Story = {
   },
 };
 
-export const CustomSlidesArray: Story = {
-  args: {
-    enabled: true,
-    slides: Array.from({ length: 1000 }, (_, i) => `Slide ${i + 1}`),
-  } as any,
-  parameters: {
-    storyName: 'Custom Slides Array - slides',
-    controls: { include: ['enabled', 'slides'] },
-    docs: {
-      description: {
-        story: 'Array with slides',
-      },
-    },
-  },
-};
-
 export const SlidesPerViewAutoSlideSize: Story = {
   args: {
     enabled: true,
     slidesPerView: 'auto',
-    slidesPerViewAutoSlideSize: 200,
+    slides: Array.from({ length: 1000 }, (_, i) => `Slide ${i + 1}`),
+
+    // CRITICAL: Define the fixed width Swiper should assume for calculations
+    slidesPerViewAutoSlideSize: 320,
+
+    renderSlide: (slide: any, index: number) => {
+      return `
+        <div class="swiper-slide">
+          ${slide}
+        </div>
+      `;
+    }
   } as any,
   parameters: {
     totalSlides: 50,

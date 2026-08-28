@@ -92,6 +92,7 @@ export const mousewheelSharedMeta: Meta = {
     const numberOfSlides = metadata?.parameters?.numberOfSlides || 6;
     const propAndMethodsDemo = !!metadata?.parameters?.propAndMethodsDemo;
     const eventsShowcase = !!metadata?.parameters?.eventsShowcase;
+    const noMousewheelClass = !!metadata?.parameters?.noMousewheelClass;
 
     // Build mousewheel config object from args
     const mousewheelConfig: any = {};
@@ -119,6 +120,9 @@ export const mousewheelSharedMeta: Meta = {
             cursor: pointer;
             font-weight: 500;
           }
+          .swiper-no-mousewheel {
+            position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); text-align: center; background: rgba(0,0,0,0.5); padding: 4px 8px; border-radius: 4px;color: white;
+          }
           ::ng-deep ng-swiper-element {
             height: 250px;
           }
@@ -137,16 +141,20 @@ export const mousewheelSharedMeta: Meta = {
             font-size: 13px;
             margin-top: 8px;
           }
+          ::ng-deep body {
+            border: 1px dashed #ccc !important;
+            height: 200vh !important;
+          }
         </style>
 
         @if(propAndMethodsDemo) {
           <h3>Mousewheel Control Properties & Methods Demo</h3>
+          <br/>
           <div class="btn-group">
             <button class="btn-ng" (click)="enableMousewheel(swiperElement)">Enable Mousewheel - swiper.mousewheel.enable()</button>
             <button class="btn-ng" (click)="disableMousewheel(swiperElement)">Disable Mousewheel - swiper.mousewheel.disable()</button>
             <button class="btn-ng" (click)="checkMousewheelStatus(swiperElement)">Check Enabled Property - swiper.mousewheel.enabled</button>
           </div>
-          <br/>
         }
 
         <p class="scroll-hint">💡 Tip: Hover over the slider area and scroll your mouse wheel / touchpad to test slide transitions.</p>
@@ -155,12 +163,14 @@ export const mousewheelSharedMeta: Meta = {
             [mousewheel]="mousewheelConfig"
             [injectStylesUrls]="injectStylesUrls"
             #swiperElement="ngSwiperElement"
-            ${
-              eventsShowcase ? `(scroll)="scroll($event)"` : ''
-            }>  
+            ${eventsShowcase ? `(scroll)="scroll($event)"` : ''
+        }>  
             @for(slide of slides; track $index) {
               <ng-template ngSwiperSlide>
                   <div class="swiper-slide">Slide {{slide}}</div>
+                  @if(noMousewheelClass) {
+                    <div class="swiper-no-mousewheel">Hovering here will not trigger mousewheel navigation.</div>
+                  }
               </ng-template>
             }
             <div class="swiper-button-prev"></div>
@@ -173,6 +183,7 @@ export const mousewheelSharedMeta: Meta = {
         eventsShowcase,
         propAndMethodsDemo,
         mousewheelConfig,
+        noMousewheelClass,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
 

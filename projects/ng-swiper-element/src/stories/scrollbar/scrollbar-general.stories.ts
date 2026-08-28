@@ -95,10 +95,12 @@ export const ScrollbarCustomElement: Story = {
   args: {
     enabled: true,
     el: '.custom-scrollbar',
+    draggable: true,
+    snapOnRelease: true,
   } as any,
   parameters: {
     storyName: 'Scrollbar Custom Element - Scrollbar.el',
-    controls: { include: ['el', 'enabled'] }, 
+    controls: { include: ['el', 'enabled', 'draggable', 'snapOnRelease'] }, 
     docs: {
       description: {
         story: 'String with CSS selector or HTML element of the container with scrollbar.',

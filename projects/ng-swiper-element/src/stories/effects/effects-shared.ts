@@ -121,6 +121,14 @@ export const creativeEffectArgTypes = {
     control: 'boolean',
     description: 'Enables shadow progress calculation.',
   },
+  progressMultiplier: {
+    control: 'number',
+    description: 'Allows to multiply slides transformations and opacity.',
+  },
+  perspective: {
+    control: 'boolean',
+    description: 'Enable this parameter if your custom transforms require 3D transformations (translateZ, rotateX, rotateY).',
+  },
 } as any;
 
 export const effectsSharedMeta: Meta = {
@@ -154,7 +162,8 @@ export const effectsSharedMeta: Meta = {
     const numberOfSlides = metadata?.parameters?.numberOfSlides || 5;
     const effect = metadata?.parameters?.effect || 'slide';
     const effectConfigKey = metadata?.parameters?.effectConfigKey;
-    
+    const slidesPerView = metadata?.parameters?.slidesPerView;
+
     // Extract parameters for current effect
     const effectConfig: any = {};
     if (effectConfigKey && metadata?.parameters?.argTypes) {
@@ -180,9 +189,10 @@ export const effectsSharedMeta: Meta = {
       template: `
         <style>
           ::ng-deep ng-swiper-element {
-            width: ${effect === 'cube' || effect === 'cards' || effect === 'flip' ? '300px' : '100%'};
+            width: ${effect === 'cards' || effect === 'flip' || effect === 'cube' ? '300px' : '100%'}; 
             height: 300px;
             margin: 0 auto;
+            display: block;
           }
           ::ng-deep .swiper-slide {
             display: flex;
@@ -194,19 +204,41 @@ export const effectsSharedMeta: Meta = {
             color: white;
             font-size: 22px;
             font-weight: bold;
+            height: 300px;
+            width: 300px;
+          }
+
+          ::ng-deep swiper-slide {
+            backface-visibility: hidden;
+            height: 100%;
+            pointer-events: none;
+            transform-origin: 0px 0px;
+            width: 100%;
+            z-index: 1;
+          }
+
+          ::ng-deep swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
           }
         </style>
         <ng-swiper-element 
-            [effect]="'${effect}'"
+            [effect]="effect"
             [grabCursor]="true"
-            [slidesPerView]="${effect === 'coverflow' ? 3 : 1}"
+            [navigation]="true"
+            [pagination]="true"
+            [slidesPerView]="${slidesPerView || (effect === 'coverflow' ? 3 : 1)}"
             [centeredSlides]="${effect === 'coverflow'}"
             [${effectConfigKey}]="effectConfig"
             [injectStylesUrls]="injectStylesUrls"
             #swiperElement="ngSwiperElement">  
-            @for(slide of slides; track $index) {
+            @for(slide of slides;let i = $index; track i) {
               <ng-template ngSwiperSlide>
-                  <div class="swiper-slide">Slide {{slide}}</div>
+              <div class="swiper-slide">
+                  <img src="https://swiperjs.com/demos/images/abstract-{{i + 1}}.jpg" />
+              </div>
               </ng-template>
             }
             <div class="swiper-button-prev"></div>
@@ -214,8 +246,11 @@ export const effectsSharedMeta: Meta = {
         </ng-swiper-element>
       `,
       props: {
+        effect,
+        slidesPerView,
         storyName,
         description,
+        effectConfigKey,
         effectConfig,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),

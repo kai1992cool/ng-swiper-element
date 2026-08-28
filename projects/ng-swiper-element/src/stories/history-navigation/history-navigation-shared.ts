@@ -22,17 +22,25 @@ swiperEvents.forEach((eventName: string) => {
 });
 
 export const historyNavigationArgTypes = {
+  enabled: {
+    control: 'boolean',
+    description: 'Set to true to enable history navigation.',
+  },
   key: {
     control: 'text',
     description: 'Url key for slides (e.g. "slides"). Will produce "slides/slide1" in browser history.',
   },
+  keepQuery: {
+    control: 'boolean',
+    description: 'When enabled, query parameters will be preserved when changing browser url.',
+  },
   replaceState: {
     control: 'boolean',
-    description: 'Designed to replace current state in browser history instead of adding a new state.',
+    description: 'Works in addition to hashnav or history to replace current url state with the new one instead of adding it to history.',
   },
   root: {
     control: 'text',
-    description: 'Url root path for history navigation.',
+    description: 'Swiper page root, useful to specify when you use Swiper history mode not on root website page. For example can be https://my-website.com/ or https://my-website.com/subpage/ or /subpage/.',
   },
 } as any;
 
@@ -126,7 +134,7 @@ export const historyNavigationSharedMeta: Meta = {
               <ng-template ngSwiperSlide [dataHistory]="slidePaths[$index]">
                   <div class="swiper-slide">
                     <div>Slide {{slide}}</div>
-                    <small style="font-size: 13px; opacity: 0.8; margin-top: 6px;">Path: {{historyConfig.key || 'slides'}}//{{slidePaths[$index]}}</small>
+                    <small style="font-size: 13px; opacity: 0.8; margin-top: 6px;">Path: {{ historyConfig.root || '' }}/{{historyConfig.key || 'slides'}}/{{slidePaths[$index]}}</small>
                   </div>
               </ng-template>
             }

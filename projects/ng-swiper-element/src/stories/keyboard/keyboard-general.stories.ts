@@ -55,3 +55,19 @@ export const PageUpDown: Story = {
     },
   },
 };
+
+export const KeyboardNavigationSpeed: Story = {
+  args: {
+    enabled: true,
+    speed: 1000,
+  } as any,
+  parameters: {
+    storyName: 'Navigation Speed - keyboard.speed',
+    controls: { include: ['enabled', 'speed'] }, 
+    docs: {
+      description: {
+        story: 'Set the speed of keyboard navigation transitions (in ms).',
+      },
+    },
+  },
+};
