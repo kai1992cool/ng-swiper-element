@@ -10,7 +10,9 @@
     "compodoc": "npx compodoc -p /projects/ng-swiper-element/.storybook/tsconfig.doc.json -s",
     "storybook": "ng run ng-swiper-element:storybook",
     "serve:ssr:ng-swiper-element-demo": "node dist/ng-swiper-element-demo/server/server.mjs",
-    "build-storybook": "ng run ng-swiper-element:build-storybook"
+    "build-storybook": "ng run ng-swiper-element:build-storybook",
+    "patch": "npm version patch --depth 9999 && cd projects/ng-swiper-element && npm version patch --depth 9999 && git add z, . && git commit -m \"Patch version increased\" && cd ../..",
+    "publish": "npm run build && cp README.md LICENSE dist/ng-swiper-element && cd dist/ng-swiper-element && npm publish"
   },
   "private": true,
   "dependencies": {
