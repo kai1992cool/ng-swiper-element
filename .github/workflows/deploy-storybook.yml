@@ -1,19 +1,51 @@
 name: Deploy Storybook to GitHub Pages
 
 on:
+  push:
+    branches:
+      - release/angular-21
+      - release/angular-20
+      - release/angular-19
+      - release/angular-18
+      - release/angular-17
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Determine Angular version
+        id: version
+        shell: bash
+        run: |
+          case "$GITHUB_REF_NAME" in
+            release/angular-17) version=17 ;;
+            release/angular-18) version=18 ;;
+            release/angular-19) version=19 ;;
+            release/angular-20) version=20 ;;
+            release/angular-21) version=21 ;;
+            *)
+              echo "Unsupported deployment branch: $GITHUB_REF_NAME" >&2
+              exit 1
+              ;;
+          esac
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '20'
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -21,8 +53,19 @@ jobs:
       - name: Build Storybook
         run: npm run build-storybook
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy this version to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./storybook-static
+          publish_branch: gh-pages
+          destination_dir: v${{ steps.version.outputs.version }}
+          keep_files: true
+
+      - name: Deploy version selector
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./.github/pages
+          publish_branch: gh-pages
+          keep_files: true

@@ -54,6 +54,14 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Storybook on GitHub Pages
+
+The `Deploy Storybook to GitHub Pages` workflow builds Storybook from each supported release branch and deploys it to the matching version directory on `gh-pages`. `main` is intentionally not deployed:
+
+- `release/angular-21` through `release/angular-17` → `/v21/` through `/v17/`
+
+The root page provides a version selector and is updated by release-branch deployments. Configure GitHub Pages to deploy from the `gh-pages` branch, then visit `https://<username>.github.io/ng-swiper-element/`.
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
