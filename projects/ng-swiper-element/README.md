@@ -30,16 +30,16 @@ npm install ng-swiper-element swiper
 * **The `init` is exposed as `initEmitter`, not init.**
 * **The `autoplay` event is exposed as `autoplayEvent`, not autoplay.**
 
-## Angular version examples
+## Angular version examples & Documentation
 
 StackBlitz examples will be added as each Angular version's rollout is published.
 
-| Angular version | Standalone example | NgModule example |
-| --------------- | ------------------ | ---------------- |
-| Angular 19      | Coming soon        | Coming soon      |
-| Angular 20      | Coming soon        | Coming soon      |
-| Angular 21      | Coming soon        | Coming soon      |
-| Angular 22      | Coming soon        | Coming soon      |
+| Angular version | Standalone example | NgModule example | Documentation |
+| --------------- | ------------------ | ---------------- | ------------- |
+| Angular 19      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v19/) |
+| Angular 20      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v20/) |
+| Angular 21      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v21/) |
+| Angular 22      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v22/) |
 
 ## Setup
 

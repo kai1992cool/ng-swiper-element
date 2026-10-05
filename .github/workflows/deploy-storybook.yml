@@ -3,6 +3,7 @@ name: Deploy Storybook to GitHub Pages
 on:
   push:
     branches:
+      - release/angular-22
       - release/angular-21
       - release/angular-20
       - release/angular-19
@@ -34,6 +35,7 @@ jobs:
             release/angular-19) version=19; node_version=20.19 ;;
             release/angular-20) version=20; node_version=22.22 ;;
             release/angular-21) version=21; node_version=22.22 ;;
+            release/angular-22) version=22; node_version=22.22 ;;
             *)
               echo "Unsupported deployment branch: $GITHUB_REF_NAME" >&2
               exit 1
