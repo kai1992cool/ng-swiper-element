@@ -16,7 +16,7 @@ export const DefaultAccessibility: Story = {
   } as any,
   parameters: {
     storyName: 'Default Accessibility - a11y.enabled',
-    controls: { include: ['enabled', 'containerMessage'] }, 
+    controls: { include: ['enabled', 'containerMessage'] },
     docs: {
       description: {
         story: 'Enables default screen reader accessibility labels and ARIA attribute management across slides and controls.',
@@ -35,60 +35,10 @@ export const CustomNavigationMessages: Story = {
   } as any,
   parameters: {
     storyName: 'Custom Navigation Messages',
-    controls: { include: ['enabled', 'prevSlideMessage', 'nextSlideMessage', 'firstSlideMessage', 'lastSlideMessage'] }, 
+    controls: { include: ['enabled', 'prevSlideMessage', 'nextSlideMessage', 'firstSlideMessage', 'lastSlideMessage'] },
     docs: {
       description: {
         story: 'Configures custom screen reader announcements for navigation buttons and boundary edges.',
-      },
-    },
-  },
-};
-
-export const CustomPaginationAndSlideLabels: Story = {
-  args: {
-    enabled: true,
-    paginationBulletMessage: 'Jump to slide item {{index}}',
-    slideLabelMessage: 'Item {{index}} of {{slidesLength}}',
-    containerMessage: 'Featured product carousel',
-  } as any,
-  parameters: {
-    storyName: 'Custom Pagination & Slide Labels',
-    controls: { include: ['enabled', 'paginationBulletMessage', 'slideLabelMessage', 'containerMessage'] },
-    docs: {
-      description: {
-        story: 'Customizes pagination bullet descriptions and slide role announcement formats.',
-      },
-    },
-  },
-};
-
-export const CustomNotificationClass: Story = {
-  args: {
-    enabled: true,
-    notificationClass: 'custom-a11y-notification',
-  } as any,
-  parameters: {
-    storyName: 'Custom Notification Class',
-    controls: { include: ['enabled', 'notificationClass'] },
-    docs: {
-      description: {
-        story: 'Sets a custom CSS class for accessibility notifications.',
-      },
-    },
-  },
-};
-
-export const WatchSlidesProgress: Story = {
-  args: {
-    enabled: true,
-    watchSlidesProgress: true,
-  } as any,
-  parameters: {
-    storyName: 'Watch Slides Progress',
-    controls: { include: ['enabled', 'watchSlidesProgress'] },
-    docs: {
-      description: {
-        story: 'Enables real-time updates of accessibility labels when slides are scrolled.',
       },
     },
   },
@@ -125,6 +75,38 @@ export const CustomContainerMessage: Story = {
   },
 };
 
+export const CustomContainerRole: Story = {
+  args: {
+    enabled: true,
+    containerRole: 'region',
+  } as any,
+  parameters: {
+    storyName: 'Custom Container Role',
+    controls: { include: ['enabled', 'containerRole'] },
+    docs: {
+      description: {
+        story: 'Sets a custom role for the main carousel container.',
+      },
+    },
+  },
+};
+
+export const CustomContainerRoleDescriptionMessage: Story = {
+  args: {
+    enabled: true,
+    containerRoleDescriptionMessage: 'Custom carousel for product showcase: region',
+  } as any,
+  parameters: {
+    storyName: 'Custom Container Role Description Message',
+    controls: { include: ['enabled', 'containerRoleDescriptionMessage'] },
+    docs: {
+      description: {
+        story: 'Sets a custom role description message for the main carousel container.',
+      },
+    },
+  },
+};
+
 export const WithIdAttribute: Story = {
   args: {
     enabled: true,
@@ -151,7 +133,39 @@ export const ItemRoleDescriptionMessage: Story = {
     controls: { include: ['enabled', 'itemRoleDescriptionMessage'] },
     docs: {
       description: {
-        story: 'Sets a message for screen readers describing the role of slide elements.',
+        story: 'Message for screen readers describing the role of slide element.',
+      },
+    },
+  },
+};
+
+export const CustomNotificationClass: Story = {
+  args: {
+    enabled: true,
+    notificationClass: 'custom-a11y-notification',
+  } as any,
+  parameters: {
+    storyName: 'Custom Notification Class',
+    controls: { include: ['enabled', 'notificationClass'] },
+    docs: {
+      description: {
+        story: 'CSS class name of A11y notification.',
+      },
+    },
+  },
+};
+
+export const CustomPaginationBulletMessage: Story = {
+  args: {
+    enabled: true,
+    paginationBulletMessage: 'Jump to slide item {{index}}',
+  } as any,
+  parameters: {
+    storyName: 'Custom Pagination',
+    controls: { include: ['enabled', 'paginationBulletMessage'] },
+    docs: {
+      description: {
+        story: 'Message for screen readers for single pagination bullet.',
       },
     },
   },
@@ -173,10 +187,26 @@ export const ScrollOnFocus: Story = {
   },
 };
 
+export const SlideLabelMessage: Story = {
+  args: {
+    enabled: true,
+    slideLabelMessage: 'Custom: #{{index}} / #{{slidesLength}}',
+  } as any,
+  parameters: {
+    storyName: 'Slide Label Message',
+    controls: { include: ['enabled', 'slideLabelMessage'] },
+    docs: {
+      description: {
+        story: 'Message for screen readers describing the label of slide element.',
+      },
+    },
+  },
+};
+
 export const SlideRole: Story = {
   args: {
     enabled: true,
-    slideRole: 'group',
+    slideRole: 'custom-group',
   } as any,
   parameters: {
     storyName: 'Slide Role',
@@ -193,10 +223,11 @@ export const WrapperLiveRegion: Story = {
   args: {
     enabled: true,
     wrapperLiveRegion: true,
+    autoplay: true,
   } as any,
   parameters: {
     storyName: 'Wrapper Live Region',
-    controls: { include: ['enabled', 'wrapperLiveRegion'] },
+    controls: { include: ['enabled', 'wrapperLiveRegion', 'autoplay'] },
     docs: {
       description: {
         story: 'Whether or not the swiper-wrapper should have the aria-live attribute applied to it. If true, the value will be off when autoplay is enabled, otherwise it will be polite.',

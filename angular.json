@@ -28,32 +28,36 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "assets": [
-              {
-                "glob": "**/*.{css,scss,less}",
-                "input": "node_modules/swiper/",
-                "output": "/swiper/css/"
-              }
+              
             ],
-            "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
+            "styles": [
+              "projects/ng-swiper-element/src/styles/styles.css"
+            ],
             "tsConfig": "projects/ng-swiper-element/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         },
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "assets": [
-              {
-                "glob": "**/*.{css,scss,less}",
-                "input": "node_modules/swiper/",
-                "output": "/swiper/css/"
-              }
+              
             ],
-            "styles": ["node_modules/swiper/swiper-bundle.min.css", "projects/ng-swiper-element/src/styles/styles.css"],
+            "styles": [
+              "projects/ng-swiper-element/src/styles/styles.css"
+            ],
             "configDir": "projects/ng-swiper-element/.storybook",
             "browserTarget": "ng-swiper-element:build",
             "compodoc": true,
-            "compodocArgs": ["-e", "json", "-d", "projects/ng-swiper-element"],
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/ng-swiper-element"
+            ],
             "port": 6006
           }
         },
@@ -61,23 +65,25 @@
           "builder": "@storybook/angular:build-storybook",
           "options": {
             "assets": [
-              {
-                "glob": "**/*.{css,scss,less}",
-                "input": "node_modules/swiper/",
-                "output": "/swiper/css/"
-              }
+              
             ],
-            "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
+            "styles": [
+              "projects/ng-swiper-element/src/styles/styles.css"
+            ],
             "configDir": "projects/ng-swiper-element/.storybook",
             "browserTarget": "ng-swiper-element:build",
             "compodoc": true,
-            "compodocArgs": ["-e", "json", "-d", "projects/ng-swiper-element"],
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/ng-swiper-element"
+            ],
             "outputDir": "storybook-static"
           }
         }
       }
     },
-
     "storybook": {
       "projectType": "application",
       "root": "stories",
@@ -87,13 +93,11 @@
           "options": {
             "tsConfig": "tsconfig.json",
             "assets": [
-              {
-                "glob": "/**/*.(css|scss|less)$",
-                "input": "/node_modules/swiper/",
-                "output": "/swiper/css/"
-              }
+              
             ],
-            "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
+            "styles": [
+              "projects/ng-swiper-element/src/styles/styles.css"
+            ],
             "scripts": []
           }
         }

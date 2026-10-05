@@ -9,8 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { fn } from '@storybook/test';
 import {
   NgSwiperSlideDirective,
-  provideSwiper,
-  SwiperElementComponent,
+    SwiperElementComponent,
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
@@ -64,9 +63,6 @@ export const zoomSharedMeta: Meta = {
         NgSwiperButtonDirective,
         FormsModule,
       ],
-    }),
-    applicationConfig({
-      providers: [provideSwiper()],
     }),
     componentWrapperDecorator((story) => `
       <div style="padding: 2em;">

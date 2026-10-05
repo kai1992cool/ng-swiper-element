@@ -28,14 +28,14 @@ export const EnableAutoplay: Story = {
 export const DelayAutoplay: Story = {
   args: {
     enabled: true,
-    delay: 1000,
+    delay: 3000,
   } as any,
   parameters: {
     storyName: 'Delay Autoplay - Autoplay.delay',
     controls: { include: ['enabled', 'delay'] }, 
     docs: {
       description: {
-        story: 'Delay between transitions (in ms). If this parameter is not specified, auto play will be disabled If you need to specify different delay for specific slides you can do it by usingdata-swiper-autoplay (in ms) attribute on slide.',
+        story: 'Delay between transitions (in ms). If this parameter is not specified, auto play will be disabled If you need to specify different delay for specific slides you can do it by using `data-swiper-autoplay` (in ms) attribute on slide.',
       },
     },
   },
@@ -53,7 +53,7 @@ export const DelayAutoplayPerSlide: Story = {
     controls: { include: ['enabled', 'delay'] }, 
     docs: {
       description: {
-        story: 'Delay between transitions (in ms). If this parameter is not specified, auto play will be disabled If you need to specify different delay for specific slides you can do it by usingdata-swiper-autoplay (in ms) attribute on slide.',
+        story: 'Delay between transitions (in ms). If this parameter is not specified, auto play will be disabled If you need to specify different delay for specific slides you can do it by using `data-swiper-autoplay` (in ms) attribute on slide.',
       },
     },
   },

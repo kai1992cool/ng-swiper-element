@@ -8,8 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   NgSwiperSlideDirective,
-  provideSwiper,
-  SwiperElementComponent,
+    SwiperElementComponent,
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
 
@@ -35,9 +34,6 @@ export const lazyLoadingSharedMeta: Meta = {
         NgSwiperButtonDirective,
         FormsModule,
       ],
-    }),
-    applicationConfig({
-      providers: [provideSwiper()],
     }),
     componentWrapperDecorator((story) => `
       <div style="padding: 2em;">

@@ -125,12 +125,7 @@ export class SwiperElementComponent extends SwiperContainerEvents {
    * @ignore
    */
   ngAfterViewInit() {
-    console.log(this.slideCompContentChildren());
-    console.log(this.slidesTemplateContentChildren());
-    console.log(this.slideButtonChildren());
-    console.log(this.swiperButtonContentChildren());
     this.initialize();
-    this.reInitialize();
     this.initializeListeners();
   }
 
@@ -138,9 +133,9 @@ export class SwiperElementComponent extends SwiperContainerEvents {
    * @ignore
    */
   ngOnChanges() {
-    console.log('ngOnChanges called');
-    this.initialize();
-    this.reInitialize();
+    if (this.swiperContainer()) {
+      this.initialize();
+    }
   }
 
   /**
@@ -166,13 +161,17 @@ export class SwiperElementComponent extends SwiperContainerEvents {
     const swiperContainer = this.swiperContainer();
     const swiperEl = swiperContainer?.nativeElement;
     if (swiperEl) {
-      // now we need to assign all parameters to Swiper element
       Object.assign(swiperEl, swiperParams);
-      // and now initialize it
       swiperEl.onAny = this.onAny?.bind(this);
+
+      if (swiperEl.swiper) {
+        swiperEl.swiper.update();
+        return;
+      }
+
       setTimeout(() => {
         swiperEl.initialize();
-      })
+      });
     }
   }
 

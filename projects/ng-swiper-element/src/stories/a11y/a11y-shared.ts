@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   NgSwiperSlideDirective,
-  provideSwiper,
   SwiperElementComponent,
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
@@ -23,9 +22,6 @@ export const a11ySharedMeta: Meta = {
         NgSwiperButtonDirective,
         FormsModule,
       ],
-    }),
-    applicationConfig({
-      providers: [provideSwiper()],
     }),
     componentWrapperDecorator((story) => `
       <div style="padding: 2em;">
@@ -85,6 +81,9 @@ export const a11ySharedMeta: Meta = {
             [a11y]="{
               enabled: enabled,
               containerMessage: containerMessage,
+              containerRoleDescriptionMessage: containerRoleDescriptionMessage,
+              containerRole: containerRole,
+              itemRoleDescriptionMessage: itemRoleDescriptionMessage,
               prevSlideMessage: prevSlideMessage,
               nextSlideMessage: nextSlideMessage,
               firstSlideMessage: firstSlideMessage,
@@ -92,18 +91,12 @@ export const a11ySharedMeta: Meta = {
               paginationBulletMessage: paginationBulletMessage,
               slideLabelMessage: slideLabelMessage,
               notificationClass: notificationClass,
-              watchSlidesProgress: watchSlidesProgress,
-              watchProgress: watchProgress,
-              prevSlideMessage: prevSlideMessage,
-              nextSlideMessage: nextSlideMessage,
-              firstSlideMessage: firstSlideMessage,
-              lastSlideMessage: lastSlideMessage,
-              paginationBulletMessage: paginationBulletMessage,
-              slideLabelMessage: slideLabelMessage,
-              notificationClass: notificationClass,
-              watchSlidesProgress: watchSlidesProgress,
-              watchProgress: watchProgress
+              slideRole: slideRole,
+              id: id,
+              scrollOnFocus: scrollOnFocus,
+              wrapperLiveRegion: wrapperLiveRegion,
             }"
+            [autoplay]="autoplay"
             #swiperElement="ngSwiperElement">
             @for(imgUrl of images; track $index) {
               <ng-template ngSwiperSlide>
@@ -119,7 +112,10 @@ export const a11ySharedMeta: Meta = {
         storyName,
         description,
         enabled: args.enabled ?? true,
-        containerMessage: args.containerMessage || 'Featured product carousel',
+        containerMessage: args.containerMessage || 'Default Featured product carousel',
+        containerRole: args.containerRole || 'default region',
+        containerRoleDescriptionMessage: args.containerRoleDescriptionMessage || 'default Container Role Description Message',
+        itemRoleDescriptionMessage: args.itemRoleDescriptionMessage || 'default Item Role Description Message',
         prevSlideMessage: args.prevSlideMessage || 'Previous slide',
         nextSlideMessage: args.nextSlideMessage || 'Next slide',
         firstSlideMessage: args.firstSlideMessage || 'This is the first slide',
@@ -127,10 +123,13 @@ export const a11ySharedMeta: Meta = {
         paginationBulletMessage: args.paginationBulletMessage || 'Go to slide {{index}}',
         slideLabelMessage: args.slideLabelMessage || 'Slide {{index}} of {{slidesLength}}',
         notificationClass: args.notificationClass || 'swiper-notification',
-        watchSlidesProgress: args.watchSlidesProgress ?? false,
-        watchProgress: args.watchProgress ?? false,
+        id: args.id || 'swiper-custom-default-id',
+        slideRole: args.slideRole || 'custom-default-group',
+        scrollOnFocus: args.scrollOnFocus ?? false,
         injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
         images: sampleImages.slice(0, numberOfSlides),
+        wrapperLiveRegion: args.wrapperLiveRegion ?? false,
+        autoplay: args.autoplay ?? false,
       },
     };
   },

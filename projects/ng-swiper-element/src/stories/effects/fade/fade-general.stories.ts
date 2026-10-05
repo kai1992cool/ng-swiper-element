@@ -11,24 +11,6 @@ const meta: Meta = {
 
 export default meta;
 
-// Cross-Fade Property
-export const FadeCrossFade: Story = {
-  args: {
-    crossFade: true,
-  } as any,
-  parameters: {
-    storyName: 'Fade Effect - Cross Fade',
-    effect: 'fade',
-    effectConfigKey: 'fadeEffect',
-    argTypes: fadeEffectArgTypes,
-    controls: { include: ['crossFade'] },
-    docs: {
-      description: {
-        story: 'Enables cross-fade transition between slides.',
-      },
-    },
-  },
-};
 
 // Mode Property
 export const FadeMode: Story = {

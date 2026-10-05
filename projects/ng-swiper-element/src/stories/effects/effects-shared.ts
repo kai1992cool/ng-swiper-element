@@ -9,11 +9,11 @@ import { FormsModule } from '@angular/forms';
 import { fn } from '@storybook/test';
 import {
   NgSwiperSlideDirective,
-  provideSwiper,
   SwiperElementComponent,
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
+import { EffectCards, EffectCoverflow, EffectCreative, EffectCube, EffectFade, EffectFlip } from 'swiper/modules';
 
 const args: any = {};
 
@@ -26,6 +26,11 @@ export const fadeEffectArgTypes = {
     control: 'boolean',
     description: 'Enables cross-fade effect. Set to true to transition opacity of both previous and current slide simultaneously.',
   },
+  mode: {
+    control: 'radio',
+    options: ['default', 'cross-fade', 'out-in'],
+    description: 'Fade transition mode: `default` - only the currently active slide fades out, while the new slide is fully visible beneath it, `cross-fade` - both slides fade simultaneously, `out-in` - the current slide fades out completely before the new slide starts fading in',
+  }
 } as any;
 
 export const coverflowEffectArgTypes = {
@@ -143,9 +148,6 @@ export const effectsSharedMeta: Meta = {
         FormsModule,
       ],
     }),
-    applicationConfig({
-      providers: [provideSwiper()],
-    }),
     componentWrapperDecorator((story) => `
       <div style="padding: 2em;">
         <div style="margin-bottom: 20px; padding: 16px; background: transparent; border-radius: 4px;">
@@ -163,6 +165,15 @@ export const effectsSharedMeta: Meta = {
     const effect = metadata?.parameters?.effect || 'slide';
     const effectConfigKey = metadata?.parameters?.effectConfigKey;
     const slidesPerView = metadata?.parameters?.slidesPerView;
+    const effectStylesByName: Record<string, string[]> = {
+      slide: ['node_modules/swiper/swiper-bundle.min.css'],
+      fade: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-fade-element.min.css'],
+      cube: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-cube-element.min.css'],
+      coverflow: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-coverflow-element.min.css'],
+      flip: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-flip-element.min.css'],
+      creative: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-creative-element.min.css'],
+      cards: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-cards-element.min.css'],
+    };
 
     // Extract parameters for current effect
     const effectConfig: any = {};
@@ -208,15 +219,6 @@ export const effectsSharedMeta: Meta = {
             width: 300px;
           }
 
-          ::ng-deep swiper-slide {
-            backface-visibility: hidden;
-            height: 100%;
-            pointer-events: none;
-            transform-origin: 0px 0px;
-            width: 100%;
-            z-index: 1;
-          }
-
           ::ng-deep swiper-slide img {
             display: block;
             width: 100%;
@@ -246,13 +248,14 @@ export const effectsSharedMeta: Meta = {
         </ng-swiper-element>
       `,
       props: {
+        modules: [EffectFade, EffectCards, EffectFlip, EffectCube, EffectCreative, EffectCoverflow],
         effect,
         slidesPerView,
         storyName,
         description,
         effectConfigKey,
         effectConfig,
-        injectStylesUrls: ['/swiper/css/swiper-bundle.css'],
+        injectStylesUrls: effectStylesByName[effect] || (effectStylesByName as any).slide,
         slides: Array.from({ length: numberOfSlides }, (_, i) => i + 1),
       },
     };

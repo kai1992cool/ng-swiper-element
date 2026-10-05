@@ -9,3 +9,9 @@ export const provideSwiper = (): EnvironmentProviders => {
     }
     return makeEnvironmentProviders([]);
 }
+
+export const enableSwiper = (): void => {
+    if (typeof window !== 'undefined') {
+        register();
+    }
+}

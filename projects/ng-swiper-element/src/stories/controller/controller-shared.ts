@@ -9,8 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { fn } from '@storybook/test';
 import {
   NgSwiperSlideDirective,
-  provideSwiper,
-  SwiperElementComponent,
+    SwiperElementComponent,
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
@@ -44,9 +43,6 @@ export const controllerSharedMeta: Meta = {
         NgSwiperButtonDirective,
         FormsModule,
       ],
-    }),
-    applicationConfig({
-      providers: [provideSwiper()],
     }),
     componentWrapperDecorator((story) => `
       <div style="padding: 2em;">
@@ -150,7 +146,7 @@ export const controllerSharedMeta: Meta = {
             <div class="swiper-button-next"></div>
         </ng-swiper-element>
 
-        <div class="slider-label">🎯 Controlled Swiper (Target)</div>
+        <div class="slider-label" style="margin-top: 60px;">🎯 Controlled Swiper (Target)</div>
         <ng-swiper-element 
             id="controlledSwiper"
             [injectStylesUrls]="injectStylesUrls"

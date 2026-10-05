@@ -10,8 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { fn } from '@storybook/test';
 import {
   NgSwiperSlideDirective,
-  provideSwiper,
-  SwiperElementComponent,
+    SwiperElementComponent,
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
@@ -64,9 +63,6 @@ export const autoplaySharedMeta: Meta = {
         FormsModule
       ],
     }),
-    applicationConfig({
-      providers: [provideSwiper()],
-    }),
     componentWrapperDecorator((story) => `
       <div style="padding: 2em;">
         <div style="margin-bottom: 20px; padding: 16px; background: transparent; border-radius: 4px;">
@@ -110,7 +106,6 @@ export const autoplaySharedMeta: Meta = {
                 ${
                   eventsShowcase ? 
                   `
-                    (autoplayEvent)="autoplayEvent($event)"
                     (autoplayPause)="autoplayPause($event)"
                     (autoplayResume)="autoplayResume($event)"
                     (autoplayStart)="autoplayStart($event)"
@@ -268,10 +263,6 @@ export const autoplaySharedMeta: Meta = {
         classStory,
         propAndMethodsDemo,
         eventsShowcase,
-        autoplayEvent: (eventData: unknown) => {
-          console.log('Template intercepted event (autoplayEvent):', eventData);
-          // alert('autoplayEvent Triggered');
-        },
         autoplayPause: (eventData: unknown) => {
           console.log('Template intercepted event (autoplayPause):', eventData);
           // alert('autoplay Paused');

@@ -1,1 +1,4 @@
 autoplayEvent is set because autoplay is reserved for input.
+orientationchange is set to orientationChange as the event.
+init is exposed as initEmitter, not init.
+autoplay is exposed as autoplayEvent, not autoplay.
