@@ -1,5 +1,4 @@
 import {
-  applicationConfig,
   componentWrapperDecorator,
   moduleMetadata,
   type Meta,

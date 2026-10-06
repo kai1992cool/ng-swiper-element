@@ -6,14 +6,8 @@ const config: StorybookConfig = {
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
   "addons": [
-    {
-      "name": "@storybook/addon-essentials",
-      "options": {
-        "docs": false
-      }
-    },
-    "@storybook/addon-onboarding",
-    "@storybook/addon-interactions"
+    "@storybook/addon-docs",
+    "@storybook/addon-onboarding"
   ],
   "framework": {
     "name": "@storybook/angular",

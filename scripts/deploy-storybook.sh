@@ -9,16 +9,11 @@ die() {
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 repo_root="$(git -C "$script_dir" rev-parse --show-toplevel)" ||
   die "Could not locate the Git repository."
-branch="$(git -C "$repo_root" branch --show-current)"
+version="${1:-}"
 
-case "$branch" in
-  release/angular-17) version=17; expected_node='v20.19.' ;;
-  release/angular-18) version=18; expected_node='v20.19.' ;;
-  release/angular-19) version=19; expected_node='v20.19.' ;;
-  release/angular-20) version=20; expected_node='v22.22.' ;;
-  release/angular-21) version=21; expected_node='v22.22.' ;;
-  release/angular-22) version=22; expected_node='v22.22.' ;;
-  *) die "Unsupported deployment branch: ${branch:-detached HEAD}" ;;
+case "$version" in
+  18|19|20|21|22) ;;
+  *) die "Usage: $0 <angular-version: 18|19|20|21|22>" ;;
 esac
 
 for command_name in git node npm; do
@@ -27,8 +22,8 @@ for command_name in git node npm; do
 done
 
 node_version="$(node --version)"
-[[ "$node_version" == "$expected_node"* ]] ||
-  die "Branch $branch requires Node.js ${expected_node#v}x (workflow uses $expected_node*); found $node_version."
+node -e "const [major, minor, patch] = process.versions.node.split('.').map(Number); process.exit(major === 22 && (minor > 22 || (minor === 22 && patch >= 3)) ? 0 : 1)" ||
+  die "Deployment requires Node.js 22.x (Angular 22 needs at least 22.22.3); found $node_version."
 
 git -C "$repo_root" remote get-url origin >/dev/null 2>&1 ||
   die "A Git remote named 'origin' is required for deployment."
@@ -36,7 +31,8 @@ git -C "$repo_root" remote get-url origin >/dev/null 2>&1 ||
 printf 'Installing dependencies...\n'
 (
   cd "$repo_root"
-  npm ci
+  node scripts/use-angular-version.mjs "$version"
+  npm install --no-package-lock
   npx ng build ng-swiper-element
   npm run build-storybook
 )
