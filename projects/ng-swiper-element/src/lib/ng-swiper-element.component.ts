@@ -48,6 +48,7 @@ export type BreakPointsType = {
   `,
   exportAs: 'ngSwiperElement',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  standalone: true,
 })
 export class SwiperElementComponent extends SwiperContainerEvents {
   swiperClasses = input<string | undefined>(undefined);

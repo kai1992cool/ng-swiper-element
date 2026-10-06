@@ -70,6 +70,7 @@ import {
 @Component({
   selector: 'app-carousel',
   imports: [SwiperElementComponent, NgSwiperSlideDirective],
+  standalone: true,
   template: `
     <ng-swiper-element
       [swiperOptions]="swiperOptions"
