@@ -10,7 +10,11 @@ const config: StorybookConfig = {
   ],
   "framework": {
     "name": "@storybook/angular",
-    "options": {}
+    options: {
+      angularBuilderOptions: {
+        experimentalZoneless: true,
+      },
+    },
   },
   // 👇 Add this configuration to change the main document title
   managerHead: (head) => `
