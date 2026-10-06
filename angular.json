@@ -40,7 +40,11 @@
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "assets": [
-              
+              {
+                "glob": "**/**/*.min.css",
+                "input": "node_modules/swiper",
+                "output": "/swiper/css"
+              }
             ],
             "styles": [
               "projects/ng-swiper-element/src/styles/styles.css"
@@ -61,7 +65,11 @@
           "builder": "@storybook/angular:build-storybook",
           "options": {
             "assets": [
-              
+              {
+                "glob": "**/**/*.min.css",
+                "input": "node_modules/swiper",
+                "output": "/swiper/css"
+              }
             ],
             "styles": [
               "projects/ng-swiper-element/src/styles/styles.css"

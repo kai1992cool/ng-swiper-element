@@ -166,13 +166,13 @@ export const effectsSharedMeta: Meta = {
     const effectConfigKey = metadata?.parameters?.effectConfigKey;
     const slidesPerView = metadata?.parameters?.slidesPerView;
     const effectStylesByName: Record<string, string[]> = {
-      slide: ['node_modules/swiper/swiper-bundle.min.css'],
-      fade: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-fade-element.min.css'],
-      cube: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-cube-element.min.css'],
-      coverflow: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-coverflow-element.min.css'],
-      flip: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-flip-element.min.css'],
-      creative: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-creative-element.min.css'],
-      cards: ['node_modules/swiper/swiper-bundle.min.css', 'node_modules/swiper/modules/effect-cards-element.min.css'],
+      slide: ['/swiper/css/swiper-bundle.min.css'],
+      fade: ['/swiper/css/swiper-bundle.min.css', '/swiper/css/modules/effect-fade-element.min.css'],
+      cube: ['/swiper/css/swiper-bundle.min.css', '/swiper/css/modules/effect-cube-element.min.css'],
+      coverflow: ['/swiper/css/swiper-bundle.min.css', '/swiper/css/modules/effect-coverflow-element.min.css'],
+      flip: ['/swiper/css/swiper-bundle.min.css', '/swiper/css/modules/effect-flip-element.min.css'],
+      creative: ['/swiper/css/swiper-bundle.min.css', '/swiper/css/modules/effect-creative-element.min.css'],
+      cards: ['/swiper/css/swiper-bundle.min.css', '/swiper/css/modules/effect-cards-element.min.css'],
     };
 
     // Extract parameters for current effect
