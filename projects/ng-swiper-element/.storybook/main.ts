@@ -7,7 +7,6 @@ const config: StorybookConfig = {
   ],
   "addons": [
     "@storybook/addon-docs",
-    "@storybook/addon-onboarding"
   ],
   "framework": {
     "name": "@storybook/angular",
@@ -20,5 +19,8 @@ const config: StorybookConfig = {
       document.title = 'NG Swiper Element';
     </script>
   `,
+  features: {
+    sidebarOnboardingChecklist: false,
+  },
 };
 export default config;

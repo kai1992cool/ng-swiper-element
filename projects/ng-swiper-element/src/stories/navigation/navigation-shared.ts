@@ -6,7 +6,7 @@ import {
   type StoryObj,
 } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import {
   NgSwiperSlideDirective,
     SwiperElementComponent,
