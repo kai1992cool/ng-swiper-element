@@ -33,11 +33,7 @@
             "styles": [
               "projects/ng-swiper-element/src/styles/styles.css"
             ],
-            "tsConfig": "projects/ng-swiper-element/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "tsConfig": "projects/ng-swiper-element/tsconfig.spec.json"
           }
         },
         "storybook": {

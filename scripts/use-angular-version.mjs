@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { copyFile, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const version = process.argv[2];
@@ -24,6 +24,13 @@ const libraryPackagePath = resolve(
   'ng-swiper-element',
   'package.json',
 );
+const storybookPath = resolve(
+  root,
+  'projects',
+  'ng-swiper-element',
+  '.storybook',
+);
+const previewVariant = version === '18' ? '18' : version === '19' ? '19' : '20';
 
 const [packageJson, versionPackage, libraryPackage] = await Promise.all([
   readJson(packagePath),
@@ -54,7 +61,21 @@ if (!tslibVersion) {
 }
 libraryPackage.dependencies.tslib = tslibVersion;
 
+const previewUpdates =
+  Number(version) <= 20
+    ? [
+        copyFile(
+          resolve(
+            storybookPath,
+            `preview-${previewVariant}.${version === '18' ? 'tsbak' : 'ts'}`,
+          ),
+          resolve(storybookPath, 'preview.ts'),
+        ),
+      ]
+    : [];
+
 await Promise.all([
   writeJson(packagePath, packageJson),
   writeJson(libraryPackagePath, libraryPackage),
+  ...previewUpdates,
 ]);
