@@ -42,7 +42,7 @@
     "@angular-devkit/build-angular": "^21.0.0",
     "@angular-devkit/architect": "^0.2100.0",
     "@angular-devkit/core": "^21.0.0",
-    "@angular/platform-browser-dynamic": "^21.0.0",
+    
     "@compodoc/compodoc": "latest"
   }
 }
