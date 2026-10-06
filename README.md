@@ -58,9 +58,17 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 The `Deploy Storybook to GitHub Pages` workflow builds Storybook from each supported release branch and deploys it to the matching version directory on `gh-pages`. `main` is intentionally not deployed:
 
-- `release/angular-21` through `release/angular-17` → `/v21/` through `/v17/`
+- `release/angular-22` through `release/angular-17` → `/v22/` through `/v17/`
 
-The root page provides a version selector and is updated by release-branch deployments. Configure GitHub Pages to deploy from the `gh-pages` branch, then visit `https://<username>.github.io/ng-swiper-element/`.
+The root page provides a navbar with GitHub/npm links and embeds the newest deployed Storybook below the version selector. Versions that have not been deployed are hidden from the selector. Each Storybook is also available directly at `/v<version>/` (for example, `/v19/`). Configure GitHub Pages to deploy from the `gh-pages` branch, then visit `https://<username>.github.io/ng-swiper-element/`.
+
+To run the same build and deployment locally, check out one of the supported release branches and run:
+
+```bash
+bash scripts/deploy-storybook.sh
+```
+
+The script requires the Node.js version used by the workflow (20.19.x for Angular 17–19, 22.22.x for Angular 20–22), plus Git credentials with permission to push to `origin/gh-pages`.
 
 ## Additional Resources
 
