@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      max-parallel: 1
+      max-parallel: 3
       matrix:
         angular-version: [18, 19, 20, 21, 22]
     steps:
@@ -27,6 +27,9 @@ jobs:
         with:
           node-version: 22.22.3
           cache: npm
+
+      - name: Install latest npm
+        run: npm install --global npm@latest
 
       - name: Apply Angular version dependencies
         run: node scripts/use-angular-version.mjs ${{ matrix.angular-version }}

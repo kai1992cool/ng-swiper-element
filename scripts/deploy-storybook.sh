@@ -25,6 +25,9 @@ node_version="$(node --version)"
 node -e "const [major, minor, patch] = process.versions.node.split('.').map(Number); process.exit(major === 22 && (minor > 22 || (minor === 22 && patch >= 3)) ? 0 : 1)" ||
   die "Deployment requires Node.js 22.x (Angular 22 needs at least 22.22.3); found $node_version."
 
+printf 'Installing the latest npm version...\n'
+npm install --global npm@latest
+
 git -C "$repo_root" remote get-url origin >/dev/null 2>&1 ||
   die "A Git remote named 'origin' is required for deployment."
 

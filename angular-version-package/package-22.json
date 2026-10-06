@@ -1,13 +1,14 @@
 {
+  "version": "22.0.0",
   "dependencies": {
-    "@angular/common": "^22.0.0",
-    "@angular/compiler": "^22.0.0",
-    "@angular/core": "^22.0.0",
-    "@angular/forms": "^22.0.0",
-    "@angular/platform-browser": "^22.0.0",
-    "@angular/platform-server": "^22.0.0",
-    "@angular/router": "^22.0.0",
-    "@angular/ssr": "^22.0.0",
+    "@angular/common": "^22.2.0",
+    "@angular/compiler": "^22.2.0",
+    "@angular/core": "^22.2.0",
+    "@angular/forms": "^22.2.0",
+    "@angular/platform-browser": "^22.2.0",
+    "@angular/platform-server": "^22.2.0",
+    "@angular/router": "^22.2.0",
+    "@angular/ssr": "^22.2.1",
     "swiper": "^14.2.0",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
@@ -15,8 +16,8 @@
   },
   "devDependencies": {
     "@angular/build": "^22.2.1",
-    "@angular/cli": "^22.0.0",
-    "@angular/compiler-cli": "^22.0.0",
+    "@angular/cli": "^22.2.1",
+    "@angular/compiler-cli": "^22.2.0",
     "@types/express": "^5.0.1",
     "@types/node": "^22.12.0",
     "jsdom": "^30.0.0",
@@ -28,10 +29,10 @@
     "@storybook/angular": "^10.6.1",
     "@storybook/addon-a11y": "^10.6.1",
     "@storybook/addon-docs": "^10.6.1",
-    "@angular-devkit/build-angular": "^22.0.0",
-    "@angular-devkit/architect": "^0.2200.0",
-    "@angular-devkit/core": "^22.0.0",
-    "@angular/platform-browser-dynamic": "^22.0.0",
+    "@angular-devkit/build-angular": "^22.2.0",
+    "@angular-devkit/architect": "^0.2202.0",
+    "@angular-devkit/core": "^22.2.0",
+    "@angular/platform-browser-dynamic": "^22.2.0",
     "@compodoc/compodoc": "latest"
   }
 }
