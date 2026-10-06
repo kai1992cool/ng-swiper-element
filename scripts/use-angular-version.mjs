@@ -67,7 +67,7 @@ const previewUpdates =
         copyFile(
           resolve(
             storybookPath,
-            `preview-${previewVariant}.${version === '18' ? 'tsbak' : 'ts'}`,
+            `preview-${previewVariant}.tsbak`,
           ),
           resolve(storybookPath, 'preview.ts'),
         ),
