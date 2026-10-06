@@ -50,7 +50,7 @@ const tslibVersion = packageJson.dependencies.tslib;
 if (!tslibVersion) {
   throw new Error(`package-${version}.json is missing tslib`);
 }
-libraryPackage.dependencies.tsvlib = tslibVersion;
+libraryPackage.dependencies.tslib = tslibVersion;
 
 await Promise.all([
   writeJson(packagePath, packageJson),
