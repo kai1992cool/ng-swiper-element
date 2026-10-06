@@ -26,16 +26,21 @@ export type BreakPointsType = {
     >
       @if(slideCompContentChildren(); as slidesComponentToIterate) {
         @if(slidesTemplateContentChildren(); as slidesToIterate) {
-          @let slides = slidesToIterate || [];
-          @for(slide of slides; track $index) {
-            @let component = slidesComponentToIterate.at($index);
-            @let autoplayDelay = component?.autoplayDelay() || undefined;
-            @if(component?.lazy()) {
-              <swiper-slide lazy  [attr.data-swiper-autoplay]="autoplayDelay" [attr.data-history]="component?.dataHistory()" [attr.data-hash]="component?.dataHash()" >   
+          @for(slide of (slidesToIterate || []); track $index) {
+            @if(slidesComponentToIterate.at($index)?.lazy()) {
+              <swiper-slide lazy  
+              [attr.data-swiper-autoplay]="slidesComponentToIterate.at($index)?.autoplayDelay() || undefined" 
+              [attr.data-history]="slidesComponentToIterate.at($index)?.dataHistory()" 
+              [attr.data-hash]="slidesComponentToIterate.at($index)?.dataHash()" 
+              >   
                 <ng-container *ngTemplateOutlet="slide"/>
               </swiper-slide>
             } @else {
-              <swiper-slide  [attr.data-swiper-autoplay]="autoplayDelay" [attr.data-history]="component?.dataHistory()" [attr.data-hash]="component?.dataHash()" >
+              <swiper-slide  
+              [attr.data-swiper-autoplay]="slidesComponentToIterate.at($index)?.autoplayDelay() || undefined" 
+              [attr.data-history]="slidesComponentToIterate.at($index)?.dataHistory()" 
+              [attr.data-hash]="slidesComponentToIterate.at($index)?.dataHash()" 
+              >
                 <ng-container *ngTemplateOutlet="slide"/>
               </swiper-slide>
             }
