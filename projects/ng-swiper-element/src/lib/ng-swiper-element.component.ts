@@ -162,24 +162,29 @@ export class SwiperElementComponent extends SwiperContainerEvents {
   /**
  * @ignore
  */
-  initializeListeners() {
-    console.log('Initializing listeners');
-    const swiperContainer = this.swiperContainer();
-    const swiperEl = swiperContainer?.nativeElement;
-    swiperEvents.forEach((eventName: string) => {
-      const eventNameFinal = `swiper${eventName.toLowerCase()}`
+  initializeListeners(): void {
+    const swiperEl = this.swiperContainer()?.nativeElement;
+    if (!swiperEl) return;
+
+    for (const eventName of swiperEvents) {
       const output = (this as any)[eventName];
-      if (output?.['listeners']?.length) {
-        swiperEl.addEventListener(eventNameFinal, (...args: any) => {
-          if (output) {
-            output.emit({
-              event: args?.[0] || undefined,
-              swiperArgs: (args?.[0]?.detail || []),
-            });
-          }
-        }, { signal: this.abortController.signal });
-      }
-    })
+      if (!output?.listeners?.length) continue;
+
+      const domEventName = `swiper${eventName.toLowerCase()}`;
+
+      swiperEl.addEventListener(
+        domEventName,
+        (event: Event) => {
+          const swiperEvent = event as CustomEvent<unknown[]>;
+
+          output.emit({
+            event: swiperEvent,
+            swiperArgs: swiperEvent.detail ?? [],
+          });
+        },
+        { signal: this.abortController.signal },
+      );
+    }
   }
 
   /**
