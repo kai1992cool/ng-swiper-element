@@ -5,7 +5,7 @@
       "node"
     ],
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
   "exclude": [
     "../src/test.ts",

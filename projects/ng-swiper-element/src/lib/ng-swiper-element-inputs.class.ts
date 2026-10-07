@@ -1,4 +1,4 @@
-import { Directive, InputSignal, input } from "@angular/core";
+import { Directive, InputSignal, computed, input } from "@angular/core";
 import { SwiperOptions, SwiperModule, CSSSelector, A11yOptions, AutoplayOptions, ControllerOptions, CoverflowEffectOptions, CubeEffectOptions, FadeEffectOptions, FlipEffectOptions, CreativeEffectOptions, CardsEffectOptions, HashNavigationOptions, HistoryOptions, KeyboardOptions, MousewheelOptions, NavigationOptions, PaginationOptions, ParallaxOptions, ScrollbarOptions, ThumbsOptions, VirtualOptions, ZoomOptions, FreeModeOptions, GridOptions } from "swiper/types";
 import { EffectType, OnInterface, BreakPointsType } from "./ng-swiper-element.component";
 
@@ -27,20 +27,20 @@ export class SwiperContainerInputs {
      *  });
      * ```
      */
-    modules?: InputSignal<SwiperModule[] | undefined> = input<SwiperModule[] | undefined>(undefined);
+    modules: InputSignal<SwiperModule[] | undefined> = input<SwiperModule[] | undefined>(undefined);
     /**
      * Inject text styles to the shadow DOM. Only for usage with Swiper Element
      *
      * @type {string[] | undefined}
      * @default undefined
      */
-    injectStyles?: InputSignal<string[] | undefined> = input<string[] | undefined>(undefined);
+    injectStyles: InputSignal<string[] | undefined> = input<string[] | undefined>(undefined);
     /**
      * Inject styles `<link>`s to the shadow DOM. Only for usage with Swiper Element
      * @type {string[] | undefined}
      * @default undefined
      */
-    injectStylesUrls?: InputSignal<string[] | undefined> = input<string[] | undefined>(undefined);
+    injectStylesUrls: InputSignal<string[] | undefined> = input<string[] | undefined>(undefined);
     /**
      * Whether Swiper should be initialised automatically when you create an instance.
      * If disabled, then you need to init it manually by calling `swiper.init()`
@@ -48,7 +48,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    init?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    init: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Whether Swiper initially enabled. When Swiper is disabled, it will hide all navigation elements and won't respond to any events and interactions
@@ -56,7 +56,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default undefined
      */
-    enabled?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    enabled: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Swiper will recalculate slides position on window resize (orientationchange)
@@ -64,7 +64,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default undefined
      */
-    updateOnWindowResize?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    updateOnWindowResize: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * When enabled it will use ResizeObserver (if supported by browser) on swiper container to detect container resize (instead of watching for window resize)
@@ -72,21 +72,21 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    resizeObserver?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    resizeObserver: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Index number of initial slide.
      * @type {number | undefined}
      * @default 0
      */
-    initialSlide?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    initialSlide: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * Can be `'horizontal'` or `'vertical'` (for vertical slider).
      * @type {'horizontal' | 'vertical' | undefined}
      * @default 'horizontal'
      */
-    direction?: InputSignal<'horizontal' | 'vertical' | undefined> = input<'horizontal' | 'vertical' | undefined>(undefined);
+    direction: InputSignal<'horizontal' | 'vertical' | undefined> = input<'horizontal' | 'vertical' | undefined>(undefined);
 
     /**
      * When enabled, will swipe slides only forward (one-way) regardless of swipe direction
@@ -94,21 +94,21 @@ export class SwiperContainerInputs {
      * @default false
      */
 
-    oneWayMovement?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    oneWayMovement: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * The name of the swiper element node name; used for detecting web component rendering
      * @type {string | undefined}
      * @default 'SWIPER-CONTAINER'
      */
-    swiperElementNodeName?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    swiperElementNodeName: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * Duration of transition between slides (in ms)
      * @type {number | undefined}
      * @default 300
      */
-    speed?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    speed: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * Enabled this option and plugin will set width/height on swiper wrapper equal to total size of all slides.
@@ -116,7 +116,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    setWrapperSize?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    setWrapperSize: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Enabled this option and swiper will be operated as usual except it will not move, real translate values on wrapper will not be set.
@@ -124,7 +124,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    virtualTranslate?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    virtualTranslate: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Swiper width (in px). Parameter allows to force Swiper width.
@@ -135,7 +135,7 @@ export class SwiperContainerInputs {
      *
      * @note Setting this parameter will make Swiper not responsive
      */
-    width?: InputSignal<number | null | undefined> = input<number | null | undefined>(undefined);
+    width: InputSignal<number | null | undefined> = input<number | null | undefined>(undefined);
 
     /**
      * Swiper height (in px). Parameter allows to force Swiper height.
@@ -146,7 +146,7 @@ export class SwiperContainerInputs {
      *
      * @note Setting this parameter will make Swiper not responsive
      */
-    height?: InputSignal<number | null | undefined> = input<number | null | undefined>(undefined);
+    height: InputSignal<number | null | undefined> = input<number | null | undefined>(undefined);
 
     /**
      * Set to `true` and slider wrapper will adapt its height to the height of the currently active slide
@@ -154,7 +154,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    autoHeight?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    autoHeight: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `true` to round values of slides width and height to prevent blurry texts on usual
@@ -162,7 +162,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    roundLengths?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    roundLengths: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `true` on  Swiper for correct touch events interception. Use only on
@@ -170,7 +170,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    nested?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    nested: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * When enabled Swiper will automatically wrap slides with swiper-wrapper element,
@@ -179,21 +179,21 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    createElements?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    createElements: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Event name prefix for all DOM events emitted by Swiper Element (web component)
      * @type {string | undefined}
      * @default `swiper`
      */
-    eventsPrefix?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    eventsPrefix: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * CSS selector for focusable elements. Swiping will be disabled on such elements if they are "focused"
      * @type {string | undefined}
      * @default 'input, select, option, textarea, button, video, label'
      */
-    focusableElements?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    focusableElements: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * If enabled (by default) and navigation elements' parameters passed as a string (like `".pagination"`)
@@ -202,14 +202,14 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    uniqueNavElements?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    uniqueNavElements: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Transition effect. Can be `'slide'`, `'fade'`, `'cube'`, `'coverflow'`, `'flip'`, `'creative'` or `'cards'`
      * @type {EffectType | undefined}
      * @default 'slide'
      */
-    effect?: InputSignal<EffectType | undefined> = input<EffectType | undefined>(undefined);
+    effect: InputSignal<EffectType | undefined> = input<EffectType | undefined>(undefined);
 
     /**
      * Fire Transition/SlideChange/Start/End events on swiper initialization.
@@ -217,7 +217,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    runCallbacksOnInit?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    runCallbacksOnInit: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * When enabled Swiper will be disabled and hide navigation buttons on
@@ -225,28 +225,28 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    watchOverflow?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    watchOverflow: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * userAgent string. Required for browser/device detection when rendered on server-side
      * @type {string | null | undefined}
      * @default null
      */
-    userAgent?: InputSignal<string | null | undefined> = input<string | null | undefined>(undefined);
+    userAgent: InputSignal<string | null | undefined> = input<string | null | undefined>(undefined);
 
     /**
      * Required for active slide detection when rendered on server-side and enabled history
      * @type {string | null | undefined}
      * @default null
      */
-    url?: InputSignal<string | null | undefined> = input<string | null | undefined>(undefined);
+    url: InputSignal<string | null | undefined> = input<string | null | undefined>(undefined);
 
     /**
      * Register event handlers
      * @ignore
      * @type {OnInterface | undefined}
      */
-    on?: InputSignal<OnInterface | undefined> = input<OnInterface | undefined>(undefined);
+    on: InputSignal<OnInterface | undefined> = input<OnInterface | undefined>(undefined);
 
     /**
      * Add event listener that will be fired on all events
@@ -262,7 +262,7 @@ export class SwiperContainerInputs {
      *  });
      * ```
      */
-    onAny?: InputSignal<any> = input<any | undefined>(undefined);
+    onAny: InputSignal<any> = input<any | undefined>(undefined);
 
     /**
      * When enabled it will use modern CSS Scroll Snap API.
@@ -305,7 +305,7 @@ export class SwiperContainerInputs {
      *
      * @default false
      */
-    cssMode?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    cssMode: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     // Slides grid
 
@@ -325,7 +325,7 @@ export class SwiperContainerInputs {
      * @type {number | 'auto' | undefined}
      * @default 1
      */
-    slidesPerView?: InputSignal<number | 'auto' | undefined> = input<number | 'auto' | undefined>(undefined);
+    slidesPerView: InputSignal<number | 'auto' | undefined> = input<number | 'auto' | undefined>(undefined);
 
     /**
      * If total number of slides less than specified here value, then Swiper will enable `backface-visibility: hidden` on slide elements to reduce visual "flicker" in Safari.
@@ -334,7 +334,7 @@ export class SwiperContainerInputs {
      * @default 10
      * @note It is not recommended to enable it on large amount of slides as it will reduce performance
      */
-    maxBackfaceHiddenSlides?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    maxBackfaceHiddenSlides: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * Set numbers of slides to define and enable group sliding. Useful to use with slidesPerView > 1
@@ -342,7 +342,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 1
      */
-    slidesPerGroup?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    slidesPerGroup: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * The parameter works in the following way: If `slidesPerGroupSkip` equals `0` (default), no slides are excluded from grouping, and the resulting behaviour is the same as without this change.
@@ -352,7 +352,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 0
      */
-    slidesPerGroupSkip?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    slidesPerGroupSkip: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * This param intended to be used only with `slidesPerView: 'auto'` and `slidesPerGroup: 1`. When enabled, it will skip all slides in view on `.slideNext()` & `.slidePrev()` methods calls, on Navigation "buttons" clicks and in autoplay.
@@ -360,7 +360,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    slidesPerGroupAuto?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    slidesPerGroupAuto: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * If `true`, then active slide will be centered, not always on the left side.
@@ -368,7 +368,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    centeredSlides?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    centeredSlides: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * If `true`, then active slide will be centered without adding gaps at the beginning and end of slider.
@@ -377,7 +377,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    centeredSlidesBounds?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    centeredSlidesBounds: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Add (in px) additional slide offset in the beginning of the container (before all slides)
@@ -385,7 +385,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 0
      */
-    slidesOffsetBefore?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    slidesOffsetBefore: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * Add (in px) additional slide offset in the end of the container (after all slides)
@@ -393,7 +393,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 0
      */
-    slidesOffsetAfter?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    slidesOffsetAfter: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * Normalize slide index.
@@ -401,7 +401,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    normalizeSlideIndex?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    normalizeSlideIndex: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * When enabled it center slides if the amount of slides less than `slidesPerView`. Not intended to be used `loop` mode and `grid.rows`
@@ -409,7 +409,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    centerInsufficientSlides?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    centerInsufficientSlides: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * This option may a little improve desktop usability. If `true`, user will see the "grab" cursor when hover on Swiper
@@ -417,7 +417,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    grabCursor?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    grabCursor: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Target element to listen touch events on. Can be `'container'` (to listen for touch events on swiper) or `'wrapper'`
@@ -426,7 +426,7 @@ export class SwiperContainerInputs {
      * @type {'container' | 'wrapper' | undefined}
      * @default 'wrapper'
      */
-    touchEventsTarget?: InputSignal<'container' | 'wrapper' | undefined> = input<'container' | 'wrapper' | undefined>(undefined);
+    touchEventsTarget: InputSignal<'container' | 'wrapper' | undefined> = input<'container' | 'wrapper' | undefined>(undefined);
 
     /**
      * Touch ratio
@@ -434,7 +434,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 1
      */
-    touchRatio?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    touchRatio: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * Allowable angle (in degrees) to trigger touch move
@@ -442,7 +442,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 45
      */
-    touchAngle?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    touchAngle: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * If `true`, Swiper will accept mouse events like touch events (click and drag to change slides)
@@ -450,7 +450,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    simulateTouch?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    simulateTouch: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `false` if you want to disable short swipes
@@ -458,7 +458,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    shortSwipes?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    shortSwipes: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `false` if you want to disable long swipes
@@ -466,7 +466,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    longSwipes?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    longSwipes: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Ratio to trigger swipe to next/previous slide during long swipes
@@ -474,7 +474,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 0.5
      */
-    longSwipesRatio?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    longSwipesRatio: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * Minimal duration (in ms) to trigger swipe to next/previous slide during long swipes
@@ -482,7 +482,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 300
      */
-    longSwipesMs?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    longSwipesMs: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * If disabled, then slider will be animated only when you release it, it will not move while you hold your finger on it
@@ -490,7 +490,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    followFinger?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    followFinger: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * If `false`, then the only way to switch the slide is use of external API functions like slidePrev or slideNext
@@ -498,7 +498,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    allowTouchMove?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    allowTouchMove: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Threshold value in px. If "touch distance" will be lower than this value then swiper will not move
@@ -506,7 +506,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 5
      */
-    threshold?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    threshold: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * If disabled, `pointerdown` event won't be prevented
@@ -514,7 +514,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    touchStartPreventDefault?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    touchStartPreventDefault: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Force to always prevent default for `touchstart` (`pointerdown`) event
@@ -522,7 +522,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    touchStartForcePreventDefault?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    touchStartForcePreventDefault: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * If enabled, then propagation of "touchmove" will be stopped
@@ -530,7 +530,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    touchMoveStopPropagation?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    touchMoveStopPropagation: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Enable to release Swiper events for swipe-back work in app. If set to `'prevent'` then it will prevent system swipe-back navigation instead. This feature works only with "touch" events (and not pointer events), so it will work on iOS/Android devices and won't work on Windows devices with pointer (touch) events.
@@ -538,7 +538,7 @@ export class SwiperContainerInputs {
      * @type {boolean | string | undefined}
      * @default false
      */
-    edgeSwipeDetection?: InputSignal<boolean | string | undefined> = input<boolean | string | undefined>(undefined);
+    edgeSwipeDetection: InputSignal<boolean | string | undefined> = input<boolean | string | undefined>(undefined);
 
     /**
      * Area (in px) from left edge of the screen to release touch events for swipe-back in app
@@ -546,7 +546,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 20
      */
-    edgeSwipeThreshold?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    edgeSwipeThreshold: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * Enable to release touch events on slider edge position (beginning, end) to allow for further page scrolling. This feature works only with "touch" events (and not pointer events), so it will work on iOS/Android devices and won't work on Windows devices with pointer events. Also `threshold` parameter must be set to `0`
@@ -554,7 +554,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    touchReleaseOnEdges?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    touchReleaseOnEdges: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Passive event listeners will be used by default where possible to improve scrolling performance on mobile devices.
@@ -563,7 +563,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    passiveListeners?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    passiveListeners: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     // Touch Resistance
 
@@ -573,7 +573,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    resistance?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    resistance: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * This option allows you to control resistance ratio
@@ -581,7 +581,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 0.85
      */
-    resistanceRatio?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    resistanceRatio: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     // Swiping / No swiping
 
@@ -591,7 +591,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    preventInteractionOnTransition?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    preventInteractionOnTransition: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `false` to disable swiping to previous slide direction (to left or top)
@@ -599,7 +599,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    allowSlidePrev?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    allowSlidePrev: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `false` to disable swiping to next slide direction (to right or bottom)
@@ -607,7 +607,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    allowSlideNext?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    allowSlideNext: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Enable/disable swiping on elements matched to class specified in `noSwipingClass`
@@ -615,7 +615,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    noSwiping?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    noSwiping: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Specify `noSwiping`'s element css class
@@ -623,7 +623,7 @@ export class SwiperContainerInputs {
      * @type {string | undefined}
      * @default 'swiper-no-swiping'
      */
-    noSwipingClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    noSwipingClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * Can be used instead of `noSwipingClass` to specify elements to disable swiping on.
@@ -631,7 +631,7 @@ export class SwiperContainerInputs {
      * @type {string | undefined}
      * @default
      */
-    noSwipingSelector?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    noSwipingSelector: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * String with CSS selector or HTML element of the container with pagination that will work as only available handler for swiping
@@ -639,7 +639,7 @@ export class SwiperContainerInputs {
      * @type {CSSSelector | HTMLElement | null | undefined}
      * @default null
      */
-    swipeHandler?: InputSignal<CSSSelector | HTMLElement | null | undefined> = input<CSSSelector | HTMLElement | null | undefined>(undefined);
+    swipeHandler: InputSignal<CSSSelector | HTMLElement | null | undefined> = input<CSSSelector | HTMLElement | null | undefined>(undefined);
 
     // Clicks
 
@@ -649,7 +649,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    preventClicks?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    preventClicks: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `true` to stop clicks event propagation on links during swiping
@@ -657,7 +657,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    preventClicksPropagation?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    preventClicksPropagation: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `true` and click on any slide will produce transition to this slide
@@ -665,7 +665,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    slideToClickedSlide?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    slideToClickedSlide: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     // Progress
 
@@ -675,7 +675,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    watchSlidesProgress?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    watchSlidesProgress: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `true` to enable continuous loop mode
@@ -690,7 +690,7 @@ export class SwiperContainerInputs {
      * @default false
      *
      */
-    loop?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    loop: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Automatically adds blank slides if you use Grid or `slidesPerGroup` and the total amount of slides is not even to `slidesPerGroup` or to `grid.rows`
@@ -698,7 +698,7 @@ export class SwiperContainerInputs {
      * @default true
      *
      */
-    loopAddBlankSlides?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    loopAddBlankSlides: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Allows to increase amount of looped slides
@@ -706,7 +706,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 0
      */
-    loopAdditionalSlides?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    loopAdditionalSlides: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * If enabled then slideNext/Prev will do nothing while slider is animating in loop mode
@@ -714,7 +714,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default true
      */
-    loopPreventsSliding?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    loopPreventsSliding: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `true` to enable "rewind" mode. When enabled, clicking "next" navigation button (or calling `.slideNext()`) when on last slide will slide back to the first slide. Clicking "prev" navigation button (or calling `.slidePrev()`) when on first slide will slide forward to the last slide.
@@ -724,7 +724,7 @@ export class SwiperContainerInputs {
      *
      * @note Should not be used together with `loop` mode
      */
-    rewind?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    rewind: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Allows to set different parameter for different responsive breakpoints (screen sizes). Not all parameters can be changed in breakpoints, only those which do not require different layout and logic, like `slidesPerView`, `slidesPerGroup`, `spaceBetween`, `grid.rows`. Such parameters like `loop` and `effect` won't work
@@ -779,7 +779,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    breakpoints?: InputSignal<BreakPointsType | undefined> = input<BreakPointsType | undefined>(undefined);
+    breakpoints: InputSignal<BreakPointsType | undefined> = input<BreakPointsType | undefined>(undefined);
 
     /**
      * Base for breakpoints (beta). Can be `window` or `container`. If set to `window` (by default) then breakpoint keys mean window width. If set to `container` then breakpoint keys treated as swiper container width
@@ -787,7 +787,7 @@ export class SwiperContainerInputs {
      * @type {'window' | 'container' | CSSSelector | undefined}
      * @default 'window'
      */
-    breakpointsBase?: InputSignal<'window' | 'container' | CSSSelector | undefined> = input<'window' | 'container' | CSSSelector | undefined>(undefined);
+    breakpointsBase: InputSignal<'window' | 'container' | CSSSelector | undefined> = input<'window' | 'container' | CSSSelector | undefined>(undefined);
 
     // Observer
 
@@ -797,7 +797,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    observer?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    observer: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `true` if you also need to watch Mutations for Swiper slide children elements
@@ -805,7 +805,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    observeSlideChildren?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    observeSlideChildren: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     /**
      * Set to `true` if you also need to watch Mutations for Swiper parent elements
@@ -813,7 +813,7 @@ export class SwiperContainerInputs {
      * @type {boolean | undefined}
      * @default false
      */
-    observeParents?: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
+    observeParents: InputSignal<boolean | undefined> = input<boolean | undefined>(undefined);
 
     // Namespace
 
@@ -823,7 +823,7 @@ export class SwiperContainerInputs {
      * @type {string | undefined}
      * @default 'swiper-'
      */
-    containerModifierClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    containerModifierClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * CSS class name of slide
@@ -835,7 +835,7 @@ export class SwiperContainerInputs {
      *
      * @note Not supported in Swiper React/Vue components
      */
-    slideClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    slideClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * CSS class name of currently active slide
@@ -847,7 +847,7 @@ export class SwiperContainerInputs {
      *
      * @note Not supported in Swiper React/Vue components
      */
-    slideActiveClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    slideActiveClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * CSS class name of currently/partially visible slide
@@ -859,7 +859,7 @@ export class SwiperContainerInputs {
      *
      * @note Not supported in Swiper React/Vue
      */
-    slideVisibleClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    slideVisibleClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * CSS class name of fully (when whole slide is in the viewport) visible slide
@@ -869,7 +869,7 @@ export class SwiperContainerInputs {
      *
      * @note Not supported in Swiper React/Vue
      */
-    slideFullyVisibleClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    slideFullyVisibleClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * CSS class name of the blank slide added by the loop mode (when `loopAddBlankSlides` is enabled)
@@ -879,7 +879,7 @@ export class SwiperContainerInputs {
      *
      * @note Not supported in Swiper React/Vue
      */
-    slideBlankClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    slideBlankClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * CSS class name of slide which is right after currently active slide
@@ -891,7 +891,7 @@ export class SwiperContainerInputs {
      *
      * @note Not supported in Swiper React/Vue
      */
-    slideNextClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    slideNextClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * CSS class name of slide which is right before currently active slide
@@ -903,7 +903,7 @@ export class SwiperContainerInputs {
      *
      * @note Not supported in Swiper React/Vue
      */
-    slidePrevClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    slidePrevClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * CSS class name of slides' wrapper
@@ -916,7 +916,7 @@ export class SwiperContainerInputs {
      * @note Not supported in Swiper React/Vue
      *
      */
-    wrapperClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    wrapperClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * CSS class name of lazy preloader
@@ -924,7 +924,7 @@ export class SwiperContainerInputs {
      * @type {string | undefined}
      * @default 'swiper-lazy-preloader'
      */
-    lazyPreloaderClass?: InputSignal<string | undefined> = input<string | undefined>(undefined);
+    lazyPreloaderClass: InputSignal<string | undefined> = input<string | undefined>(undefined);
 
     /**
      * Number of next and previous slides to preload. Only applicable if using lazy loading.
@@ -932,7 +932,7 @@ export class SwiperContainerInputs {
      * @type {number | undefined}
      * @default 0
      */
-    lazyPreloadPrevNext?: InputSignal<number | undefined> = input<number | undefined>(undefined);
+    lazyPreloadPrevNext: InputSignal<number | undefined> = input<number | undefined>(undefined);
 
     /**
      * Object with a11y parameters or boolean `true` to enable with default settings.
@@ -948,7 +948,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    a11y?: InputSignal<A11yOptions | undefined> = input<A11yOptions | undefined>(undefined);
+    a11y: InputSignal<A11yOptions | undefined> = input<A11yOptions | undefined>(undefined);
 
     /**
      * Object with autoplay parameters or boolean `true` to enable with default settings
@@ -963,7 +963,7 @@ export class SwiperContainerInputs {
      *});
      * ```
      */
-    autoplay?: InputSignal<AutoplayOptions | boolean | undefined> = input<AutoplayOptions | boolean | undefined>(undefined);
+    autoplay: InputSignal<AutoplayOptions | boolean | undefined> = input<AutoplayOptions | boolean | undefined>(undefined);
 
     /**
      * Object with controller parameters or boolean `true` to enable with default settings
@@ -978,7 +978,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    controller?: InputSignal<ControllerOptions | undefined> = input<ControllerOptions | undefined>(undefined);
+    controller: InputSignal<ControllerOptions | undefined> = input<ControllerOptions | undefined>(undefined);
 
     /**
      * Object with Coverflow-effect parameters.
@@ -995,7 +995,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    coverflowEffect?: InputSignal<CoverflowEffectOptions | undefined> = input<CoverflowEffectOptions | undefined>(undefined);
+    coverflowEffect: InputSignal<CoverflowEffectOptions | undefined> = input<CoverflowEffectOptions | undefined>(undefined);
 
     /**
      * Object with Cube-effect parameters
@@ -1011,7 +1011,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    cubeEffect?: InputSignal<CubeEffectOptions | undefined> = input<CubeEffectOptions | undefined>(undefined);
+    cubeEffect: InputSignal<CubeEffectOptions | undefined> = input<CubeEffectOptions | undefined>(undefined);
 
     /**
      * Object with Fade-effect parameters
@@ -1027,7 +1027,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    fadeEffect?: InputSignal<FadeEffectOptions | undefined> = input<FadeEffectOptions | undefined>(undefined);
+    fadeEffect: InputSignal<FadeEffectOptions | undefined> = input<FadeEffectOptions | undefined>(undefined);
 
     /**
      * Object with Flip-effect parameters
@@ -1043,7 +1043,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    flipEffect?: InputSignal<FlipEffectOptions | undefined> = input<FlipEffectOptions | undefined>(undefined);
+    flipEffect: InputSignal<FlipEffectOptions | undefined> = input<FlipEffectOptions | undefined>(undefined);
 
     /**
      * Object with Creative-effect parameters
@@ -1066,7 +1066,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    creativeEffect?: InputSignal<CreativeEffectOptions | undefined> = input<CreativeEffectOptions | undefined>(undefined);
+    creativeEffect: InputSignal<CreativeEffectOptions | undefined> = input<CreativeEffectOptions | undefined>(undefined);
 
     /**
      * Object with Cards-effect parameters
@@ -1082,7 +1082,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    cardsEffect?: InputSignal<CardsEffectOptions | undefined> = input<CardsEffectOptions | undefined>(undefined);
+    cardsEffect: InputSignal<CardsEffectOptions | undefined> = input<CardsEffectOptions | undefined>(undefined);
 
     /**
      * Enables hash url navigation to for slides.
@@ -1098,7 +1098,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    hashNavigation?: InputSignal<HashNavigationOptions | boolean | undefined> = input<HashNavigationOptions | boolean | undefined>(undefined);
+    hashNavigation: InputSignal<HashNavigationOptions | boolean | undefined> = input<HashNavigationOptions | boolean | undefined>(undefined);
 
     /**
      * Enables history push state where every slide will have its own url. In this parameter you have to specify main slides url like `"slides"` and specify every slide url using `data-history` attribute.
@@ -1121,7 +1121,7 @@ export class SwiperContainerInputs {
      * <div class="swiper-slide" data-history="slide1"></div>
      * ```
      */
-    history?: InputSignal<HistoryOptions | boolean | undefined> = input<HistoryOptions | boolean | undefined>(undefined);
+    history: InputSignal<HistoryOptions | boolean | undefined> = input<HistoryOptions | boolean | undefined>(undefined);
 
     /**
      * Enables navigation through slides using keyboard. Object with keyboard parameters or boolean `true` to enable with default settings
@@ -1137,7 +1137,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    keyboard?: InputSignal<KeyboardOptions | boolean | undefined> = input<KeyboardOptions | boolean | undefined>(undefined);
+    keyboard: InputSignal<KeyboardOptions | boolean | undefined> = input<KeyboardOptions | boolean | undefined>(undefined);
 
     /**
      * Enables navigation through slides using mouse wheel. Object with mousewheel parameters or boolean `true` to enable with default settings
@@ -1152,7 +1152,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    mousewheel?: InputSignal<MousewheelOptions | boolean | undefined> = input<MousewheelOptions | boolean | undefined>(undefined);
+    mousewheel: InputSignal<MousewheelOptions | boolean | undefined> = input<MousewheelOptions | boolean | undefined>(undefined);
 
     /**
      * Object with navigation parameters or boolean `true` to enable with default settings.
@@ -1168,7 +1168,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    navigation?: InputSignal<NavigationOptions | boolean | undefined> = input<NavigationOptions | boolean | undefined>(undefined);
+    navigation: InputSignal<NavigationOptions | boolean | undefined> = input<NavigationOptions | boolean | undefined>(undefined);
 
     /**
      * Object with pagination parameters or boolean `true` to enable with default settings.
@@ -1184,7 +1184,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    pagination?: InputSignal<PaginationOptions | boolean | undefined> = input<PaginationOptions | boolean | undefined>(undefined);
+    pagination: InputSignal<PaginationOptions | boolean | undefined> = input<PaginationOptions | boolean | undefined>(undefined);
 
     /**
      * Object with parallax parameters or boolean `true` to enable with default settings.
@@ -1197,7 +1197,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    parallax?: InputSignal<ParallaxOptions | boolean | undefined> = input<ParallaxOptions | boolean | undefined>(undefined);
+    parallax: InputSignal<ParallaxOptions | boolean | undefined> = input<ParallaxOptions | boolean | undefined>(undefined);
 
     /**
      * Object with scrollbar parameters or boolean `true` to enable with default settings.
@@ -1213,7 +1213,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    scrollbar?: InputSignal<ScrollbarOptions | boolean | undefined> = input<ScrollbarOptions | boolean | undefined>(undefined);
+    scrollbar: InputSignal<ScrollbarOptions | boolean | undefined> = input<ScrollbarOptions | boolean | undefined>(undefined);
 
     /**
      * Object with thumbs component parameters
@@ -1229,7 +1229,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    thumbs?: InputSignal<ThumbsOptions | undefined> = input<ThumbsOptions | undefined>(undefined);
+    thumbs: InputSignal<ThumbsOptions | undefined> = input<ThumbsOptions | undefined>(undefined);
 
     /**
      * Enables virtual slides functionality. Object with virtual slides parameters or boolean `true` to enable with default settings.
@@ -1244,7 +1244,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    virtual?: InputSignal<VirtualOptions | boolean | undefined> = input<VirtualOptions | boolean | undefined>(undefined);
+    virtual: InputSignal<VirtualOptions | boolean | undefined> = input<VirtualOptions | boolean | undefined>(undefined);
 
     /**
      * Enables zooming functionality. Object with zoom parameters or boolean `true` to enable with default settings
@@ -1259,7 +1259,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    zoom?: InputSignal<ZoomOptions | boolean | undefined> = input<ZoomOptions | boolean | undefined>(undefined);
+    zoom: InputSignal<ZoomOptions | boolean | undefined> = input<ZoomOptions | boolean | undefined>(undefined);
 
     /**
      * Enables free mode functionality. Object with free mode parameters or boolean `true` to enable with default settings.
@@ -1279,7 +1279,7 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    freeMode?: InputSignal<FreeModeOptions | boolean | undefined> = input<FreeModeOptions | boolean | undefined>(undefined);
+    freeMode: InputSignal<FreeModeOptions | boolean | undefined> = input<FreeModeOptions | boolean | undefined>(undefined);
 
     /**
      * Object with grid parameters to enable "multirow" slider.
@@ -1294,5 +1294,138 @@ export class SwiperContainerInputs {
      * });
      * ```
      */
-    grid?: InputSignal<GridOptions | undefined> = input<GridOptions | undefined>(undefined);
+    grid: InputSignal<GridOptions | undefined> = input<GridOptions | undefined>(undefined);
+
+
+    _swiperOptionsInternalComputed = computed(() => {
+        const _swiperOptionsInternal = {
+            modules: this.modules(),
+            injectStyles: this.injectStyles(),
+            injectStylesUrls: this.injectStylesUrls(),
+            init: this.init(),
+            enabled: this.enabled(),
+            updateOnWindowResize: this.updateOnWindowResize(),
+            resizeObserver: this.resizeObserver(),
+            initialSlide: this.initialSlide(),
+            direction: this.direction(),
+            oneWayMovement: this.oneWayMovement(),
+            swiperElementNodeName: this.swiperElementNodeName(),
+            speed: this.speed(),
+            setWrapperSize: this.setWrapperSize(),
+            virtualTranslate: this.virtualTranslate(),
+            width: this.width(),
+            height: this.height(),
+            autoHeight: this.autoHeight(),
+            roundLengths: this.roundLengths(),
+            nested: this.nested(),
+            createElements: this.createElements(),
+            eventsPrefix: this.eventsPrefix(),
+            focusableElements: this.focusableElements(),
+            uniqueNavElements: this.uniqueNavElements(),
+            effect: this.effect(),
+            runCallbacksOnInit: this.runCallbacksOnInit(),
+            watchOverflow: this.watchOverflow(),
+            userAgent: this.userAgent(),
+            url: this.url(),
+            on: this.on(),
+            onAny: this.onAny(),
+            cssMode: this.cssMode(),
+            spaceBetween: this.spaceBetween(),
+            slidesPerView: this.slidesPerView(),
+            maxBackfaceHiddenSlides: this.maxBackfaceHiddenSlides(),
+            slidesPerGroup: this.slidesPerGroup(),
+            slidesPerGroupSkip: this.slidesPerGroupSkip(),
+            slidesPerGroupAuto: this.slidesPerGroupAuto(),
+            centeredSlides: this.centeredSlides(),
+            centeredSlidesBounds: this.centeredSlidesBounds(),
+            slidesOffsetBefore: this.slidesOffsetBefore(),
+            slidesOffsetAfter: this.slidesOffsetAfter(),
+            normalizeSlideIndex: this.normalizeSlideIndex(),
+            centerInsufficientSlides: this.centerInsufficientSlides(),
+            grabCursor: this.grabCursor(),
+            touchEventsTarget: this.touchEventsTarget(),
+            touchRatio: this.touchRatio(),
+            touchAngle: this.touchAngle(),
+            simulateTouch: this.simulateTouch(),
+            shortSwipes: this.shortSwipes(),
+            longSwipes: this.longSwipes(),
+            longSwipesRatio: this.longSwipesRatio(),
+            longSwipesMs: this.longSwipesMs(),
+            followFinger: this.followFinger(),
+            allowTouchMove: this.allowTouchMove(),
+            threshold: this.threshold(),
+            touchStartPreventDefault: this.touchStartPreventDefault(),
+            touchStartForcePreventDefault: this.touchStartForcePreventDefault(),
+            touchMoveStopPropagation: this.touchMoveStopPropagation(),
+            edgeSwipeDetection: this.edgeSwipeDetection(),
+            edgeSwipeThreshold: this.edgeSwipeThreshold(),
+            touchReleaseOnEdges: this.touchReleaseOnEdges(),
+            passiveListeners: this.passiveListeners(),
+            resistance: this.resistance(),
+            resistanceRatio: this.resistanceRatio(),
+            preventInteractionOnTransition: this.preventInteractionOnTransition(),
+            allowSlidePrev: this.allowSlidePrev(),
+            allowSlideNext: this.allowSlideNext(),
+            noSwiping: this.noSwiping(),
+            noSwipingClass: this.noSwipingClass(),
+            noSwipingSelector: this.noSwipingSelector(),
+            swipeHandler: this.swipeHandler(),
+            preventClicks: this.preventClicks(),
+            preventClicksPropagation: this.preventClicksPropagation(),
+            slideToClickedSlide: this.slideToClickedSlide(),
+            watchSlidesProgress: this.watchSlidesProgress(),
+            loop: this.loop(),
+            loopAddBlankSlides: this.loopAddBlankSlides(),
+            loopAdditionalSlides: this.loopAdditionalSlides(),
+            loopPreventsSliding: this.loopPreventsSliding(),
+            rewind: this.rewind(),
+            breakpoints: this.breakpoints(),
+            breakpointsBase: this.breakpointsBase(),
+            observer: this.observer(),
+            observeSlideChildren: this.observeSlideChildren(),
+            observeParents: this.observeParents(),
+            containerModifierClass: this.containerModifierClass(),
+            slideClass: this.slideClass(),
+            slideActiveClass: this.slideActiveClass(),
+            slideVisibleClass: this.slideVisibleClass(),
+            slideFullyVisibleClass: this.slideFullyVisibleClass(),
+            slideBlankClass: this.slideBlankClass(),
+            slideNextClass: this.slideNextClass(),
+            slidePrevClass: this.slidePrevClass(),
+            wrapperClass: this.wrapperClass(),
+            lazyPreloaderClass: this.lazyPreloaderClass(),
+            lazyPreloadPrevNext: this.lazyPreloadPrevNext(),
+            a11y: this.a11y(),
+            autoplay: this.autoplay(),
+            controller: this.controller(),
+            coverflowEffect: this.coverflowEffect(),
+            cubeEffect: this.cubeEffect(),
+            fadeEffect: this.fadeEffect(),
+            flipEffect: this.flipEffect(),
+            creativeEffect: this.creativeEffect(),
+            cardsEffect: this.cardsEffect(),
+            hashNavigation: this.hashNavigation(),
+            history: this.history(),
+            keyboard: this.keyboard(),
+            mousewheel: this.mousewheel(),
+            navigation: this.navigation(),
+            pagination: this.pagination(),
+            parallax: this.parallax(),
+            scrollbar: this.scrollbar(),
+            thumbs: this.thumbs(),
+            virtual: this.virtual(),
+            zoom: this.zoom(),
+            freeMode: this.freeMode(),
+            grid: this.grid(),
+        }
+        return {
+            ...(this.swiperOptions() || {}), ..._swiperOptionsInternal,
+            on: {
+                init: function () {
+                    console.log('swiper initialized');
+                },
+            },
+            init: false,
+        };
+    })
 }

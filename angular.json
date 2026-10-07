@@ -95,7 +95,7 @@
       "architect": {
         "build": {
           "options": {
-            "tsConfig": "tsconfig.json",
+            "tsConfig": "projects/ng-swiper-element/.storybook/tsconfig.json",
             "assets": [
               
             ],

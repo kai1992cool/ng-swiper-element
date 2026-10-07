@@ -1,4 +1,4 @@
-import { Component, computed, contentChild, contentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, input, Signal, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
+import { Component, contentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, input, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
 import { SwiperContainerEvents, swiperEvents } from './ng-swiper-element-events.class';
 import { Swiper, SwiperEvents, SwiperOptions } from 'swiper/types';
 import { NgTemplateOutlet } from '@angular/common';
@@ -104,32 +104,6 @@ export class SwiperElementComponent extends SwiperContainerEvents {
   /**
    * @ignore
    */
-  get _swiperOptionsInternal() {
-    const _swiperOptionsInternal: any = {};
-    const keys = Object.keys(this);
-    for (const key of keys) {
-      const signal = (this as any)[key];
-      if (signal.toString().includes('[Input Signal')) {
-        const value = signal();
-        if (value !== undefined) {
-          _swiperOptionsInternal[key] = value;
-        }
-      }
-    }
-    return {
-      ...(this.swiperOptions() || {}), ..._swiperOptionsInternal,
-      on: {
-        init: function () {
-          console.log('swiper initialized');
-        },
-      },
-      init: false,
-    };
-  }
-
-  /**
-   * @ignore
-   */
   ngAfterViewInit() {
     this.initialize();
     this.initializeListeners();
@@ -163,7 +137,7 @@ export class SwiperElementComponent extends SwiperContainerEvents {
  * @ignore
  */
   initialize() {
-    const swiperParams = this._swiperOptionsInternal;
+    const swiperParams = this._swiperOptionsInternalComputed();
     const swiperContainer = this.swiperContainer();
     const swiperEl = swiperContainer?.nativeElement;
     if (swiperEl) {
