@@ -88,6 +88,35 @@
         }
       }
     },
+    "ng-swiper-element-demo": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "projects/ng-swiper-element/src",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/ng-swiper-element-demo",
+            "index": "projects/ng-swiper-element/src/index.html",
+            "browser": "projects/ng-swiper-element/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/ng-swiper-element/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "README.md",
+                "input": ".",
+                "output": "/"
+              }
+            ],
+            "styles": [
+              "projects/ng-swiper-element/src/styles/styles.css"
+            ]
+          }
+        }
+      }
+    },
     "storybook": {
       "projectType": "application",
       "root": "stories",

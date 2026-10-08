@@ -38,12 +38,14 @@ printf 'Installing dependencies...\n'
   npm install --no-package-lock
   npx ng build ng-swiper-element
   npm run build-storybook
+  npx ng build ng-swiper-element-demo --base-href /ng-swiper-element/
 )
 
 storybook_dir="$repo_root/storybook-static"
-selector_file="$repo_root/.github/pages/index.html"
+demo_dir="$repo_root/dist/ng-swiper-element-demo/browser"
 [[ -d "$storybook_dir" ]] || die "Storybook output not found: $storybook_dir"
-[[ -f "$selector_file" ]] || die "Version selector not found: $selector_file"
+[[ -f "$demo_dir/index.html" ]] || die "Angular demo output not found: $demo_dir"
+cp "$demo_dir/index.html" "$demo_dir/404.html"
 
 remote_branch="$(git -C "$repo_root" ls-remote --heads origin refs/heads/gh-pages)" ||
   die "Could not read origin/gh-pages. Check your network and Git credentials."
@@ -79,7 +81,7 @@ fi
 
 mkdir -p "$publish_worktree/v$version"
 cp -a "$storybook_dir/." "$publish_worktree/v$version/"
-cp "$selector_file" "$publish_worktree/index.html"
+cp -a "$demo_dir/." "$publish_worktree/"
 
 git -C "$publish_worktree" add -A
 if git -C "$publish_worktree" diff --cached --quiet; then
