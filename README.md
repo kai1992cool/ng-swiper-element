@@ -58,6 +58,8 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 
 The `Deploy Storybook to GitHub Pages` workflow runs on `main` and builds Storybook for Angular 18 through 22 using a matrix. Each build selects its dependencies from `angular-version-package/package-<version>.json` and deploys to the matching directory on `gh-pages`:
 
+Angular 18 and 19 use Tailwind CSS 3 to match their Angular builder peer dependency; Angular 20 and later use Tailwind CSS 4. The version-selection script also selects the matching stylesheet and PostCSS plugin.
+
 - Angular 18–22 → `/v18/` through `/v22/`
 
 The root page provides a navbar with GitHub/npm links and embeds the newest deployed Storybook below the version selector. Versions that have not been deployed are hidden from the selector. Each Storybook is also available directly at `/v<version>/` (for example, `/v19/`). Configure GitHub Pages to deploy from the `gh-pages` branch, then visit `https://<username>.github.io/ng-swiper-element/`.

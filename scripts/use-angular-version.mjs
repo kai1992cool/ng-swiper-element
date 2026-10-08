@@ -13,6 +13,8 @@ const writeJson = async (path, value) =>
   writeFile(path, `${JSON.stringify(value, null, 2)}\n`);
 
 const packagePath = resolve(root, 'package.json');
+const angularPath = resolve(root, 'angular.json');
+const postcssPath = resolve(root, 'postcss.config.json');
 const versionPackagePath = resolve(
   root,
   'angular-version-package',
@@ -37,13 +39,41 @@ const [packageJson, versionPackage, libraryPackage] = await Promise.all([
   readJson(versionPackagePath),
   readJson(libraryPackagePath),
 ]);
+const angularJson = await readJson(angularPath);
 
 if (!versionPackage.dependencies || !versionPackage.devDependencies) {
   throw new Error(`package-${version}.json must define dependencies and devDependencies`);
 }
 
+const usesTailwindV3 = Number(version) <= 19;
+const updateStylePaths = (value) => {
+  if (Array.isArray(value)) {
+    return value.map(updateStylePaths);
+  }
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, entry]) => [key, updateStylePaths(entry)]),
+    );
+  }
+  if (
+    value === 'projects/ng-swiper-element/src/styles/styles.css' ||
+    value === 'projects/ng-swiper-element/src/styles/styles-tailwind3.css'
+  ) {
+    return usesTailwindV3
+      ? 'projects/ng-swiper-element/src/styles/styles-tailwind3.css'
+      : 'projects/ng-swiper-element/src/styles/styles.css';
+  }
+  return value;
+};
+
 packageJson.dependencies = versionPackage.dependencies;
 packageJson.devDependencies = versionPackage.devDependencies;
+const updatedAngularJson = updateStylePaths(angularJson);
+const postcssConfig = {
+  plugins: {
+    [usesTailwindV3 ? 'tailwindcss' : '@tailwindcss/postcss']: {},
+  },
+};
 
 for (const dependency of ['@angular/common', '@angular/core']) {
   const versionValue = packageJson.dependencies[dependency];
@@ -77,5 +107,7 @@ const previewUpdates =
 await Promise.all([
   writeJson(packagePath, packageJson),
   writeJson(libraryPackagePath, libraryPackage),
+  writeJson(angularPath, updatedAngularJson),
+  writeJson(postcssPath, postcssConfig),
   ...previewUpdates,
 ]);
