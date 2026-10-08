@@ -99,9 +99,7 @@
             "outputPath": "dist/ng-swiper-element-demo",
             "index": "projects/ng-swiper-element/src/index.html",
             "browser": "projects/ng-swiper-element/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": [],
             "tsConfig": "projects/ng-swiper-element/tsconfig.app.json",
             "assets": [
               {
