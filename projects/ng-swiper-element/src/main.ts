@@ -1,7 +1,9 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootstrapApplication } from "@angular/platform-browser";
+import { AppComponent } from "./app.component";
+import { provideRouter } from "@angular/router";
+import { routes } from "./app-routing.module";
+import { provideZonelessChangeDetection } from "@angular/core";
 
-import { AppModule } from './app.module';
-
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch((error: unknown) => console.error(error));
+bootstrapApplication(AppComponent, {
+  providers: [provideRouter(routes), provideZonelessChangeDetection()],
+});
