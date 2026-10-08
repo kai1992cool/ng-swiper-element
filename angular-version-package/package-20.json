@@ -11,6 +11,7 @@
     "@angular/ssr": "^20.3.38",
     "swiper": "^14.2.0",
     "express": "^5.1.0",
+    "marked": "^18.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -34,6 +35,9 @@
     "@storybook/angular": "^10.6.1",
     "@storybook/addon-a11y": "^10.6.1",
     "@storybook/addon-docs": "^10.6.1",
+    "tailwindcss": "^4.3.3",
+    "@tailwindcss/postcss": "^4.3.3",
+    "postcss": "^8.5.29",
     "@angular-devkit/build-angular": "^20.3.0",
     "@angular-devkit/architect": "^0.2003.0",
     "@angular-devkit/core": "^20.3.0",

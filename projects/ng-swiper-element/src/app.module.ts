@@ -6,15 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { StorybookViewerComponent } from './storybook-viewer.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    StorybookViewerComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StorybookViewerComponent
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

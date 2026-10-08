@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AboutComponent } from './about.component';
 import { StorybookViewerComponent } from './storybook-viewer.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/v19', pathMatch: 'full' },
+  { path: '', redirectTo: 'about', pathMatch: 'full' },
+  { path: 'about', component: AboutComponent },
+  { path: 'demos', component: StorybookViewerComponent },
   { path: 'v10', component: StorybookViewerComponent, data: { version: '10' } },
   { path: 'v11', component: StorybookViewerComponent, data: { version: '11' } },
   { path: 'v12', component: StorybookViewerComponent, data: { version: '12' } },
@@ -17,11 +20,11 @@ const routes: Routes = [
   { path: 'v20', component: StorybookViewerComponent, data: { version: '20' } },
   { path: 'v21', component: StorybookViewerComponent, data: { version: '21' } },
   { path: 'v22', component: StorybookViewerComponent, data: { version: '22' } },
-  { path: '**', redirectTo: '/v19' }
+  { path: '**', redirectTo: 'about' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

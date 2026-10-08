@@ -1,90 +1,52 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
+  standalone: false,
   template: `
-    <header class="app-header">
-      <h1>ng-swiper-element</h1>
-      <div class="version-selector">
-        <label for="version-select">Angular Version:</label>
-        <select id="version-select" [(ngModel)]="selectedVersion" (change)="onVersionChange()">
-          <option *ngFor="let version of angularVersions" [value]="version">{{ version }}</option>
-        </select>
-      </div>
-    </header>
-    
-    <main>
-      <router-outlet></router-outlet>
-    </main>
+    <div class="dark flex min-h-screen flex-col bg-slate-950 text-slate-100">
+      <header class="sticky top-0 z-10 border-b border-slate-800 bg-slate-950/90 backdrop-blur">
+        <div class="mx-auto flex min-h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+          <a class="flex items-center gap-3 font-semibold tracking-tight text-white no-underline" routerLink="/about">
+            <span class="flex size-9 items-center justify-center rounded-lg bg-cyan-400 font-black text-slate-950">S</span>
+            <span>ng-swiper-element</span>
+          </a>
+
+          <nav class="flex items-center gap-1 sm:gap-2" aria-label="Main navigation">
+            <a
+              class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 no-underline transition hover:bg-slate-800 hover:text-white"
+              routerLink="/about"
+              routerLinkActive="!bg-slate-800 !text-cyan-300"
+              ariaCurrentWhenActive="page"
+            >About</a>
+            <a
+              class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 no-underline transition hover:bg-slate-800 hover:text-white"
+              routerLink="/demos"
+              routerLinkActive="!bg-slate-800 !text-cyan-300"
+              ariaCurrentWhenActive="page"
+            >Demos</a>
+            <span class="mx-1 hidden h-6 border-l border-slate-800 sm:block"></span>
+            <a
+              class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 no-underline transition hover:bg-slate-800 hover:text-white"
+              href="https://github.com/kai1992cool/ng-swiper-element"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub repository"
+            >GitHub</a>
+            <a
+              class="hidden rounded-lg px-3 py-2 text-sm font-medium text-slate-300 no-underline transition hover:bg-slate-800 hover:text-white sm:inline-flex"
+              href="https://www.npmjs.com/package/ng-swiper-element"
+              target="_blank"
+              rel="noopener noreferrer"
+            >npm</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
   `,
-  styles: [`
-    .app-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background-color: #f5f5f5;
-      border-bottom: 1px solid #ddd;
-    }
-    
-    h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      color: #333;
-    }
-    
-    .version-selector {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    select {
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    
-    main {
-      padding: 2rem;
-      min-height: calc(100vh - 60px);
-    }
-  `],
-  standalone: true,
-  imports: [CommonModule, RouterModule, RouterOutlet, FormsModule]
 })
-export class AppComponent implements OnInit {
-  selectedVersion = '19';
-  angularVersions: string[] = [];
-
-  ngOnInit() {
-    // Load available Angular versions
-    this.loadAngularVersions();
-  }
-
-  loadAngularVersions() {
-    try {
-      // Read from our config file directly 
-      const config = require('../../angular-versions-config.json');
-      this.angularVersions = config.versions;
-      
-      // Set default to current version (19)
-      if (!this.angularVersions.includes(this.selectedVersion)) {
-        this.selectedVersion = '19';
-      }
-    } catch (error) {
-      console.error('Failed to load versions:', error);
-      // Fallback versions
-      this.angularVersions = ['10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22'];
-    }
-  }
-
-  onVersionChange() {
-    // Redirect to the selected version page
-    window.location.hash = `/v${this.selectedVersion}`;
-  }
-}
+export class AppComponent {}
