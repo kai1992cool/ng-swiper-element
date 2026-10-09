@@ -13,7 +13,6 @@ const writeJson = async (path, value) =>
   writeFile(path, `${JSON.stringify(value, null, 2)}\n`);
 
 const packagePath = resolve(root, 'package.json');
-const angularPath = resolve(root, 'angular.json');
 const postcssPath = resolve(root, 'postcss.config.json');
 const versionPackagePath = resolve(
   root,
@@ -39,7 +38,6 @@ const [packageJson, versionPackage, libraryPackage] = await Promise.all([
   readJson(versionPackagePath),
   readJson(libraryPackagePath),
 ]);
-const angularJson = await readJson(angularPath);
 
 if (!versionPackage.dependencies || !versionPackage.devDependencies) {
   throw new Error(`package-${version}.json must define dependencies and devDependencies`);
@@ -81,7 +79,6 @@ const previewUpdates =
 await Promise.all([
   writeJson(packagePath, packageJson),
   writeJson(libraryPackagePath, libraryPackage),
-  writeJson(angularPath, updatedAngularJson),
   writeJson(postcssPath, postcssConfig),
   ...previewUpdates,
 ]);
