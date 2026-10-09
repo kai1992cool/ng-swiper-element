@@ -29,7 +29,11 @@
           "options": {
             "assets": [],
             "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
-            "tsConfig": "projects/ng-swiper-element/tsconfig.spec.json"
+            "tsConfig": "projects/ng-swiper-element/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         },
         "storybook": {
