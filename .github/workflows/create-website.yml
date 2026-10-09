@@ -1,14 +1,8 @@
 name: Deploy Website Only to GitHub Pages
-
 on:
   workflow_dispatch:
-
 permissions:
   contents: write
-
-concurrency:
-  cancel-in-progress: true
-
 jobs:
   deploy-demo-app:
     runs-on: ubuntu-latest
