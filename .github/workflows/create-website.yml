@@ -27,7 +27,9 @@ jobs:
           npm install --no-package-lock --legacy-peer-deps
       - name: Build Angular demo app
         run: |
-          npm run build-website
+          npx ng build ng-swiper-element-demo --base-href /${{ github.event.repository.name }}/
+          cp projects/ng-swiper-element/README.md dist/ng-swiper-element-demo/browser/README.md
+          cp LICENSE dist/ng-swiper-element-demo/LICENSE
           cp dist/ng-swiper-element-demo/browser/index.html dist/ng-swiper-element-demo/browser/404.html
 
       - name: Deploy Angular demo app to GitHub Pages
