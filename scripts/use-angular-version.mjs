@@ -45,35 +45,9 @@ if (!versionPackage.dependencies || !versionPackage.devDependencies) {
   throw new Error(`package-${version}.json must define dependencies and devDependencies`);
 }
 
-const usesTailwindV3 = Number(version) <= 19;
-const updateStylePaths = (value) => {
-  if (Array.isArray(value)) {
-    return value.map(updateStylePaths);
-  }
-  if (value && typeof value === 'object') {
-    return Object.fromEntries(
-      Object.entries(value).map(([key, entry]) => [key, updateStylePaths(entry)]),
-    );
-  }
-  if (
-    value === 'projects/ng-swiper-element/src/styles/styles.css' ||
-    value === 'projects/ng-swiper-element/src/styles/styles-tailwind3.css'
-  ) {
-    return usesTailwindV3
-      ? 'projects/ng-swiper-element/src/styles/styles-tailwind3.css'
-      : 'projects/ng-swiper-element/src/styles/styles.css';
-  }
-  return value;
-};
 
 packageJson.dependencies = versionPackage.dependencies;
 packageJson.devDependencies = versionPackage.devDependencies;
-const updatedAngularJson = updateStylePaths(angularJson);
-const postcssConfig = {
-  plugins: {
-    [usesTailwindV3 ? 'tailwindcss' : '@tailwindcss/postcss']: {},
-  },
-};
 
 for (const dependency of ['@angular/common', '@angular/core']) {
   const versionValue = packageJson.dependencies[dependency];

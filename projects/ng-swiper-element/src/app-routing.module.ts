@@ -3,8 +3,7 @@ import { AboutComponent } from './about.component';
 import { StorybookViewerComponent } from './storybook-viewer.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'about', pathMatch: 'full' },
-  { path: 'about', component: AboutComponent },
+  { path: '', component: AboutComponent },
   { path: 'demos', component: StorybookViewerComponent },
   { path: 'v10', component: StorybookViewerComponent, data: { version: '10' } },
   { path: 'v11', component: StorybookViewerComponent, data: { version: '11' } },
@@ -19,5 +18,5 @@ export const routes: Routes = [
   { path: 'v20', component: StorybookViewerComponent, data: { version: '20' } },
   { path: 'v21', component: StorybookViewerComponent, data: { version: '21' } },
   { path: 'v22', component: StorybookViewerComponent, data: { version: '22' } },
-  { path: '**', redirectTo: 'about' }
+  { path: '**', redirectTo: '' }
 ];
