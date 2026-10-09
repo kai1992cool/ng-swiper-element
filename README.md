@@ -1,145 +1,75 @@
-# ng-swiper-element
+# NgSwiperElement
 
-An Angular wrapper for [Swiper Element](https://swiperjs.com/element), Swiper's Web Component implementation. Build responsive, touch-enabled carousels in Angular templates using native custom elements.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
 
+## Development server
 
-[![npm version](https://img.shields.io/npm/v/ng-swiper-element.svg)](https://www.npmjs.com/package/ng-swiper-element)
-[![npm downloads](https://img.shields.io/npm/dy/ng-swiper-element.svg)](https://www.npmjs.com/package/ng-swiper-element)
-[![GitHub stars](https://img.shields.io/github/stars/kai1992cool/ng-swiper-element.svg)](https://github.com/kai1992cool/ng-swiper-element)
-[![license](https://img.shields.io/npm/l/ng-swiper-element.svg)](https://github.com/kai1992cool/ng-swiper-element/blob/master/LICENSE)
-
-## Features
-
-- Uses Swiper's Web Component architecture (`<swiper-container>` and `<swiper-slide>`) under the Angular wrapper.
-- Configure Swiper with its standard options and modules.
-- Define slides with Angular templates using `ngSwiperSlide`.
-- Bind Swiper events as Angular outputs.
-- Use Swiper's navigation, pagination, autoplay, effects, and other modules.
-
-## Installation
-
-Install the package and its Swiper peer dependency:
+To start a local development server, run:
 
 ```bash
-npm install ng-swiper-element swiper
+ng serve
 ```
 
-## Key Implementation Notes:
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-* **The `orientationchange` is set to `orientationChange` as the event.**
-* **The `init` is exposed as `initEmitter`, not init.**
-* **The `autoplay` event is exposed as `autoplayEvent`, not autoplay.**
+## Code scaffolding
 
-## Angular version examples & Documentation
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-StackBlitz examples will be added as each Angular version's rollout is published.
-
-| Angular version | Standalone example | NgModule example | Documentation |
-| --------------- | ------------------ | ---------------- | ------------- |
-| Angular 19      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v19/) |
-| Angular 20      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v20/) |
-| Angular 21      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v21/) |
-| Angular 22      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v22/) |
-
-## Setup
-
-Register Swiper's custom elements once before bootstrapping your Angular application.
-
-### Standalone application
-
-Call `enableSwiper()` before `bootstrapApplication()`:
-
-```ts
-import { bootstrapApplication } from '@angular/platform-browser';
-import { enableSwiper } from 'ng-swiper-element';
-import { AppComponent } from './app/app.component';
-
-enableSwiper();
-bootstrapApplication(AppComponent);
+```bash
+ng generate component component-name
 ```
 
-Import `SwiperElementComponent` and `NgSwiperSlideDirective` in the standalone component that uses the carousel:
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```ts
-import { Component } from '@angular/core';
-import {
-  NgSwiperSlideDirective,
-  SwiperElementComponent,
-} from 'ng-swiper-element';
-
-@Component({
-  selector: 'app-carousel',
-  imports: [SwiperElementComponent, NgSwiperSlideDirective],
-  standalone: true,
-  template: `
-    <ng-swiper-element
-      [swiperOptions]="swiperOptions"
-      (slideChange)="onSlideChange($event)"
-    >
-      <ng-template ngSwiperSlide>
-        <article>First slide</article>
-      </ng-template>
-      <ng-template ngSwiperSlide>
-        <article>Second slide</article>
-      </ng-template>
-    </ng-swiper-element>
-  `,
-})
-export class CarouselComponent {
-  swiperOptions = {
-    slidesPerView: 1,
-    spaceBetween: 16,
-    pagination: { clickable: true },
-  };
-
-  onSlideChange(event: unknown) {
-    console.log('Swiper slide changed', event);
-  }
-}
+```bash
+ng generate --help
 ```
 
-`swiperOptions` accepts Swiper configuration. You can also bind supported Swiper options directly as Angular inputs. See the [Swiper API](https://swiperjs.com/swiper-api) for available options.
+## Building
 
-### Configure options with Angular property bindings
+To build the project run:
 
-Each supported Swiper option can be passed to the wrapper as an Angular property binding. Object-valued options such as navigation, pagination, and autoplay accept the same configuration objects as Swiper:
-
-```html
-<ng-swiper-element
-  [navigation]="{ enabled: true }"
-  [pagination]="{ clickable: true }"
-  [autoplay]="{ delay: 3000 }"
-  [slidesPerView]="1"
-  [spaceBetween]="16"
->
-  <ng-template ngSwiperSlide>
-    <article>First slide</article>
-  </ng-template>
-  <ng-template ngSwiperSlide>
-    <article>Second slide</article>
-  </ng-template>
-</ng-swiper-element>
+```bash
+ng build
 ```
 
-Use property bindings for individual options, or pass a complete Swiper configuration object with `[swiperOptions]="swiperOptions"`. Both approaches can be combined; directly bound inputs override matching values from `swiperOptions`.
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Using Swiper modules
+## Running unit tests
 
-Pass module configuration through `swiperOptions`, just as you would when configuring Swiper Element. Refer to the [Swiper Element documentation](https://swiperjs.com/element) for module setup and styling details.
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
-```ts
-swiperOptions = {
-  navigation: true,
-  pagination: { clickable: true },
-};
+```bash
+ng test
 ```
 
-## Documentation and demos
+## Running end-to-end tests
 
-- [Swiper Element documentation](https://swiperjs.com/element)
-- [Swiper API and options](https://swiperjs.com/swiper-api)
-- [ng-swiper-element repository](https://github.com/kai1992cool/ng-swiper-element)
+For end-to-end (e2e) testing, run:
 
-## License
+```bash
+ng e2e
+```
 
-MIT
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Storybook on GitHub Pages
+
+The `Deploy Storybook to GitHub Pages` workflow builds Storybook for Angular 18 through 22 using a matrix. Each build selects its dependencies from `angular-version-package/package-<version>.json` and deploys to the matching directory on `gh-pages`:
+
+- Angular 18–22 → `/v18/` through `/v22/`
+
+After the versioned Storybooks are deployed, the workflow builds the Angular demo app from `app.component.ts` and publishes it to the root of `gh-pages`. The app provides the About and Demos pages; the Demos page embeds the newest deployed Storybook and lets you select a version. Storybooks are also available directly at `/v<version>/` (for example, `/v19/`). Configure GitHub Pages to deploy from the `gh-pages` branch, then visit `https://<username>.github.io/ng-swiper-element/`.
+
+To run the same build and deployment locally from `main`, select the Angular version:
+
+```bash
+bash scripts/deploy-storybook.sh 18
+```
+
+The script requires Node.js 22.22.3 or newer in the 22.x line, plus Git credentials with permission to push to `origin/gh-pages`.
+
+## Additional Resources
+
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
