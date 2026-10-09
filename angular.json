@@ -70,38 +70,6 @@
         }
       }
     },
-    "ng-swiper-element-demo": {
-      "projectType": "application",
-      "root": "",
-      "sourceRoot": "projects/ng-swiper-element/src",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "outputPath": "dist/ng-swiper-element-demo",
-            "index": "projects/ng-swiper-element/src/index.html",
-            "browser": "projects/ng-swiper-element/src/main.ts",
-            "polyfills": [],
-            "tsConfig": "projects/ng-swiper-element/tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "README.md",
-                "input": ".",
-                "output": "/"
-              }
-            ],
-            "scripts": [
-              "node_modules/@popperjs/core/dist/umd/popper.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ],
-            "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "projects/ng-swiper-element/src/styles/styles.css"
-            ]
-          }
-        }
-      }
-    },
     "storybook": {
       "projectType": "application",
       "root": "stories",

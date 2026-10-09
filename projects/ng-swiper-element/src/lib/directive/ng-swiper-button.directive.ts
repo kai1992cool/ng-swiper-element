@@ -1,12 +1,12 @@
-import { Directive, input } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 
 @Directive({
   selector: '[ngSwiperButton]',
   standalone: true,
 })
 export class NgSwiperButtonDirective {
-  next = input<string | boolean | undefined>(false);
-  prev = input<string | boolean | undefined>(false);
+  @Input() next: string | boolean | undefined = false;
+  @Input() prev: string | boolean | undefined = false;
 
   constructor() { }
 

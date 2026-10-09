@@ -1,7 +1,7 @@
-import { Component, contentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, input, TemplateRef, viewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ContentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, Input, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { SwiperContainerEvents, swiperEvents } from './ng-swiper-element-events.class';
 import { Swiper, SwiperEvents, SwiperOptions } from 'swiper/types';
-import { NgTemplateOutlet } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { NgSwiperSlideDirective } from './directive/ng-swiper-slide.directive';
 import { NgSwiperButtonDirective } from './directive/ng-swiper-button.directive';
 
@@ -16,37 +16,38 @@ export type BreakPointsType = {
 };
 @Component({
   selector: 'ng-swiper-element',
-  imports: [NgTemplateOutlet],
+  imports: [CommonModule],
   template: `
    <div  style="position: relative !important;">
     <swiper-container
       #swiperContainer 
-      [class]="swiperClasses()"
+      [class]="swiperClasses"
       init="false"
     >
-      @if(slideCompContentChildren(); as slidesComponentToIterate) {
-        @if(slidesTemplateContentChildren(); as slidesToIterate) {
-          @for(slide of (slidesToIterate || []); track $index) {
-            @if(slidesComponentToIterate.at($index)?.lazy()) {
-              <swiper-slide lazy  
-              [attr.data-swiper-autoplay]="slidesComponentToIterate.at($index)?.autoplayDelay() || undefined" 
-              [attr.data-history]="slidesComponentToIterate.at($index)?.dataHistory()" 
-              [attr.data-hash]="slidesComponentToIterate.at($index)?.dataHash()" 
-              >   
-                <ng-container *ngTemplateOutlet="$any(slide)"/>
-              </swiper-slide>
-            } @else {
-              <swiper-slide  
-              [attr.data-swiper-autoplay]="slidesComponentToIterate.at($index)?.autoplayDelay() || undefined" 
-              [attr.data-history]="slidesComponentToIterate.at($index)?.dataHistory()" 
-              [attr.data-hash]="slidesComponentToIterate.at($index)?.dataHash()" 
+      <ng-container *ngIf="slideCompContentChildren as slidesComponentToIterate">
+        <ng-container *ngIf="slidesTemplateContentChildren as slidesToIterate">
+          <ng-container *ngFor="let slide of slidesToIterate; let i = index">
+            <swiper-slide
+              *ngIf="slidesComponentToIterate.get(i)?.lazy; else regularSlide"
+              lazy
+              [attr.data-swiper-autoplay]="slidesComponentToIterate.get(i)?.autoplayDelay || undefined"
+              [attr.data-history]="slidesComponentToIterate.get(i)?.dataHistory"
+              [attr.data-hash]="slidesComponentToIterate.get(i)?.dataHash"
+            >
+              <ng-container *ngTemplateOutlet="slide" />
+            </swiper-slide>
+            <ng-template #regularSlide>
+              <swiper-slide
+                [attr.data-swiper-autoplay]="slidesComponentToIterate.get(i)?.autoplayDelay || undefined"
+                [attr.data-history]="slidesComponentToIterate.get(i)?.dataHistory"
+                [attr.data-hash]="slidesComponentToIterate.get(i)?.dataHash"
               >
-                <ng-container *ngTemplateOutlet="$any(slide)"/>
+                <ng-container *ngTemplateOutlet="slide" />
               </swiper-slide>
-            }
-          }
-        }
-      }
+            </ng-template>
+          </ng-container>
+        </ng-container>
+      </ng-container>
     </swiper-container>
     <ng-content/>
     </div>
@@ -56,28 +57,32 @@ export type BreakPointsType = {
   standalone: true,
 })
 export class SwiperElementComponent extends SwiperContainerEvents {
-  swiperClasses = input<string | undefined>(undefined);
+  @Input() swiperClasses: string | undefined;
 
   /**
    * @ignore
    */
-  slidesTemplateContentChildren = contentChildren(NgSwiperSlideDirective, {
+  @ContentChildren(NgSwiperSlideDirective, {
     read: TemplateRef
-  });
+  })
+  slidesTemplateContentChildren!: QueryList<TemplateRef<unknown>>;
   /**
    * @ignore
    */
-  swiperButtonContentChildren = contentChildren(NgSwiperButtonDirective, {
+  @ContentChildren(NgSwiperButtonDirective, {
     read: TemplateRef
-  });
+  })
+  swiperButtonContentChildren!: QueryList<TemplateRef<unknown>>;
   /**
    * @ignore
    */
-  slideCompContentChildren = contentChildren(NgSwiperSlideDirective);
+  @ContentChildren(NgSwiperSlideDirective)
+  slideCompContentChildren!: QueryList<NgSwiperSlideDirective>;
   /**
    * @ignore
    */
-  slideButtonChildren = contentChildren(NgSwiperButtonDirective);
+  @ContentChildren(NgSwiperButtonDirective)
+  slideButtonChildren!: QueryList<NgSwiperButtonDirective>;
   /**
    * @ignore
    */
@@ -89,9 +94,8 @@ export class SwiperElementComponent extends SwiperContainerEvents {
   /**
    * @ignore
    */
-  swiperContainer = viewChild.required('swiperContainer', {
-    read: ElementRef,
-  });
+  @ViewChild('swiperContainer', { read: ElementRef })
+  swiperContainer!: ElementRef;
 
   /**
    * @ignore
@@ -113,7 +117,7 @@ export class SwiperElementComponent extends SwiperContainerEvents {
    * @ignore
    */
   ngOnChanges() {
-    if (this.swiperContainer()) {
+    if (this.swiperContainer) {
       this.initialize();
     }
   }
@@ -122,7 +126,7 @@ export class SwiperElementComponent extends SwiperContainerEvents {
    * @ignore
    */
   reInitialize() {
-    const swiperInstance = this.swiperContainer()?.nativeElement?.swiper;
+    const swiperInstance = this.swiperContainer?.nativeElement?.swiper;
     if (swiperInstance) {
       swiperInstance.update();
       swiperInstance.updateAutoHeight();
@@ -137,8 +141,8 @@ export class SwiperElementComponent extends SwiperContainerEvents {
  * @ignore
  */
   initialize() {
-    const swiperParams = this._swiperOptionsInternalComputed();
-    const swiperContainer = this.swiperContainer();
+    const swiperParams = this._swiperOptionsInternal();
+    const swiperContainer = this.swiperContainer;
     const swiperEl = swiperContainer?.nativeElement;
     if (swiperEl) {
       Object.assign(swiperEl, swiperParams);
@@ -156,19 +160,20 @@ export class SwiperElementComponent extends SwiperContainerEvents {
   }
 
   get swiperInstance() {
-    return this.swiperContainer()?.nativeElement?.swiper;
+    return this.swiperContainer?.nativeElement?.swiper;
   }
 
   /**
  * @ignore
  */
   initializeListeners(): void {
-    const swiperEl = this.swiperContainer()?.nativeElement;
+    const swiperEl = this.swiperContainer?.nativeElement;
     if (!swiperEl) return;
 
     for (const eventName of swiperEvents) {
-      const output = (this as any)[eventName];
-      if (!output?.listeners?.length) continue;
+      const outputName = eventName === 'init' ? 'initEmitter' : eventName === 'autoplay' ? 'autoplayEvent' : eventName;
+      const output = (this as any)[outputName];
+      if (!output?.observers?.length) continue;
 
       const domEventName = `swiper${eventName.toLowerCase()}`;
 

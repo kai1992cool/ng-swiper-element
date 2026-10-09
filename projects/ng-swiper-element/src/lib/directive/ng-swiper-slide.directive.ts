@@ -1,14 +1,14 @@
-import { Directive, input } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 
 @Directive({
   selector: '[ngSwiperSlide]',
   standalone: true,
 })
 export class NgSwiperSlideDirective {
-  lazy = input<string | boolean | undefined>(false);
-  autoplayDelay = input<number | undefined>(undefined);
-  dataHistory = input<string | undefined>(undefined);
-  dataHash = input<string | undefined>(undefined);
+  @Input() lazy: string | boolean | undefined = false;
+  @Input() autoplayDelay: number | undefined;
+  @Input() dataHistory: string | undefined;
+  @Input() dataHash: string | undefined;
   constructor() { }
 
 }
