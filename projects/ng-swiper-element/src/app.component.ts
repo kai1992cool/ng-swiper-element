@@ -105,7 +105,7 @@ export class AppComponent extends StorybookShared {
 
   private createStorybookUrl(version: string): SafeResourceUrl {
     const url = new URL(
-      `/ng-swiper-element/v${version}/`,
+      `/v${version}/`,
       this.document.location.href,
     );
     return this.sanitizer.bypassSecurityTrustResourceUrl(url.toString());
@@ -117,7 +117,7 @@ export class AppComponent extends StorybookShared {
       this.angularVersions.map(async (version) => {
         try {
           const url = new URL(
-            `../ng-swiper-element/v${version}/index.html`,
+            `../v${version}/index.html`,
             this.document.location.href,
           );
           const response = await fetch(url, {
