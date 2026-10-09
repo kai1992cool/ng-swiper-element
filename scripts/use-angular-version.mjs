@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 const version = process.argv[2];
 
-if (!['18', '19', '20', '21', '22'].includes(version)) {
+if (!['17', '16', '15', '14'].includes(version)) {
   throw new Error(`Unsupported Angular version: ${version ?? '(missing)'}`);
 }
 
@@ -30,7 +30,7 @@ const storybookPath = resolve(
   'ng-swiper-element',
   '.storybook',
 );
-const previewVariant = version === '18' ? '18' : version === '19' ? '19' : '20';
+const previewVariant = version === '17' ? '17' : version === '16' ? '16' : version === '15' ? '15' : '14';
 
 const [packageJson, versionPackage, libraryPackage] = await Promise.all([
   readJson(packagePath),
@@ -62,9 +62,7 @@ if (!tslibVersion) {
 }
 libraryPackage.dependencies.tslib = tslibVersion;
 
-const previewUpdates =
-  Number(version) <= 20
-    ? [
+const previewUpdates = [
         copyFile(
           resolve(
             storybookPath,
@@ -72,8 +70,7 @@ const previewUpdates =
           ),
           resolve(storybookPath, 'preview.ts'),
         ),
-      ]
-    : [];
+      ];
 
 await Promise.all([
   writeJson(packagePath, packageJson),
