@@ -72,7 +72,9 @@ jobs:
         run: node scripts/use-angular-version.mjs 22
 
       - name: Install dependencies
-        run: npm install --no-package-lock
+        run: |
+          npm install --no-package-lock
+          npm install @popperjs/core bootstrap
 
       - name: Build Angular demo app
         run: |

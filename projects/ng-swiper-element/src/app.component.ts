@@ -19,7 +19,7 @@ import { StorybookShared } from './storybook-shared';
   standalone: true,
   imports: [FormsModule, RouterOutlet, RouterLink, RouterLinkActive],
   template: `
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <span class="navbar-brand">ng-swiper-element</span>
         <button
@@ -55,8 +55,30 @@ import { StorybookShared } from './storybook-shared';
             </li>
           </ul>
 
-          <span class="d-flex">
-            <span style="margin-right: 0.5rem;" class="text-muted">Select Version:</span>
+          <span class="d-flex gap-3 align-items-center">
+            <a
+              class="nav-link d-flex gap-2 align-items-center"
+              href="https://github.com/kai1992cool/ng-swiper-element"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View ng-swiper-element on GitHub"
+            >
+              <i class="fa-brands fa-github"></i>
+              <span class="hidden sm:inline">GitHub</span>
+            </a>
+            <a
+              class="nav-link d-flex gap-2 align-items-center"
+              href="https://www.npmjs.com/package/ng-swiper-element"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View ng-swiper-element on npm"
+            >
+              <i class="fa-brands fa-npm"></i>
+              <span class="sr-only sm:not-sr-only">npm</span>
+            </a>
+            <span style="margin-right: 0.5rem;" class="text-muted"
+              >Version:</span
+            >
             <select
               id="version-select"
               class="form-select"
@@ -74,7 +96,7 @@ import { StorybookShared } from './storybook-shared';
       </div>
     </nav>
     <main>
-      <div class="container">
+      <div class="container my-5 pt-3">
         <router-outlet></router-outlet>
       </div>
     </main>
@@ -104,10 +126,7 @@ export class AppComponent extends StorybookShared {
   }
 
   private createStorybookUrl(version: string): SafeResourceUrl {
-    const url = new URL(
-      `/v${version}/`,
-      this.document.location.href,
-    );
+    const url = new URL(`/v${version}/`, this.document.location.href);
     return this.sanitizer.bypassSecurityTrustResourceUrl(url.toString());
   }
 
