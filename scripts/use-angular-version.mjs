@@ -13,7 +13,6 @@ const writeJson = async (path, value) =>
   writeFile(path, `${JSON.stringify(value, null, 2)}\n`);
 
 const packagePath = resolve(root, 'package.json');
-const postcssPath = resolve(root, 'postcss.config.json');
 const versionPackagePath = resolve(
   root,
   'angular-version-package',
@@ -79,6 +78,5 @@ const previewUpdates =
 await Promise.all([
   writeJson(packagePath, packageJson),
   writeJson(libraryPackagePath, libraryPackage),
-  writeJson(postcssPath, postcssConfig),
   ...previewUpdates,
 ]);
