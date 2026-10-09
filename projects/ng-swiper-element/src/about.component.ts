@@ -12,7 +12,7 @@ import { marked } from 'marked';
   selector: 'app-about',
   standalone: true,
   template: `
-    <section>
+    <section class="container mx-0 px-0">
         @if (isLoading()) {
           <p class="px-5 py-8 text-slate-400 sm:px-8" role="status">
             Loading README.md…
