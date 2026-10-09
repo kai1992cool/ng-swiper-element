@@ -27,7 +27,7 @@ import { StorybookShared } from './storybook-shared';
       }
 
       <iframe
-        style="border: none;height: calc(100vh - 150px); width: 100%;"
+        style="border: none;height: calc(100vh - 75px); width: 100%;"
         sandbox="allow-scripts allow-same-origin"
         referrerpolicy="no-referrer"
         allow="geolocation 'none'; microphone 'none'; camera 'none'"

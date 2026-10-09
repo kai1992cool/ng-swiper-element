@@ -96,7 +96,10 @@ import { StorybookShared } from './storybook-shared';
       </div>
     </nav>
     <main>
-      <div class="container my-5 pt-3">
+      <div
+        class="container-fluid my-5 pt-3"
+        style="margin-bottom: 0px !important;padding-bottom: 0px !important;"
+      >
         <router-outlet></router-outlet>
       </div>
     </main>
@@ -126,7 +129,10 @@ export class AppComponent extends StorybookShared {
   }
 
   private createStorybookUrl(version: string): SafeResourceUrl {
-    const url = new URL(`/ng-swiper-element/v${version}/`, this.document.location.href);
+    const url = new URL(
+      `/ng-swiper-element/v${version}/`,
+      this.document.location.href,
+    );
     return this.sanitizer.bypassSecurityTrustResourceUrl(url.toString());
   }
 
