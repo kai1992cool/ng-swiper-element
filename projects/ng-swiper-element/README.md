@@ -2,6 +2,8 @@
 
 An Angular wrapper for [Swiper Element](https://swiperjs.com/element), Swiper's Web Component implementation. Build responsive, touch-enabled carousels in Angular templates using native custom elements.
 
+The library supports Angular 17 and later, using decorator-based inputs and outputs, `@ViewChild`/`@ContentChildren`, and `*ngIf`/`*ngFor` for compatibility with Angular 17.
+
 
 [![npm version](https://img.shields.io/npm/v/ng-swiper-element.svg)](https://www.npmjs.com/package/ng-swiper-element)
 [![npm downloads](https://img.shields.io/npm/dy/ng-swiper-element.svg)](https://www.npmjs.com/package/ng-swiper-element)
@@ -99,6 +101,28 @@ export class CarouselComponent {
 ```
 
 `swiperOptions` accepts Swiper configuration. You can also bind supported Swiper options directly as Angular inputs. See the [Swiper API](https://swiperjs.com/swiper-api) for available options.
+
+### NgModule application
+
+Call `enableSwiper()` once before bootstrapping your Angular application, then import `NgSwiperElementModule` in the Angular module that uses the carousel:
+
+```ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { enableSwiper, NgSwiperElementModule } from 'ng-swiper-element';
+import { AppComponent } from './app.component';
+
+enableSwiper();
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, NgSwiperElementModule],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+Use `ng-swiper-element` and `ngSwiperSlide` in your templates the same way as in the standalone example.
 
 ### Configure options with Angular property bindings
 
