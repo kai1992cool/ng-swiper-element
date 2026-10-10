@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "rootDir": "./projects/ng-swiper-element",
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,

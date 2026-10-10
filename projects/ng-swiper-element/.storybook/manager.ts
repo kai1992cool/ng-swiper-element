@@ -1,7 +1,7 @@
 // .storybook/manager.ts
 
-import { addons, types } from 'storybook/manager-api'; // Use '@storybook/addons' for Storybook v7 or older
-import { create } from 'storybook/theming';
+import { addons } from '@storybook/manager-api';
+import { create } from '@storybook/theming';
 
 addons.setConfig({
   theme: create({

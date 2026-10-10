@@ -10,8 +10,7 @@
     "types": []
   },
   "include": [
-    "../src/**/*",
-    "./**/*",
+    "./src/**/*",
     "typings.d.ts"
   ],
   "exclude": [
