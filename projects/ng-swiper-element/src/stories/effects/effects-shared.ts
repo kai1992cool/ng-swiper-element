@@ -13,7 +13,6 @@ import {
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
-import { EffectCards, EffectCoverflow, EffectCreative, EffectCube, EffectFade, EffectFlip } from 'swiper/modules';
 
 const args: any = {};
 
@@ -248,7 +247,6 @@ export const effectsSharedMeta: Meta = {
         </ng-swiper-element>
       `,
       props: {
-        modules: [EffectFade, EffectCards, EffectFlip, EffectCube, EffectCreative, EffectCoverflow],
         effect,
         slidesPerView,
         storyName,

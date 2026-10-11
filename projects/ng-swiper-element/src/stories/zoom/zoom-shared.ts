@@ -12,7 +12,6 @@ import {
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
-import { Zoom } from 'swiper/modules';
 
 const args: any = {};
 
@@ -149,7 +148,6 @@ export const zoomSharedMeta: Meta = {
         </ng-swiper-element>
       `,
       props: {
-        modules: [Zoom],
         storyName,
         containerZoomCustom,
         description,

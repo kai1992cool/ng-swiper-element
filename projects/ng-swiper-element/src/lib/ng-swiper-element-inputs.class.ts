@@ -20,7 +20,7 @@ export class SwiperContainerInputs {
      * @example
      * ```js
      * import Swiper from 'swiper';
-     * import { Navigation, Pagination } from 'swiper/modules';
+     * import { Navigation, Pagination } from 'swiper';
      *
      * const swiper = new Swiper('.swiper', {
      *    modules: [ Navigation, Pagination ],

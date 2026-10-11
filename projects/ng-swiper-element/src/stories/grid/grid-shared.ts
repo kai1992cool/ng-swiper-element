@@ -13,7 +13,6 @@ import {
   NgSwiperButtonDirective,
 } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
-import { Grid } from 'swiper/modules';
 
 const args: any = {};
 
@@ -98,7 +97,6 @@ export const gridSharedMeta: Meta = {
         </ng-swiper-element>
       `,
       props: {
-        modules: [Grid],
         storyName,
         description,
         gridConfig,
