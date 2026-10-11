@@ -13,6 +13,7 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { StorybookShared } from './storybook-shared';
+import { marked } from 'marked';
 
 @Component({
   selector: 'app-root',
@@ -57,7 +58,25 @@ import { StorybookShared } from './storybook-shared';
 
           <span class="d-flex gap-3 align-items-center">
             <a
-              class="nav-link d-flex gap-2 align-items-center"
+              class="github-button"
+              href="https://github.com/kai1992cool/ng-swiper-element"
+              data-color-scheme="no-preference: light; light: light; dark: dark;"
+              data-size="large"
+              data-show-count="true"
+              aria-label="Star kai1992cool/ng-swiper-element on GitHub"
+              >Star</a
+            >
+            <a
+              class="github-button"
+              href="https://github.com/kai1992cool/ng-swiper-element/issues"
+              data-color-scheme="no-preference: light; light: light; dark: dark;"
+              data-size="large"
+              data-show-count="true"
+              aria-label="Issue kai1992cool/ng-swiper-element on GitHub"
+              >Issue</a
+            >
+            <a
+              class="nav-link d-flex gap-2 align-items-center text-info-emphasis"
               href="https://github.com/kai1992cool/ng-swiper-element"
               target="_blank"
               rel="noopener noreferrer"
@@ -67,7 +86,7 @@ import { StorybookShared } from './storybook-shared';
               <span class="hidden sm:inline">GitHub</span>
             </a>
             <a
-              class="nav-link d-flex gap-2 align-items-center"
+              class="nav-link d-flex gap-2 align-items-center text-info-emphasis"
               href="https://www.npmjs.com/package/ng-swiper-element"
               target="_blank"
               rel="noopener noreferrer"
@@ -86,9 +105,9 @@ import { StorybookShared } from './storybook-shared';
               (ngModelChange)="onVersionChange($any($event))"
             >
               @for (version of availableVersions(); track $index) {
-                <option class="bg-slate-900" [value]="version">
-                  {{ version }}
-                </option>
+              <option class="bg-slate-900" [value]="version">
+                {{ version }}
+              </option>
               }
             </select>
           </span>
@@ -114,7 +133,7 @@ export class AppComponent extends StorybookShared {
   constructor() {
     super();
     this.selectedVersion.set(
-      this.route.snapshot.data['version'] ?? this.selectedVersion(),
+      this.route.snapshot.data['version'] ?? this.selectedVersion()
     );
     this.storybookUrl.set(this.createStorybookUrl(this.selectedVersion()));
   }
@@ -126,12 +145,13 @@ export class AppComponent extends StorybookShared {
   onVersionChange(version: string): void {
     this.selectedVersion.set(version);
     this.storybookUrl.set(this.createStorybookUrl(version));
+    this.loadAbout(version);
   }
 
   private createStorybookUrl(version: string): SafeResourceUrl {
     const url = new URL(
       `/ng-swiper-element/v${version}/`,
-      this.document.location.href,
+      this.document.location.href
     );
     return this.sanitizer.bypassSecurityTrustResourceUrl(url.toString());
   }
@@ -143,7 +163,7 @@ export class AppComponent extends StorybookShared {
         try {
           const url = new URL(
             `../ng-swiper-element/v${version}/index.html`,
-            this.document.location.href,
+            this.document.location.href
           );
           const response = await fetch(url, {
             method: 'HEAD',
@@ -153,33 +173,60 @@ export class AppComponent extends StorybookShared {
         } catch (error) {
           console.error(
             `Could not check Angular ${version} Storybook availability.`,
-            error,
+            error
           );
           couldNotCheckVersion = true;
           return { version, published: null };
         }
-      }),
+      })
     );
 
     this.availableVersions.set(
       checks
         .filter((check) => check.published !== false)
-        .map((check) => check.version),
+        .map((check) => check.version)
     );
 
     const newestPublished = checks.find((check) => check.published === true);
     if (newestPublished) {
       this.selectedVersion.set(
-        this.route.snapshot.data['version'] ?? newestPublished.version,
+        this.route.snapshot.data['version'] ?? newestPublished.version
       );
       this.storybookUrl.set(this.createStorybookUrl(this.selectedVersion()));
+      this.loadAbout(this.selectedVersion());
       return;
     }
 
     this.statusMessage.set(
       couldNotCheckVersion
         ? 'Could not check all published Storybook versions. You can still choose a version above.'
-        : 'No Angular Storybook versions have been deployed yet.',
+        : 'No Angular Storybook versions have been deployed yet.'
     );
+  }
+
+  async loadAbout(version: string) {
+    this.isAboutLoading.set(true);
+    try {
+      // route the README one folder before the current location, since the README is in the root of the project
+      const readmeUrl = new URL(
+        `../ng-swiper-element/v${version}/README.md`,
+        (this.document as any).location.href
+      );
+      const response = await fetch(readmeUrl);
+      if (!response.ok) {
+        throw new Error(
+          `README.md request failed with status ${response.status}.`
+        );
+      }
+
+      this.aboutReadmeHtml.set(await marked.parse(await response.text()));
+    } catch (error) {
+      console.error('Failed to load README.md.', error);
+      this.aboutLoadError.set(
+        'README.md could not be loaded. Please use the GitHub link to view the project documentation.'
+      );
+    } finally {
+      this.isAboutLoading.set(false);
+    }
   }
 }

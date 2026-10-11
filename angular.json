@@ -55,6 +55,11 @@
           "options": {
             "assets": [
               {
+                "glob": "README.md",
+                "input": ".",
+                "output": "/"
+              },
+              {
                 "glob": "**/**/*.min.css",
                 "input": "node_modules/swiper",
                 "output": "/swiper/css"
