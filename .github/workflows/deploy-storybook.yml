@@ -25,7 +25,7 @@ jobs:
           - angular-version: 15
             node-version: '18.20.8'
           - angular-version: 14
-            node-version: '16.20.0'
+            node-version: '14.15.0'
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
