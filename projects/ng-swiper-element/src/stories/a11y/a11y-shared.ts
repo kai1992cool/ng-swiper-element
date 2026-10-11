@@ -94,7 +94,7 @@ export const a11ySharedMeta: Meta = {
               slideRole: slideRole,
               id: id,
               scrollOnFocus: scrollOnFocus,
-              wrapperLiveRegion: wrapperLiveRegion,
+              wrapperLiveRegion: wrapperLiveRegion
             }"
             [autoplay]="autoplay"
             #swiperElement="ngSwiperElement">
