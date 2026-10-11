@@ -1,6 +1,6 @@
 {
   "name": "ng-swiper-element",
-  "version": "22.0.1",
+  "version": "22.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
