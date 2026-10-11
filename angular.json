@@ -59,6 +59,11 @@
           "options": {
             "assets": [
               {
+                "glob": "README.md",
+                "input": "projects/ng-swiper-element",
+                "output": "/"
+              },
+              {
                 "glob": "**/**/*.min.css",
                 "input": "node_modules/swiper",
                 "output": "/swiper/css"
