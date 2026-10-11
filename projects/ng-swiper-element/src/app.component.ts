@@ -27,7 +27,7 @@ import { marked } from 'marked';
   template: `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <span class="navbar-brand">ng-swiper-element</span>
+        <span class="navbar-brand" routerLink="/">ng-swiper-element</span>
         <button
           class="navbar-toggler"
           type="button"
@@ -44,8 +44,8 @@ import { marked } from 'marked';
             <li class="nav-item">
               <a
                 class="nav-link"
-                routerLink="/about"
-                routerLinkActive="active"
+                routerLink="/"
+                routerLinkActive="text-info-emphasis"
                 ariaCurrentWhenActive="page"
                 >About</a
               >
@@ -54,7 +54,7 @@ import { marked } from 'marked';
               <a
                 class="nav-link"
                 routerLink="/demos"
-                routerLinkActive="active"
+                routerLinkActive="text-info-emphasis"
                 ariaCurrentWhenActive="page"
                 >Demos</a
               >
