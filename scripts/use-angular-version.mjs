@@ -42,6 +42,9 @@ if (!versionPackage.dependencies || !versionPackage.devDependencies) {
 
 packageJson.dependencies = versionPackage.dependencies;
 packageJson.devDependencies = versionPackage.devDependencies;
+if(versionPackage.overrides) {
+  packageJson.overrides = versionPackage.overrides;
+}
 
 for (const dependency of ['@angular/common', '@angular/core']) {
   const versionValue = packageJson.dependencies[dependency];
