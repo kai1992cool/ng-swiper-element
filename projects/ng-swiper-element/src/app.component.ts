@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import {
   ActivatedRoute,
+  Router,
   RouterLink,
   RouterLinkActive,
   RouterOutlet,
@@ -46,6 +47,7 @@ import { marked } from 'marked';
                 class="nav-link"
                 routerLink="/"
                 routerLinkActive="text-info-emphasis"
+                [routerLinkActiveOptions]="{ exact: true }"
                 ariaCurrentWhenActive="page"
                 >About</a
               >
@@ -55,6 +57,7 @@ import { marked } from 'marked';
                 class="nav-link"
                 routerLink="/demos"
                 routerLinkActive="text-info-emphasis"
+                [routerLinkActiveOptions]="{ exact: true }"
                 ariaCurrentWhenActive="page"
                 >Demos</a
               >
@@ -134,13 +137,17 @@ export class AppComponent extends StorybookShared {
   private readonly document: Document = inject(DOCUMENT);
   private readonly sanitizer: DomSanitizer = inject(DomSanitizer);
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly router: Router = inject(Router);
 
   constructor() {
     super();
-    this.selectedVersion.set(
-      this.route.snapshot.data['version'] ?? this.selectedVersion()
+    const version = this.resolveVersion(
+      this.route.snapshot.queryParamMap.get('version') ??
+        this.route.snapshot.data['version'] ??
+        this.selectedVersion()
     );
-    this.storybookUrl.set(this.createStorybookUrl(this.selectedVersion()));
+    this.selectedVersion.set(version);
+    this.storybookUrl.set(this.createStorybookUrl(version));
   }
 
   ngOnInit(): void {
@@ -148,9 +155,24 @@ export class AppComponent extends StorybookShared {
   }
 
   onVersionChange(version: string): void {
-    this.selectedVersion.set(version);
-    this.storybookUrl.set(this.createStorybookUrl(version));
-    this.loadAbout(version);
+    const selectedVersion = this.resolveVersion(version);
+    this.selectedVersion.set(selectedVersion);
+    this.storybookUrl.set(this.createStorybookUrl(selectedVersion));
+    this.loadAbout(selectedVersion);
+    void this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { version: selectedVersion },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
+  }
+
+  private resolveVersion(version: string | null): string {
+    if (version && this.angularVersions.includes(version)) {
+      return version;
+    }
+
+    return this.selectedVersion() || '19';
   }
 
   private createStorybookUrl(version: string): SafeResourceUrl {
@@ -194,11 +216,14 @@ export class AppComponent extends StorybookShared {
 
     const newestPublished = checks.find((check) => check.published === true);
     if (newestPublished) {
-      this.selectedVersion.set(
-        this.route.snapshot.data['version'] ?? newestPublished.version
+      const requestedVersion = this.resolveVersion(
+        this.route.snapshot.queryParamMap.get('version') ??
+          this.route.snapshot.data['version'] ??
+          newestPublished.version
       );
-      this.storybookUrl.set(this.createStorybookUrl(this.selectedVersion()));
-      this.loadAbout(this.selectedVersion());
+      this.selectedVersion.set(requestedVersion);
+      this.storybookUrl.set(this.createStorybookUrl(requestedVersion));
+      this.loadAbout(requestedVersion);
       return;
     }
 
