@@ -25,6 +25,8 @@
     "@angular/cli": "~14.2.13",
     "@angular/compiler-cli": "^14.2.0",
     "@compodoc/compodoc": "1.1.19",
+    "@storybook/test": "^7.6.24",
+    "@storybook/manager": "^7.6.24",
     "@storybook/addon-a11y": "^7.6.24",
     "@storybook/addon-docs": "^7.6.24",
     "@storybook/angular": "^7.6.24",
