@@ -56,7 +56,7 @@
             "assets": [
               {
                 "glob": "README.md",
-                "input": ".",
+                "input": "projects/ng-swiper-element",
                 "output": "/"
               },
               {
