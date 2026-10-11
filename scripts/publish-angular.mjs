@@ -9,7 +9,7 @@ const supportedVersions = ['18', '19', '20', '21', '22'];
 if (
   extraArgs.length > 0 ||
   !supportedVersions.includes(angularVersion) ||
-  !['yes', 'no'].includes(patchOption?.toLowerCase())
+  !['yes', 'no'].includes((patchOption || 'no')?.toLowerCase())
 ) {
   throw new Error(
     'Usage: node scripts/publish-angular.mjs <18|19|20|21|22> <yes|no>',
