@@ -57,7 +57,7 @@ if (useAngularVersion.status !== 0) {
 }
 
 if (shouldPatch) {
-  runNpm(['run', 'patch']);
+  runNpm(['run', 'patch', '--no-git-tag-version']);
 
   const libraryPackagePath = resolve(
     root,
