@@ -104,19 +104,19 @@ export class CarouselComponent {
 
 ### NgModule application
 
-Call `enableSwiper()` once before bootstrapping your Angular application, then import `NgSwiperElementModule` in the Angular module that uses the carousel:
+Call `enableSwiper()` once before bootstrapping your Angular application:
 
 ```ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { enableSwiper, NgSwiperElementModule } from 'ng-swiper-element';
+import { enableSwiper } from 'ng-swiper-element';
 import { AppComponent } from './app.component';
 
 enableSwiper();
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, NgSwiperElementModule],
+  imports: [BrowserModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
