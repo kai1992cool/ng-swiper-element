@@ -90,7 +90,7 @@
             "outputPath": "dist/storybook-browser",
             "index": "projects/ng-swiper-element/.storybook/preview-head.html",
             "main": "projects/ng-swiper-element/src/public-api.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": "projects/ng-swiper-element/polyfills.ts",
             "tsConfig": "projects/ng-swiper-element/.storybook/tsconfig.json",
             "assets": [],
             "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
