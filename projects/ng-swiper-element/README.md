@@ -2,7 +2,7 @@
 
 An Angular wrapper for [Swiper Element](https://swiperjs.com/element), Swiper's Web Component implementation. Build responsive, touch-enabled carousels in Angular templates using native custom elements.
 
-The library supports Angular 17 and later, using decorator-based inputs and outputs, `@ViewChild`/`@ContentChildren`, and `*ngIf`/`*ngFor` for compatibility with Angular 17.
+The library supports Angular 22 and later, using decorator-based inputs and outputs, `@ViewChild`/`@ContentChildren`, and `*ngIf`/`*ngFor` for compatibility with Angular 17 and below.
 
 
 [![npm version](https://img.shields.io/npm/v/ng-swiper-element.svg)](https://www.npmjs.com/package/ng-swiper-element)
@@ -20,11 +20,50 @@ The library supports Angular 17 and later, using decorator-based inputs and outp
 
 ## Installation
 
-Install the package and its Swiper peer dependency:
+### 1. Install the package and its Swiper peer dependency
 
 ```bash
 npm install ng-swiper-element swiper
 ```
+
+### 2. Make Swiper's CSS files available to the application
+
+Swiper Element renders its content in a shadow root, so make the CSS files available as assets and pass their URLs with `injectStylesUrls`. In your application's `angular.json`, add the Swiper CSS files to the `assets` array under the app's build options:
+
+```json
+{
+  "glob": "**/*.min.css", // with minification (ideal - less bundle size)
+  // "glob": "**/*.css", // without minification (not ideal - larger bundle size)
+  "input": "node_modules/swiper",
+  "output": "/swiper/css"
+}
+```
+
+Then configure the carousel to load the bundle stylesheet:
+
+```ts
+swiperOptions = {
+  injectStylesUrls: ['/swiper/css/swiper-bundle.min.css'],
+};
+```
+
+### CSS Implementation Notes:
+
+#### swiper-bundle.min.css
+* **Use this when you just want to include almost all the CSS required for using all the features of swiper**. 
+* This is the recommended option for most applications, where minute increase in bundle size is not important. But please note, that this file does not contain the CSS for card effects. If you need effects please use the below effect CSS files:
+
+  * /swiper/css/modules/effect-fade-element.min.css
+  * /swiper/css/modules/effect-cube-element.min.css
+  * /swiper/css/modules/effect-coverflow-element.min.css
+  * /swiper/css/modules/effect-flip-element.min.css
+  * /swiper/css/modules/effect-creative-element.min.css
+  * /swiper/css/modules/effect-cards-element.min.css
+
+* As an alternative, we can use individual css styles, to import only what is necessary. Which would reduce the bundle size by a small amount.
+
+Note: The CSS files are loaded in the order they are specified in the `injectStylesUrls` array. If you have multiple CSS files, make sure to specify them in the correct order.
+
 
 ## Key Implementation Notes:
 
@@ -38,29 +77,35 @@ StackBlitz examples will be added as each Angular version's rollout is published
 
 | Angular version | Standalone example | NgModule example | Documentation |
 | --------------- | ------------------ | ---------------- | ------------- |
-| Angular 19      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v19/) |
-| Angular 20      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v20/) |
-| Angular 21      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v21/) |
-| Angular 22      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/v22/) |
+| Angular 14      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=14) |
+| Angular 15      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=15) |
+| Angular 16      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=16) |
+| Angular 17      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=17) |
+| Angular 18      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=18) |
+| Angular 19      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=19) |
+| Angular 20      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=20) |
+| Angular 21      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=21) |
+| Angular 22      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=22) |
 
 ## Setup
 
-Register Swiper's custom elements once before bootstrapping your Angular application.
+Choose the setup that matches your Angular application. Both approaches register Swiper's custom elements once and import the library's standalone pieces wherever they are used.
 
 ### Standalone application
 
-Call `enableSwiper()` before `bootstrapApplication()`:
+Register Swiper with `provideSwiper()` in the providers passed to `bootstrapApplication()`:
 
 ```ts
 import { bootstrapApplication } from '@angular/platform-browser';
-import { enableSwiper } from 'ng-swiper-element';
+import { provideSwiper } from 'ng-swiper-element';
 import { AppComponent } from './app/app.component';
 
-enableSwiper();
-bootstrapApplication(AppComponent);
+bootstrapApplication(AppComponent, {
+  providers: [provideSwiper()],
+});
 ```
 
-Import `SwiperElementComponent` and `NgSwiperSlideDirective` in the standalone component that uses the carousel:
+Import `SwiperElementComponent` and `NgSwiperSlideDirective` in the `imports` array of each standalone component that uses them:
 
 ```ts
 import { Component } from '@angular/core';
@@ -104,27 +149,46 @@ export class CarouselComponent {
 
 ### NgModule application
 
-Call `enableSwiper()` once before bootstrapping your Angular application:
+Call `enableSwiper()` once at the top of `app.module.ts`, before the module declaration. The application component should be non-standalone and listed in `declarations`.
 
 ```ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { enableSwiper } from 'ng-swiper-element';
+import {
+  enableSwiper,
+  NgSwiperSlideDirective,
+  SwiperElementComponent,
+} from 'ng-swiper-element';
 import { AppComponent } from './app.component';
 
 enableSwiper();
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule],
+  imports: [BrowserModule, SwiperElementComponent, NgSwiperSlideDirective],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
 
-Use `ng-swiper-element` and `ngSwiperSlide` in your templates the same way as in the standalone example.
+Add the `ng-swiper-element` markup to the template of a component declared in the module. The slide directive marks each slide:
+
+```html
+<ng-swiper-element
+  [swiperOptions]="{ slidesPerView: 1, pagination: { clickable: true } }"
+>
+  <ng-template ngSwiperSlide>
+    <article>First slide</article>
+  </ng-template>
+  <ng-template ngSwiperSlide>
+    <article>Second slide</article>
+  </ng-template>
+</ng-swiper-element>
+```
 
 ### Configure options with Angular property bindings
+
+#### **1. Angular property bindings**
 
 Each supported Swiper option can be passed to the wrapper as an Angular property binding. Object-valued options such as navigation, pagination, and autoplay accept the same configuration objects as Swiper:
 
@@ -147,7 +211,7 @@ Each supported Swiper option can be passed to the wrapper as an Angular property
 
 Use property bindings for individual options, or pass a complete Swiper configuration object with `[swiperOptions]="swiperOptions"`. Both approaches can be combined; directly bound inputs override matching values from `swiperOptions`.
 
-## Using Swiper modules
+#### **2. Using Swiper modules**
 
 Pass module configuration through `swiperOptions`, just as you would when configuring Swiper Element. Refer to the [Swiper Element documentation](https://swiperjs.com/element) for module setup and styling details.
 
@@ -158,11 +222,53 @@ swiperOptions = {
 };
 ```
 
+### Configure events with Angular event listeners
+
+Swiper events are exposed as Angular outputs on `ng-swiper-element`. Listen with the Swiper event name directly, and read the emitted value in your component handler:
+
+```html
+<ng-swiper-element
+  (initEmitter)="onInit($event)"
+  (slideChange)="onSlideChange($event)"
+  (touchStart)="onTouchStart($event)"
+>
+  <ng-template ngSwiperSlide>
+    <article>First slide</article>
+  </ng-template>
+</ng-swiper-element>
+```
+
+```ts
+onInit(payload: { event: Event; swiperArgs: unknown[] }) {
+  console.log('Swiper initialized', payload);
+}
+
+onSlideChange(payload: { event: Event; swiperArgs: unknown[] }) {
+  const swiper = payload.swiperArgs[0] as any;
+  console.log('Active slide:', swiper?.activeIndex);
+}
+
+onTouchStart(payload: { event: Event; swiperArgs: unknown[] }) {
+  console.log('Touch started', payload.event);
+}
+```
+
+Each event emits an object with:
+- `event`: the original Swiper custom event
+- `swiperArgs`: the event detail payload passed by Swiper
+
+Use `initEmitter` instead of `init` because `init` is a reserved Angular output name. This keeps the same Swiper event flow while fitting naturally into Angular templates.
+
+* **The `orientationchange` is set to `orientationChange` as the event.**
+* **The `init` is exposed as `initEmitter`, not init.**
+* **The `autoplay` event is exposed as `autoplayEvent`, not autoplay.**
+
 ## Documentation and demos
 
 - [Swiper Element documentation](https://swiperjs.com/element)
 - [Swiper API and options](https://swiperjs.com/swiper-api)
 - [ng-swiper-element repository](https://github.com/kai1992cool/ng-swiper-element)
+
 
 ## License
 
