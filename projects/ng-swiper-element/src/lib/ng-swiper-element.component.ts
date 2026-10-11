@@ -133,7 +133,7 @@ export class SwiperElementComponent extends SwiperContainerEvents {
       swiperInstance.pagination.init();
       swiperInstance.pagination.render();
       swiperInstance.pagination.update();
-      console.log(swiperInstance);
+      // console.log(swiperInstance);
     }
   }
 

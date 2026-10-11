@@ -26,8 +26,11 @@ const libraryPackagePath = resolve(
 );
 const storybookPath = resolve(
   root,
+  'projects',
+  'ng-swiper-element',
+  '.storybook',
 );
-const previewVariant = version === '17' ? '17' : version === '16' ? '16' : version === '15' ? '15' : '14';
+const previewVariant = version === '18' ? '18' : version === '19' ? '19' : '20';
 
 const [packageJson, versionPackage, libraryPackage] = await Promise.all([
   readJson(packagePath),
@@ -39,18 +42,21 @@ if (!versionPackage.dependencies || !versionPackage.devDependencies) {
   throw new Error(`package-${version}.json must define dependencies and devDependencies`);
 }
 
+if (typeof versionPackage.version !== 'string' || !versionPackage.version) {
+  throw new Error(`package-${version}.json must define a version`);
+}
 
+packageJson.version = versionPackage.version;
+libraryPackage.version = versionPackage.version;
 packageJson.dependencies = versionPackage.dependencies;
 packageJson.devDependencies = versionPackage.devDependencies;
-if(versionPackage.overrides) {
-  packageJson.overrides = versionPackage.overrides;
-}
 
 for (const dependency of ['@angular/common', '@angular/core']) {
   const versionValue = packageJson.dependencies[dependency];
   if (!versionValue) {
     throw new Error(`package-${version}.json is missing ${dependency}`);
   }
+
   // ensure that even if angular version is 21.2.2, the peer dependency is set to ^21.0.0
   const normalizedVersion = versionValue.replace(/(\d+)\.(\d+)\.(\d+)/, '$1.0.0');
   libraryPackage.peerDependencies[dependency] = normalizedVersion;
@@ -67,16 +73,18 @@ if (swiperVersion) {
   libraryPackage.peerDependencies.swiper = swiperVersion;
   libraryPackage.devDependencies.swiper = swiperVersion;
 }
-
-const previewUpdates = [
+const previewUpdates =
+  Number(version) <= 20
+    ? [
         copyFile(
           resolve(
             storybookPath,
-            `tsconfig-${previewVariant}.jsonbak`,
+            `preview-${previewVariant}.tsbak`,
           ),
-          resolve(storybookPath, 'tsconfig.json'),
+          resolve(storybookPath, 'preview.ts'),
         ),
-      ];
+      ]
+    : [];
 
 await Promise.all([
   writeJson(packagePath, packageJson),

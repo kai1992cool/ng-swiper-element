@@ -1419,10 +1419,10 @@ export class SwiperContainerInputs {
             grid: this.grid,
         }
         return {
-            ...(this.swiperOptions || {}), ..._swiperOptionsInternal,
+            ..._swiperOptionsInternal, ...(this.swiperOptions || {}),
             on: {
                 init: function () {
-                    console.log('swiper initialized');
+                    // console.log('swiper initialized');
                 },
             },
             init: false,

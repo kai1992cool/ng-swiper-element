@@ -12,8 +12,8 @@ repo_root="$(git -C "$script_dir" rev-parse --show-toplevel)" ||
 version="${1:-}"
 
 case "$version" in
-  18|19|20|21|22) ;;
-  *) die "Usage: $0 <angular-version: 18|19|20|21|22>" ;;
+  17|16|15|14) ;;
+  *) die "Usage: $0 <angular-version: 17|16|15|14>" ;;
 esac
 
 for command_name in git node npm; do
