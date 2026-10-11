@@ -37,5 +37,8 @@
     "@angular-devkit/architect": "^0.1502.0",
     "@angular-devkit/core": "^15.2.0",
     "@compodoc/compodoc": "1.1.19"
+  },
+  "overrides": {
+    "undici": "6.21.1"
   }
 }
