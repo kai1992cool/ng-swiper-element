@@ -1,6 +1,31 @@
 {
   "name": "ng-swiper-element",
   "version": "0.0.1",
+  "description": "Angular wrapper for Swiper Element with components, directives, and event bindings for responsive carousels.",
+  "keywords": [
+    "angular",
+    "swiper",
+    "swiperjs",
+    "angular-swiper",
+    "swiper-angular",
+    "swiper-element",
+    "angular-carousel",
+    "carousel",
+    "slider",
+    "web-components",
+    "typescript"
+  ],
+  "homepage": "https://kai1992cool.github.io/ng-swiper-element/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kai1992cool/ng-swiper-element.git",
+    "directory": "projects/ng-swiper-element"
+  },
+  "bugs": {
+    "url": "https://github.com/kai1992cool/ng-swiper-element/issues"
+  },
+  "license": "MIT",
+  "author": "Naren",
   "peerDependencies": {
     "@angular/common": "^17.0.0",
     "@angular/core": "^17.0.0",
