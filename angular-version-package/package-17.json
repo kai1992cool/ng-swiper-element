@@ -47,5 +47,9 @@
     "@angular-devkit/architect": "^0.1703.0",
     "@angular-devkit/core": "^17.3.0",
     "@compodoc/compodoc": "1.1.19"
+  },
+  "overrides": {
+    "@testing-library/user-event": "14.6.1",
+    "undici": "6.21.1"
   }
 }
