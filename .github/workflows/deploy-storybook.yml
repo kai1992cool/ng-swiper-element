@@ -21,7 +21,7 @@ jobs:
           - angular-version: 17
             node-version: '20.19.0'
           - angular-version: 16
-            node-version: '18.19.0'
+            node-version: '18.20.8'
           - angular-version: 15
             node-version: '18.19.0'
           - angular-version: 14
