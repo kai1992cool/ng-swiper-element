@@ -48,7 +48,7 @@
             ],
             "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
             "configDir": "projects/ng-swiper-element/.storybook",
-            "browserTarget": "ng-swiper-element:build",
+            "browserTarget": "storybook:build",
             "compodoc": true,
             "compodocArgs": ["-e", "json", "-d", "projects/ng-swiper-element"],
             "port": 6006
@@ -71,7 +71,7 @@
             ],
             "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
             "configDir": "projects/ng-swiper-element/.storybook",
-            "browserTarget": "ng-swiper-element:build",
+            "browserTarget": "storybook:build",
             "compodoc": true,
             "compodocArgs": ["-e", "json", "-d", "projects/ng-swiper-element"],
             "outputDir": "storybook-static"
@@ -85,7 +85,12 @@
       "sourceRoot": "stories",
       "architect": {
         "build": {
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "outputPath": "dist/storybook-browser",
+            "index": "projects/ng-swiper-element/.storybook/preview-head.html",
+            "main": "projects/ng-swiper-element/src/public-api.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/ng-swiper-element/.storybook/tsconfig.json",
             "assets": [],
             "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
