@@ -34,12 +34,14 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^17.3.0",
     "typescript": "~5.4.2",
-    "storybook": "^10.6.1",
-    "@storybook/angular": "^10.6.1",
-    "@storybook/addon-a11y": "^10.6.1",
-    "@storybook/addon-docs": "^10.6.1",
+    "storybook": "^8.6.18",
+    "@storybook/angular": "^8.6.18",
+    "@storybook/test": "^8.6.18",
+    "@storybook/manager": "^8.6.18",
+    "@storybook/addon-a11y": "^8.6.18",
+    "@storybook/addon-docs": "^8.6.18",
     "@angular-devkit/architect": "^0.1703.0",
     "@angular-devkit/core": "^17.3.0",
-    "@compodoc/compodoc": "latest"
+    "@compodoc/compodoc": "1.1.19"
   }
 }

@@ -6,7 +6,7 @@ import {
 } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { fn } from 'storybook/test';
+import { fn } from '@storybook/test';
 import {
   NgSwiperSlideDirective,
   SwiperElementComponent,
