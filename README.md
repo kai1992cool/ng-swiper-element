@@ -54,6 +54,26 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
+## Publishing
+
+To build and publish the library for a supported Angular version, run:
+
+```bash
+node scripts/publish-angular.mjs 22 no
+```
+
+Pass `yes` as the second argument to run `npm run patch` before publishing. The
+selected `angular-version-package/package-<version>.json` then retains the new
+library version for the next publish:
+
+```bash
+node scripts/publish-angular.mjs 22 yes
+```
+
+The script selects the Angular dependencies, installs them, builds the library,
+and publishes it from `dist/ng-swiper-element`. npm publish credentials must be
+configured before running it.
+
 ## Storybook on GitHub Pages
 
 The `Deploy Storybook to GitHub Pages` workflow builds Storybook for Angular 18 through 22 using a matrix. Each build selects its dependencies from `angular-version-package/package-<version>.json` and deploys to the matching directory on `gh-pages`:

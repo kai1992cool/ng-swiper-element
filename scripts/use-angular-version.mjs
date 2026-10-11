@@ -42,7 +42,12 @@ if (!versionPackage.dependencies || !versionPackage.devDependencies) {
   throw new Error(`package-${version}.json must define dependencies and devDependencies`);
 }
 
+if (typeof versionPackage.version !== 'string' || !versionPackage.version) {
+  throw new Error(`package-${version}.json must define a version`);
+}
 
+packageJson.version = versionPackage.version;
+libraryPackage.version = versionPackage.version;
 packageJson.dependencies = versionPackage.dependencies;
 packageJson.devDependencies = versionPackage.devDependencies;
 
@@ -51,6 +56,7 @@ for (const dependency of ['@angular/common', '@angular/core']) {
   if (!versionValue) {
     throw new Error(`package-${version}.json is missing ${dependency}`);
   }
+
   // ensure that even if angular version is 21.2.2, the peer dependency is set to ^21.0.0
   const normalizedVersion = versionValue.replace(/(\d+)\.(\d+)\.(\d+)/, '$1.0.0');
   libraryPackage.peerDependencies[dependency] = normalizedVersion;
