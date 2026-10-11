@@ -92,4 +92,4 @@ await Promise.all([
   ),
   copyFile(resolve(root, 'LICENSE'), resolve(outputDirectory, 'LICENSE')),
 ]);
-runNpm(['publish', '--tag', tagChecked], outputDirectory);
+runNpm(['publish', '--tag', `v${tagChecked}`], outputDirectory);
