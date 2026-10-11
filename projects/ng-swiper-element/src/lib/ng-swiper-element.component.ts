@@ -34,7 +34,7 @@ export type BreakPointsType = {
               [attr.data-history]="slidesComponentToIterate.get(i)?.dataHistory"
               [attr.data-hash]="slidesComponentToIterate.get(i)?.dataHash"
             >
-              <ng-container *ngTemplateOutlet="slide" />
+              <ng-container *ngTemplateOutlet="slide"></ng-container>
             </swiper-slide>
             <ng-template #regularSlide>
               <swiper-slide
@@ -42,14 +42,14 @@ export type BreakPointsType = {
                 [attr.data-history]="slidesComponentToIterate.get(i)?.dataHistory"
                 [attr.data-hash]="slidesComponentToIterate.get(i)?.dataHash"
               >
-                <ng-container *ngTemplateOutlet="slide" />
+                <ng-container *ngTemplateOutlet="slide"></ng-container>
               </swiper-slide>
             </ng-template>
           </ng-container>
         </ng-container>
       </ng-container>
     </swiper-container>
-    <ng-content/>
+    <ng-content></ng-content>
     </div>
   `,
   exportAs: 'ngSwiperElement',
