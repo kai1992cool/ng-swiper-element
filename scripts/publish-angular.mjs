@@ -4,19 +4,20 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
 const [angularVersion, patchOption, ...extraArgs] = process.argv.slice(2);
+const patchOptionChecked = patchOption?.toLowerCase() === 'yes' || patchOption?.toLowerCase() === 'no' ? patchOption.toLowerCase() : 'no';
 const supportedVersions = ['18', '19', '20', '21', '22'];
 
 if (
   extraArgs.length > 0 ||
   !supportedVersions.includes(angularVersion) ||
-  !['yes', 'no'].includes((patchOption || 'no')?.toLowerCase())
+  !['yes', 'no'].includes((patchOptionChecked)?.toLowerCase())
 ) {
   throw new Error(
     'Usage: node scripts/publish-angular.mjs <18|19|20|21|22> <yes|no>',
   );
 }
 
-const shouldPatch = patchOption.toLowerCase() === 'yes';
+const shouldPatch = patchOptionChecked.toLowerCase() === 'yes';
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
 
