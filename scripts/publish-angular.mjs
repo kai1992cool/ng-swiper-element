@@ -3,10 +3,9 @@ import { copyFile, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
-const [angularVersion, patchOption, tag, ...extraArgs] = process.argv.slice(2);
+const [angularVersion, patchOption, ...extraArgs] = process.argv.slice(2);
 const patchOptionChecked = patchOption?.toLowerCase() === 'yes' || patchOption?.toLowerCase() === 'no' ? patchOption.toLowerCase() : 'no';
 const supportedVersions = ['18', '19', '20', '21', '22'];
-const tagChecked = tag || 'latest';
 if (
   extraArgs.length > 0 ||
   !supportedVersions.includes(angularVersion) ||
@@ -92,4 +91,4 @@ await Promise.all([
   ),
   copyFile(resolve(root, 'LICENSE'), resolve(outputDirectory, 'LICENSE')),
 ]);
-runNpm(['publish', '--tag', `v${tagChecked}`], outputDirectory);
+runNpm(['publish', '--tag', `angular-${angularVersion}`], outputDirectory);
