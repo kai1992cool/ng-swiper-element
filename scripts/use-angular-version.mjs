@@ -57,7 +57,7 @@ for (const dependency of ['@angular/common', '@angular/core']) {
 }
 
 const tslibVersion = packageJson.dependencies.tslib;
-const swiperVersion = packageJson.peerDependencies.swiper;
+const swiperVersion = packageJson.dependencies.swiper;
 if (!tslibVersion) {
   throw new Error(`package-${version}.json is missing tslib`);
 }
@@ -65,6 +65,7 @@ libraryPackage.dependencies.tslib = tslibVersion;
 
 if (swiperVersion) {
   libraryPackage.peerDependencies.swiper = swiperVersion;
+  libraryPackage.devDependencies.swiper = swiperVersion;
 }
 
 const previewUpdates = [
