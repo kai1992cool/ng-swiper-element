@@ -117,7 +117,7 @@ export const controllerSharedMeta: Meta = {
           }
         </style>
 
-        @if(propAndMethodsDemo) {
+        <ng-container *ngIf="propAndMethodsDemo">
           <h3>Controller Properties & Methods Demo</h3>
           <div class="btn-group">
             <button class="btn-ng" (click)="checkControllerControl(mainSwiper)">Check swiper.controller.control</button>
@@ -125,7 +125,7 @@ export const controllerSharedMeta: Meta = {
             <button class="btn-ng" (click)="clearControlTarget(mainSwiper)">Clear Controller Target</button>
           </div>
           <br/>
-        }
+        </ng-container>
 
         <div class="slider-label">🎮 Controlling Swiper (Primary)</div>
         <ng-swiper-element 
@@ -137,11 +137,11 @@ export const controllerSharedMeta: Meta = {
                 ? `(slideChange)="slideChange($event)"`
                 : ''
             }>  
-            @for(slide of slides; track $index) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
                   <div class="swiper-slide">Primary Slide {{slide}}</div>
               </ng-template>
-            }
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>
@@ -151,11 +151,11 @@ export const controllerSharedMeta: Meta = {
             id="controlledSwiper"
             [injectStylesUrls]="injectStylesUrls"
             #secondarySwiper="ngSwiperElement">  
-            @for(slide of slides; track $index) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
                   <div class="swiper-slide controlled-slide">Target Slide {{slide}}</div>
               </ng-template>
-            }
+            </ng-container>
         </ng-swiper-element>
       `,
       props: {

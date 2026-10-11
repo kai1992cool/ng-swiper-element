@@ -169,12 +169,12 @@ export const navigationSharedMeta: Meta = {
                     padding:10px;
                   }
                 ']">  
-                @for(slide of slides; track $index)  {
+                <ng-container *ngFor="let slide of slides; let i = index">
                   <ng-template ngSwiperSlide>
                       <div class="swiper-slide">Slide {{slide}}</div>
                   </ng-template>
-                }
-                @if(showElements) {
+                </ng-container>
+                <ng-container *ngIf="showElements">
                     <div class="swiper-button-prev">
                     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
                     <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -208,9 +208,9 @@ export const navigationSharedMeta: Meta = {
                     </g>
                     </svg>
                     </div>
-                }
+                </ng-container>
             </ng-swiper-element>
-            @if(propAndMethodsDemo) {
+            <ng-container *ngIf="propAndMethodsDemo">
               <h3>Properties</h3>
               <div style="display: flex;gap:20px;">
                 <button class="btn-ng" (click)="nextEl(swiperElement)">Navigation NextEl</button>
@@ -223,7 +223,7 @@ export const navigationSharedMeta: Meta = {
                 <button class="btn-ng" (click)="init(swiperElement)">Initialize Navigation</button>
                 <button class="btn-ng" (click)="update(swiperElement)">Update Navigation</button>
               </div>
-            }
+            </ng-container>
             `,
       props: {
         navigationConfig,

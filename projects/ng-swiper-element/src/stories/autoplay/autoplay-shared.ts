@@ -150,12 +150,12 @@ export const autoplaySharedMeta: Meta = {
                     pointer-events: none;
                   }
                 ']">  
-                @for(slide of slides; track $index)  {
-                  <ng-template ngSwiperSlide [autoplayDelay]="slidesDelay?.[$index] || undefined">
+                <ng-container *ngFor="let slide of slides; let i = index">
+                  <ng-template ngSwiperSlide [autoplayDelay]="slidesDelay?.[i] || undefined">
                       <div class="swiper-slide">Slide {{slide}}</div>
                   </ng-template>
-                }
-                @if(showElements) {
+                </ng-container>
+                <ng-container *ngIf="showElements">
                     <div class="swiper-button-prev">
                     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
                     <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -189,10 +189,10 @@ export const autoplaySharedMeta: Meta = {
                     </g>
                     </svg>
                     </div>
-                }
+                </ng-container>
               <div class="custom-autoplay"></div>
             </ng-swiper-element>
-            @if(propAndMethodsDemo) {
+            <ng-container *ngIf="propAndMethodsDemo">
               <h3>Properties</h3>
               <div style="display: flex;gap:20px;">
                 <button class="btn-ng" (click)="paused(swiperElement)">autoplay Paused</button>
@@ -207,10 +207,10 @@ export const autoplaySharedMeta: Meta = {
                 <button class="btn-ng" (click)="start(swiperElement)">Autoplay Start</button>
                 <button class="btn-ng" (click)="stop(swiperElement)">Autoplay Stop</button>
               </div>
-            }
+            </ng-container>
             <br/>
             <br/>
-            @if(classStory) {
+            <ng-container *ngIf="classStory">
               <div><h3>Custom CSS:</h3></div>
               <code style="white-space: pre-wrap;  padding: 16px; display: block;border: 1px solid red;">
                 /* autoplay Custom Demo Styles - Shadow DOM Styling (Use injectStyles) */<br/>
@@ -243,7 +243,7 @@ export const autoplaySharedMeta: Meta = {
                   use regular CSS styling without the need for shadow DOM styling. <br/>
                 */<br/>
               </code>
-            }
+            </ng-container>
             `,
       props: {
         storyName,

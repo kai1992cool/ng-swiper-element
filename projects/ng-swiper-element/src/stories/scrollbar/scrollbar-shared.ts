@@ -183,12 +183,12 @@ export const scrollbarSharedMeta: Meta = {
                     pointer-events: none;
                   }
                 ']">  
-                @for(slide of slides; track $index)  {
+                <ng-container *ngFor="let slide of slides; let i = index">
                   <ng-template ngSwiperSlide>
                       <div class="swiper-slide">Slide {{slide}}</div>
                   </ng-template>
-                }
-                @if(showElements) {
+                </ng-container>
+                <ng-container *ngIf="showElements">
                     <div class="swiper-button-prev">
                     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
                     <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -222,10 +222,10 @@ export const scrollbarSharedMeta: Meta = {
                     </g>
                     </svg>
                     </div>
-                }
+                </ng-container>
               <div class="custom-scrollbar"></div>
             </ng-swiper-element>
-            @if(propAndMethodsDemo) {
+            <ng-container *ngIf="propAndMethodsDemo">
               <h3>Properties</h3>
               <div style="display: flex;gap:20px;">
                 <button class="btn-ng" (click)="scrollbarEl(swiperElement)">scrollbar El</button>
@@ -239,7 +239,7 @@ export const scrollbarSharedMeta: Meta = {
                 <button class="btn-ng" (click)="setTranslate(swiperElement)">Scrollbar Set Translate</button>
                 <button class="btn-ng" (click)="updateSize(swiperElement)">Scrollbar Update Size</button>
               </div>
-            }
+            </ng-container>
             `,
       props: {
         storyName,

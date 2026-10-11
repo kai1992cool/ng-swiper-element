@@ -158,11 +158,11 @@ export const manipulationSharedMeta: Meta = {
             [spaceBetween]="20"
             [injectStylesUrls]="injectStylesUrls"
             #swiperElement="ngSwiperElement">  
-            @for(slide of slides; track $index) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
                   <div class="swiper-slide">{{slide}}</div>
               </ng-template>
-            }
+            </ng-container>
         </ng-swiper-element>
       `,
       props: {

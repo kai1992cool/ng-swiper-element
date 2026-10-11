@@ -121,7 +121,7 @@ export const virtualSlidesSharedMeta: Meta = {
           }
         </style>
 
-        @if(propAndMethodsDemo) {
+        <ng-container *ngIf="propAndMethodsDemo">
           <div>
           <h5>Virtual Slides Module Properties:</h5>
           <hr/>
@@ -144,10 +144,10 @@ export const virtualSlidesSharedMeta: Meta = {
           <hr/> 
           </div>
           <br/>
-        }
+        </ng-container>
 
         <p class="info-text">Rendering <strong>{{ slides.length }}</strong> slides virtually using DOM virtualization.</p>
-        @if(scopedThis?.virtualData?.length > 0) {
+        <ng-container *ngIf="scopedThis?.virtualData?.length > 0">
           <p class="info-text">
             Virtual Data Length: 
             <strong>
@@ -160,15 +160,15 @@ export const virtualSlidesSharedMeta: Meta = {
               {{ scopedThis | json }}
             </strong>
           </p> 
-        } 
+        </ng-container>
         <ng-swiper-element 
             [virtual]="virtualConfig"
             [slidesPerView]="slidesPerView"
             [spaceBetween]="20"
             [injectStylesUrls]="injectStylesUrls"
             #swiperElement="ngSwiperElement"> 
-            @if(scopedThis?.virtualData?.length > 0) {
-                @for(slide of scopedThis.virtualData; let i = $index; track i) {
+            <ng-container *ngIf="scopedThis?.virtualData?.length > 0">
+                <ng-container *ngFor="let slide of scopedThis.virtualData; let i = index">
                   <div 
                     class="swiper-slide"
                     [style.left]="scopedThis?.offset + 'px'"
@@ -176,16 +176,17 @@ export const virtualSlidesSharedMeta: Meta = {
                   >
                     Slide {{ i + 1 }}
                   </div>
-                }
-            } @else {
-              @if(!virtualConfig?.renderSlide && virtualConfig?.slides?.length <= 0) {
-                @for(slide of slides; track $index) {
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!(scopedThis?.virtualData?.length > 0)">
+              <ng-container *ngIf="!virtualConfig?.renderSlide && virtualConfig?.slides?.length <= 0">
+                <ng-container *ngFor="let slide of slides; let i = index">
                   <ng-template ngSwiperSlide>
                       <div class="swiper-slide">Slide {{slide}}</div>
                   </ng-template>
-                }
-              } 
-            }
+                </ng-container>
+              </ng-container>
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>

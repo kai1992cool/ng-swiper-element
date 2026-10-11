@@ -315,12 +315,12 @@ export const paginationSharedMeta: Meta = {
                     border: 1px solid yellow;
                   }
                 ']">  
-                @for(slide of slides; track $index)  {
+                <ng-container *ngFor="let slide of slides; let i = index">
                   <ng-template ngSwiperSlide>
                       <div class="swiper-slide">Slide {{slide}}</div>
                   </ng-template>
-                }
-                @if(showElements) {
+                </ng-container>
+                <ng-container *ngIf="showElements">
                     <div class="swiper-button-prev">
                     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
                     <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
@@ -354,10 +354,10 @@ export const paginationSharedMeta: Meta = {
                     </g>
                     </svg>
                     </div>
-                }
+                </ng-container>
             </ng-swiper-element>
             <div class="swiper-pagination"></div>
-            @if(propAndMethodsDemo) {
+            <ng-container *ngIf="propAndMethodsDemo">
               <h3>Properties</h3>
               <div style="display: flex;gap:20px;">
                 <button class="btn-ng" (click)="paginationEl(swiperElement)">Pagination El</button>
@@ -371,7 +371,7 @@ export const paginationSharedMeta: Meta = {
                 <button class="btn-ng" (click)="render(swiperElement)">Render Pagination</button>
                 <button class="btn-ng" (click)="update(swiperElement)">Update Pagination</button>
               </div>
-            }
+            </ng-container>
             `,
       props: {
         storyName,

@@ -125,14 +125,14 @@ export const hashNavigationSharedMeta: Meta = {
                 ? `(hashChange)="hashChange($event)" (hashSet)="hashSet($event)"`
                 : ''
             }>  
-            @for(slide of slides; track $index) {
-              <ng-template ngSwiperSlide [dataHash]="slideHashes[$index]">
+            <ng-container *ngFor="let slide of slides; let i = index">
+              <ng-template ngSwiperSlide [dataHash]="slideHashes[i]">
                   <div class="swiper-slide">
                     <div>Slide {{slide}}</div>
-                    <small style="font-size: 13px; opacity: 0.8; margin-top: 6px;">URL Hash: #{{slideHashes[$index]}}</small>
+                    <small style="font-size: 13px; opacity: 0.8; margin-top: 6px;">URL Hash: #{{slideHashes[i]}}</small>
                   </div>
               </ng-template>
-            }
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>

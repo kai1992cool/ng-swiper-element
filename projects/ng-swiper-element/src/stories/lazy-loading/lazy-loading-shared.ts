@@ -98,13 +98,13 @@ export const lazyLoadingSharedMeta: Meta = {
             [lazyPreloadPrevNext]="lazyPreloadPrevNext"
             [injectStylesUrls]="injectStylesUrls"
             #swiperElement="ngSwiperElement">  
-            @for(imgUrl of images; track $index) {
+            <ng-container *ngFor="let imgUrl of images; let i = index">
               <ng-template ngSwiperSlide [lazy]="true">
                  <div class="swiper-slide">
-                 <img [src]="imgUrl" loading="lazy" alt="Slide Image {{$index + 1}}" />
+                 <img [src]="imgUrl" loading="lazy" alt="Slide Image {{ i + 1 }}" />
                   </div>
               </ng-template>
-            }
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>

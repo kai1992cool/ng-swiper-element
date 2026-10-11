@@ -126,14 +126,14 @@ export const historyNavigationSharedMeta: Meta = {
             [history]="historyConfig"
             [injectStylesUrls]="injectStylesUrls"
             #swiperElement="ngSwiperElement">  
-            @for(slide of slides; track $index) {
-              <ng-template ngSwiperSlide [dataHistory]="slidePaths[$index]">
+            <ng-container *ngFor="let slide of slides; let i = index">
+              <ng-template ngSwiperSlide [dataHistory]="slidePaths[i]">
                   <div class="swiper-slide">
                     <div>Slide {{slide}}</div>
-                    <small style="font-size: 13px; opacity: 0.8; margin-top: 6px;">Path: {{ historyConfig.root || '' }}/{{historyConfig.key || 'slides'}}/{{slidePaths[$index]}}</small>
+                    <small style="font-size: 13px; opacity: 0.8; margin-top: 6px;">Path: {{ historyConfig.root || '' }}/{{historyConfig.key || 'slides'}}/{{slidePaths[i]}}</small>
                   </div>
               </ng-template>
-            }
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>

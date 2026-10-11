@@ -236,13 +236,13 @@ export const effectsSharedMeta: Meta = {
             [${effectConfigKey}]="effectConfig"
             [injectStylesUrls]="injectStylesUrls"
             #swiperElement="ngSwiperElement">  
-            @for(slide of slides;let i = $index; track i) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
               <div class="swiper-slide">
                   <img src="https://swiperjs.com/demos/images/abstract-{{i + 1}}.jpg" />
               </div>
               </ng-template>
-            }
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>

@@ -143,7 +143,7 @@ export const mousewheelSharedMeta: Meta = {
           }
         </style>
 
-        @if(propAndMethodsDemo) {
+        <ng-container *ngIf="propAndMethodsDemo">
           <h3>Mousewheel Control Properties & Methods Demo</h3>
           <br/>
           <div class="btn-group">
@@ -151,7 +151,7 @@ export const mousewheelSharedMeta: Meta = {
             <button class="btn-ng" (click)="disableMousewheel(swiperElement)">Disable Mousewheel - swiper.mousewheel.disable()</button>
             <button class="btn-ng" (click)="checkMousewheelStatus(swiperElement)">Check Enabled Property - swiper.mousewheel.enabled</button>
           </div>
-        }
+        </ng-container>
 
         <p class="scroll-hint">💡 Tip: Hover over the slider area and scroll your mouse wheel / touchpad to test slide transitions.</p>
 
@@ -161,14 +161,14 @@ export const mousewheelSharedMeta: Meta = {
             #swiperElement="ngSwiperElement"
             ${eventsShowcase ? `(scroll)="scroll($event)"` : ''
         }>  
-            @for(slide of slides; track $index) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
                   <div class="swiper-slide">Slide {{slide}}</div>
-                  @if(noMousewheelClass) {
+                  <ng-container *ngIf="noMousewheelClass">
                     <div class="swiper-no-mousewheel">Hovering here will not trigger mousewheel navigation.</div>
-                  }
+                  </ng-container>
               </ng-template>
-            }
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>

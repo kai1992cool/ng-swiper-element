@@ -100,15 +100,15 @@ export const freeModeSharedMeta: Meta = {
             [spaceBetween]="30"
             [injectStylesUrls]="injectStylesUrls"
             #swiperElement="ngSwiperElement">  
-            @for(slide of slides; track $index) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
                   <div class="swiper-slide">Slide {{slide}}</div>
               </ng-template>
-            }
-            @if(showElements) {
+            </ng-container>
+            <ng-container *ngIf="showElements">
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
-            }
+            </ng-container>
         </ng-swiper-element>
       `,
       props: {

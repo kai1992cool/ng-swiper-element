@@ -148,7 +148,7 @@ export const parallaxSharedMeta: Meta = {
           }
         </style>
 
-        @if(propAndMethodsDemo) {
+        <ng-container *ngIf="propAndMethodsDemo">
           <h3>Parallax Properties & Methods Demo</h3>
           <div class="btn-group">
             <button class="btn-ng" (click)="enableParallax(swiperElement)">Enable Parallax</button>
@@ -156,7 +156,7 @@ export const parallaxSharedMeta: Meta = {
             <button class="btn-ng" (click)="checkParallaxStatus(swiperElement)">Check Status</button>
           </div>
           <br/>
-        }
+        </ng-container>
 
         <ng-swiper-element 
             [parallax]="parallaxConfig"
@@ -166,7 +166,7 @@ export const parallaxSharedMeta: Meta = {
               eventsShowcase ? `(slideChange)="slideChange($event)"` : ''
             }>  
 
-            @for(slide of slides;let i = $index; track i) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
                   <!-- Parallax background element -->
                   <div
@@ -201,7 +201,7 @@ export const parallaxSharedMeta: Meta = {
                     </div>
                   </div>
               </ng-template>
-            }
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>

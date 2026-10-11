@@ -103,7 +103,7 @@ export const zoomSharedMeta: Meta = {
               };
         </style>
 
-        @if(propAndMethodsDemo) {
+        <ng-container *ngIf="propAndMethodsDemo">
           <div class="btn-group">
           <h5>Zoom Module Properties:</h5>
           <hr/>
@@ -119,7 +119,7 @@ export const zoomSharedMeta: Meta = {
             <button class="btn-ng" (click)="toggleZoom(swiperElement)">Toggle Zoom - swiper.zoom.toggle()</button>
           </div>
           <br/>
-        }
+        </ng-container>
 
         <ng-swiper-element 
             [modules]="modules"
@@ -137,13 +137,13 @@ export const zoomSharedMeta: Meta = {
             #swiperElement="ngSwiperElement"
             ${eventsShowcase ? `(zoomChange)="zoomChange($event)"` : ''
         }>  
-            @for(slide of slides; track $index) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
                   <div [class]="containerZoomCustom ? 'swiper-zoom-container-custom' : 'swiper-zoom-container'">
-                      <img style="width:100%;height:auto;" [src]="'https://swiperjs.com/demos/images/nature-' + (($index % 3) + 1) + '.jpg'" [alt]="'Slide ' + slide" />
+                      <img style="width:100%;height:auto;" [src]="'https://swiperjs.com/demos/images/nature-' + ((i % 3) + 1) + '.jpg'" [alt]="'Slide ' + slide" />
                   </div>
               </ng-template>
-            }
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>

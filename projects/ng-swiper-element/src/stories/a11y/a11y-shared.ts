@@ -98,11 +98,11 @@ export const a11ySharedMeta: Meta = {
             }"
             [autoplay]="autoplay"
             #swiperElement="ngSwiperElement">
-            @for(imgUrl of images; track $index) {
+            <ng-container *ngFor="let imgUrl of images; let i = index">
               <ng-template ngSwiperSlide>
-                  <img [src]="imgUrl" loading="lazy" alt="Slide Image {{$index + 1}}" />
+                  <img [src]="imgUrl" loading="lazy" alt="Slide Image {{ i + 1 }}" />
               </ng-template>
-            }
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
             <div class="swiper-pagination"></div>

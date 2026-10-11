@@ -146,7 +146,7 @@ export const thumbsSharedMeta: Meta = {
           }
         </style>
 
-        @if(propAndMethodsDemo) {
+        <ng-container *ngIf="propAndMethodsDemo">
           <h3>Thumbs Properties & Methods Demo</h3>
           <div class="btn-group">
             <button class="btn-ng" (click)="checkThumbsSwiper(mainSwiper)">Check thumbs.swiper Instance</button>
@@ -154,7 +154,7 @@ export const thumbsSharedMeta: Meta = {
             <button class="btn-ng" (click)="updateThumbs(mainSwiper)">Update Thumbs - thumbs.update()</button>
           </div>
           <br/>
-        }
+        </ng-container>
 
         <!-- Main Swiper -->
         <ng-swiper-element 
@@ -172,11 +172,11 @@ export const thumbsSharedMeta: Meta = {
               }
             ']"
             #mainSwiper="ngSwiperElement">  
-            @for(slide of slides; track $index) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
                   <div class="swiper-slide">Main Slide {{slide}}</div>
               </ng-template>
-            }
+            </ng-container>
         </ng-swiper-element>
 
         <!-- Thumbs Swiper -->
@@ -197,11 +197,11 @@ export const thumbsSharedMeta: Meta = {
             [watchSlidesProgress]="true"
             [injectStylesUrls]="injectStylesUrls"
             #thumbsSwiper="ngSwiperElement">  
-            @for(slide of slides; track $index) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
                   <div class="swiper-slide">Thumb {{slide}}</div>
               </ng-template>
-            }
+            </ng-container>
         </ng-swiper-element>
       `,
       props: {

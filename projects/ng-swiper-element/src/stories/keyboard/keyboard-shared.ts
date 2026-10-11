@@ -115,7 +115,7 @@ export const keyboardSharedMeta: Meta = {
           }
         </style>
 
-        @if(propAndMethodsDemo) {
+        <ng-container *ngIf="propAndMethodsDemo">
           <h3>Keyboard Control Properties & Methods Demo</h3>
           <div class="btn-group">
             <button class="btn-ng" (click)="enableKeyboard(swiperElement)">Enable Keyboard - swiper.keyboard.enable()</button>
@@ -123,7 +123,7 @@ export const keyboardSharedMeta: Meta = {
             <button class="btn-ng" (click)="checkKeyboardStatus(swiperElement)">Check Keyboard Enabled Property</button>
           </div>
           <br/>
-        }
+        </ng-container>
 
         <p class="focus-hint">💡 Tip: Click inside the slider area and use Arrow Left/Right (or Page Up/Down) keys to test navigation.</p>
 
@@ -134,11 +134,11 @@ export const keyboardSharedMeta: Meta = {
             ${
               eventsShowcase ? `(keyPress)="keyPress($event)"` : ''
             }>  
-            @for(slide of slides; track $index) {
+            <ng-container *ngFor="let slide of slides; let i = index">
               <ng-template ngSwiperSlide>
                   <div class="swiper-slide">Slide {{slide}}</div>
               </ng-template>
-            }
+            </ng-container>
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
         </ng-swiper-element>
