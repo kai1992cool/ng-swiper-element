@@ -25,46 +25,6 @@ The library supports Angular 22 and later, using decorator-based inputs and outp
 ```bash
 npm install ng-swiper-element swiper
 ```
-
-### 2. Make Swiper's CSS files available to the application
-
-Swiper Element renders its content in a shadow root, so make the CSS files available as assets and pass their URLs with `injectStylesUrls`. In your application's `angular.json`, add the Swiper CSS files to the `assets` array under the app's build options:
-
-```json
-{
-  "glob": "**/*.min.css", // with minification (ideal - less bundle size)
-  // "glob": "**/*.css", // without minification (not ideal - larger bundle size)
-  "input": "node_modules/swiper",
-  "output": "/swiper/css"
-}
-```
-
-Then configure the carousel to load the bundle stylesheet:
-
-```ts
-swiperOptions = {
-  injectStylesUrls: ['/swiper/css/swiper-bundle.min.css'],
-};
-```
-
-### CSS Implementation Notes:
-
-#### swiper-bundle.min.css
-* **Use this when you just want to include almost all the CSS required for using all the features of swiper**. 
-* This is the recommended option for most applications, where minute increase in bundle size is not important. But please note, that this file does not contain the CSS for card effects. If you need effects please use the below effect CSS files:
-
-  * /swiper/css/modules/effect-fade-element.min.css
-  * /swiper/css/modules/effect-cube-element.min.css
-  * /swiper/css/modules/effect-coverflow-element.min.css
-  * /swiper/css/modules/effect-flip-element.min.css
-  * /swiper/css/modules/effect-creative-element.min.css
-  * /swiper/css/modules/effect-cards-element.min.css
-
-* As an alternative, we can use individual css styles, to import only what is necessary. Which would reduce the bundle size by a small amount.
-
-Note: The CSS files are loaded in the order they are specified in the `injectStylesUrls` array. If you have multiple CSS files, make sure to specify them in the correct order.
-
-
 ## Key Implementation Notes:
 
 * **The `orientationchange` is set to `orientationChange` as the event.**
@@ -77,19 +37,56 @@ StackBlitz examples will be added as each Angular version's rollout is published
 
 | Angular version | Standalone example | NgModule example | Documentation |
 | --------------- | ------------------ | ---------------- | ------------- |
-| Angular 14      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=14) |
-| Angular 15      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=15) |
-| Angular 16      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=16) |
-| Angular 17      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=17) |
-| Angular 18      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=18) |
-| Angular 19      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=19) |
-| Angular 20      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=20) |
-| Angular 21      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=21) |
-| Angular 22      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=22) |
+| Angular 14      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-14)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-14)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=14) |
+| Angular 15      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-15)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-15)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=15) |
+| Angular 16      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-16)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-16)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=16) |
+| Angular 17      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-17)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-17)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=17) |
+| Angular 18      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-18)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-18)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=18) |
+| Angular 19      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-19)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-19)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=19) |
+| Angular 20      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-20)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-20)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=20) |
+| Angular 21      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-21)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-21)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=21) |
+| Angular 22      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-22)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-22)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=22) |
+
+## Configuring Styling
+
+### 1. Simplest way
+
+The default bundle registration injects Swiper's core and bundled module styles into the element's shadow root, so no separate CSS setup is usually needed.
+
+Use 'bundler' for `provideSwiper` or `enableSwiper` which will register the core and bundled module styles into the element's shadow root.
+
+### 2. Configure Swiper CSS (when needed)
+If you need additional styles in the shadow root, such as styles for an effects, serve Swiper's CSS files as assets. Add this entry to the `assets` array in your application's `angular.json` for all styles:
+
+```json
+{
+  "glob": "**/*.min.css",
+  "input": "node_modules/swiper",
+  "output": "/swiper/css"
+}
+```
+
+or import individual ones:
+
+```json
+...
+styles: ['node_modules/swiper/modules/effect-cards-element.min.css']
+```
+
+Then pass the asset URL in `injectStylesUrls`:
+
+```ts
+swiperOptions = {
+  injectStylesUrls: ['/swiper/css/modules/effect-cards-element.min.css'],
+};
+```
+
+Use the matching `*-element.min.css` file for the feature you need. For styles outside the shadow root, import Swiper CSS in the application's global stylesheet instead (for example, `import 'swiper/css';` and `import 'swiper/css/navigation';`). Global styles do not style elements inside the Swiper shadow root.
+
 
 ## Setup
 
-Choose the setup that matches your Angular application. Both approaches register Swiper's custom elements once and import the library's standalone pieces wherever they are used.
+Choose the setup that matches your Angular application. Both APIs register Swiper's custom elements once. They default to bundle registration; pass `'core'` to register Swiper Element core instead.
 
 ### Standalone application
 
@@ -104,6 +101,8 @@ bootstrapApplication(AppComponent, {
   providers: [provideSwiper()],
 });
 ```
+
+To register Swiper Element core instead of the bundle, use `provideSwiper('core')`.
 
 Import `SwiperElementComponent` and `NgSwiperSlideDirective` in the `imports` array of each standalone component that uses them:
 
@@ -149,7 +148,7 @@ export class CarouselComponent {
 
 ### NgModule application
 
-Call `enableSwiper()` once at the top of `app.module.ts`, before the module declaration. The application component should be non-standalone and listed in `declarations`.
+Call `enableSwiper()` once at the top of `app.module.ts`, before the module declaration. It uses bundle registration by default; pass `'core'` to register Swiper Element core. The application component should be non-standalone and listed in `declarations`.
 
 ```ts
 import { NgModule } from '@angular/core';
