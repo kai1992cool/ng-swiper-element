@@ -19,6 +19,11 @@ import { marked } from 'marked';
   selector: 'app-root',
   standalone: true,
   imports: [FormsModule, RouterOutlet, RouterLink, RouterLinkActive],
+  styles: [`
+    .asdfasdf span:nth-child(1), .asdfasdf span:nth-child(2) {
+      height: 28px !important; 
+    }
+  `],
   template: `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -56,7 +61,7 @@ import { marked } from 'marked';
             </li>
           </ul>
 
-          <span class="d-flex gap-3 align-items-center">
+          <span class="d-flex gap-3 align-items-center asdfasdf">
             <a
               class="github-button"
               href="https://github.com/kai1992cool/ng-swiper-element"
