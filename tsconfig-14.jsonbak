@@ -10,7 +10,6 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "skipLibCheck": true,
     "paths": {
       "ng-swiper-element": [
         "./dist/ng-swiper-element"
