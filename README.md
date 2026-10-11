@@ -71,8 +71,9 @@ node scripts/publish-angular.mjs 22 yes
 ```
 
 The script selects the Angular dependencies, installs them, builds the library,
-and publishes it from `dist/ng-swiper-element`. npm publish credentials must be
-configured before running it.
+and publishes it from `dist/ng-swiper-element` under the npm dist-tag
+`angular-<version>` (for example, `angular-22`). npm publish credentials must
+be configured before running it.
 
 ## Storybook on GitHub Pages
 

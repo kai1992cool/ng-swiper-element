@@ -92,4 +92,4 @@ await Promise.all([
   ),
   copyFile(resolve(root, 'LICENSE'), resolve(outputDirectory, 'LICENSE')),
 ]);
-runNpm(['publish'], outputDirectory);
+runNpm(['publish', '--tag', `angular-${angularVersion}`], outputDirectory);
