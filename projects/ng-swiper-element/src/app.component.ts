@@ -214,7 +214,9 @@ export class AppComponent extends StorybookShared {
         .map((check) => check.version)
     );
 
-    const newestPublished = checks.find((check) => check.published === true);
+    const newestPublished = [...checks]
+      .reverse()
+      .find((check) => check.published === true);
     if (newestPublished) {
       const requestedVersion = this.resolveVersion(
         this.route.snapshot.queryParamMap.get('version') ??
