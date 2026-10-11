@@ -1,57 +1,59 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "1e1de97b-a744-405a-8b5a-0397bb3d01ce"
+  },
   "newProjectRoot": "projects",
   "projects": {
-    "modular-22": {
-      "projectType": "application",
-      "root": "",
-      "sourceRoot": "src",
+    "demo": {
       "architect": {
         "build": {
           "builder": "@angular/build:application",
-          "options": {
-            "outputPath": "dist/modular-22",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
-            "polyfills": ["zone.js"],
-            "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*.min.css",
-                "input": "node_modules/swiper",
-                "output": "/swiper/css"
-              }
-            ],
-            "styles": ["src/styles.css"]
-          },
           "configurations": {
-            "production": {
-              "outputHashing": "all"
-            },
             "development": {
-              "optimization": false,
               "extractLicenses": false,
+              "namedChunks": true,
+              "optimization": false,
               "sourceMap": true
+            },
+            "production": {
+              "extractLicenses": true,
+              "namedChunks": false,
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false
             }
           },
-          "defaultConfiguration": "production"
+          "options": {
+            "assets": [],
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "outputPath": "dist/demo",
+            "polyfills": [],
+            "scripts": [],
+            "styles": ["src/global_styles.css"],
+            "tsConfig": "tsconfig.app.json"
+          }
         },
         "serve": {
           "builder": "@angular/build:dev-server",
           "configurations": {
-            "production": {
-              "buildTarget": "modular-22:build:production"
-            },
             "development": {
-              "buildTarget": "modular-22:build:development"
+              "buildTarget": "demo:build:development"
+            },
+            "production": {
+              "buildTarget": "demo:build:production"
             }
           },
           "defaultConfiguration": "development"
         }
-      }
+      },
+      "prefix": "app",
+      "projectType": "application",
+      "root": "",
+      "schematics": {},
+      "sourceRoot": "src"
     }
   },
-  "cli": {
-    "analytics": false
-  }
+  "version": 1
 }

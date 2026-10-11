@@ -45,7 +45,7 @@ StackBlitz examples will be added as each Angular version's rollout is published
 | Angular 19      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=19) |
 | Angular 20      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=20) |
 | Angular 21      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=21) |
-| Angular 22      | [Modular Demo](https://stackblitz.com/github/you/your-repo/tree/mainkai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-22)        | [Standalone Demo](https://stackblitz.com/github/you/your-repo/tree/mainkai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-22)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=22) |
+| Angular 22      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-22)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-22)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=22) |
 
 ## Configuring Styling
 
