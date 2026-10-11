@@ -8,13 +8,13 @@ import { StorybookShared } from './storybook-shared';
   selector: 'app-about',
   standalone: true,
   template: `
-    <section class="container mx-0 px-0">
+    <section class="container px-0">
         @if (isAboutLoading()) {
-          <p class="px-5 py-8 text-slate-400 sm:px-8" role="status">
+          <p class="px-5 py-8 text-slate-400 sm:px-8 text-info" role="status">
             Loading README.md…
           </p>
         } @else if (aboutLoadError(); as error) {
-          <p class="px-5 py-8 text-rose-300 sm:px-8" role="alert">
+          <p class="px-5 py-8 text-rose-300 sm:px-8 text-warning" role="alert">
             {{ error }}
           </p>
         } @else if (aboutReadmeHtml(); as html) {
