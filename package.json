@@ -37,7 +37,7 @@
     "build-website": "ng build ng-swiper-element-demo && cp projects/ng-swiper-element/README.md dist/ng-swiper-element-demo/browser/README.md && cp LICENSE dist/ng-swiper-element-demo/LICENSE",
     "serve:ssr:ng-swiper-element-demo": "node dist/ng-swiper-element-demo/server/server.mjs",
     "build-storybook": "ng run ng-swiper-element:build-storybook",
-    "patch": "npm version patch --depth 9999 && cd projects/ng-swiper-element && npm version patch --depth 9999 && cd ../..",
+    "patch": "cd projects/ng-swiper-element && npm version patch --depth 9999 && cd ../..",
     "publish": "npm run build && cp projects/ng-swiper-element/README.md LICENSE dist/ng-swiper-element && cd dist/ng-swiper-element && npm publish"
   },
   "private": true,
