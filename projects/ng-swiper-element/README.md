@@ -37,14 +37,14 @@ StackBlitz examples will be added as each Angular version's rollout is published
 
 | Angular version | Standalone example | NgModule example | Documentation |
 | --------------- | ------------------ | ---------------- | ------------- |
-| Angular 14      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=14) |
-| Angular 15      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=15) |
-| Angular 16      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=16) |
-| Angular 17      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=17) |
-| Angular 18      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=18) |
-| Angular 19      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=19) |
-| Angular 20      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=20) |
-| Angular 21      | Coming soon        | Coming soon      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=21) |
+| Angular 14      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-14)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-14)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=14) |
+| Angular 15      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-15)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-15)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=15) |
+| Angular 16      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-16)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-16)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=16) |
+| Angular 17      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-17)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-17)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=17) |
+| Angular 18      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-18)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-18)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=18) |
+| Angular 19      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-19)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-19)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=19) |
+| Angular 20      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-20)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-20)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=20) |
+| Angular 21      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-21)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-21)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=21) |
 | Angular 22      | [Modular Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/modular-22)        | [Standalone Demo](https://stackblitz.com/github/kai1992cool/ng-swiper-element/tree/main/demos/Angular-22/standalone-22)      | [Storybook](https://kai1992cool.github.io/ng-swiper-element/demos?version=22) |
 
 ## Configuring Styling
