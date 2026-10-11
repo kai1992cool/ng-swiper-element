@@ -36,6 +36,9 @@
     "@types/node": "^20",
     "@angular-devkit/architect": "^0.1402.0",
     "@angular-devkit/core": "^14.2.0",
-    "@compodoc/compodoc": "latest"
+    "@compodoc/compodoc": "1.1.19"
+  },
+  "overrides": {
+    "undici": "6.21.1"
   }
 }
