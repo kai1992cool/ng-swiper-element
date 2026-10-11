@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
 } from '@angular/core';
+import { StorybookShared } from './storybook-shared';
 
 @Component({
   selector: 'app-about',
@@ -26,5 +27,5 @@ import {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AboutComponent {
+export class AboutComponent extends StorybookShared {
 }
