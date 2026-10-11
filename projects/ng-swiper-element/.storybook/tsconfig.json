@@ -16,6 +16,7 @@
     "./preview.ts"
   ],
   "files": [
-    "./typings.d.ts"
+    "./typings.d.ts",
+    "../polyfills.ts"
   ]
 }
