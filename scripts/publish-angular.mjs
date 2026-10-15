@@ -69,6 +69,32 @@ function runNpm(args, cwd = root) {
 }
 
 function runGit(args) {
+  const setupIdentity = spawnSync("git", [
+    "config",
+    "--global",
+    "user.email",
+    "kai1992cool@gmail.com",
+  ], { stdio: "inherit" });
+  if (setupIdentity.error) {
+    throw setupIdentity.error;
+  }
+  if (setupIdentity.status !== 0) {
+    throw new Error(`git config --global user.email failed with status ${setupIdentity.status}`);
+  }
+
+  const setupName = spawnSync("git", [
+    "config",
+    "--global",
+    "user.name",
+    "Naren Murali",
+  ], { stdio: "inherit" });
+  if (setupName.error) {
+    throw setupName.error;
+  }
+  if (setupName.status !== 0) {
+    throw new Error(`git config --global user.name failed with status ${setupName.status}`);
+  }
+
   const result = spawnSync("git", args, {
     cwd: root,
     stdio: "inherit",
