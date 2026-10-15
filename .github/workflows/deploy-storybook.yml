@@ -6,7 +6,8 @@ on:
       publish:
         description: Publish the Angular package after deploying Storybook?
         required: true
-        type: choice
+        type: choice 
+        default: no
         options:
           - yes
           - no
