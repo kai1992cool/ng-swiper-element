@@ -167,4 +167,4 @@ if (packageChanges.status === 1) {
   );
 }
 
-// runNpm(['publish', '--tag', `angular-${angularVersion}`], outputDirectory);
+runNpm(['publish', '--tag', `angular-${angularVersion}`], outputDirectory);
