@@ -3,23 +3,48 @@ import { copyFile, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 
-const [angularVersion, patchOption, ...extraArgs] = process.argv.slice(2);
-const patchOptionChecked = patchOption?.toLowerCase() === 'yes' || patchOption?.toLowerCase() === 'no' ? patchOption.toLowerCase() : 'no';
-const supportedVersions = ['17', '16', '15', '14'];
-
-if (
-  extraArgs.length > 0 ||
-  !supportedVersions.includes(angularVersion) ||
-  !['yes', 'no'].includes((patchOptionChecked)?.toLowerCase())
-) {
+const [angularVersion, ...extraArgs] = process.argv.slice(2);
+const supportedVersions = ['18', '19', '20', '21', '22'];
+if (extraArgs.length > 0 || !supportedVersions.includes(angularVersion)) {
   throw new Error(
-    'Usage: node scripts/publish-angular.mjs <17|16|15|14> <yes|no>',
+    'Usage: node scripts/publish-angular.mjs <18|19|20|21|22>',
   );
 }
 
-const shouldPatch = patchOptionChecked.toLowerCase() === 'yes';
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
+
+function npmVersionExists(packageName, version) {
+  const command = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+  const result = spawnSync(
+    command,
+    ['view', `${packageName}@${version}`, 'version', '--json'],
+    {
+      cwd: root,
+      encoding: 'utf8',
+      shell: process.platform === 'win32',
+    },
+  );
+
+  if (result.error) {
+    throw result.error;
+  }
+  if (result.status === 0) {
+    const publishedVersion = result.stdout.trim().replace(/^"|"$/g, '');
+    if (publishedVersion !== version) {
+      throw new Error(
+        `npm returned unexpected version "${publishedVersion}" for ${packageName}@${version}`,
+      );
+    }
+    return true;
+  }
+  if (/\bE404\b/.test(result.stderr)) {
+    return false;
+  }
+  throw new Error(
+    `Failed to check ${packageName}@${version} on npm: ${result.stderr.trim()}`,
+  );
+}
 
 function runNpm(args, cwd = root) {
   const command = process.platform === 'win32' ? 'npm.cmd' : 'npm';
@@ -36,6 +61,20 @@ function runNpm(args, cwd = root) {
     throw new Error(
       `${command} ${args.join(' ')} failed with status ${result.status}`,
     );
+  }
+}
+
+function runGit(args) {
+  const result = spawnSync('git', args, {
+    cwd: root,
+    stdio: 'inherit',
+  });
+
+  if (result.error) {
+    throw result.error;
+  }
+  if (result.status !== 0) {
+    throw new Error(`git ${args.join(' ')} failed with status ${result.status}`);
   }
 }
 
@@ -56,25 +95,31 @@ if (useAngularVersion.status !== 0) {
   throw new Error(`Failed to select Angular ${angularVersion}`);
 }
 
+const libraryPackagePath = resolve(
+  root,
+  'projects',
+  'ng-swiper-element',
+  'package.json',
+);
+const versionPackagePath = resolve(
+  root,
+  'angular-version-package',
+  `package-${angularVersion}.json`,
+);
+const libraryPackage = await readJson(libraryPackagePath);
+const shouldPatch = npmVersionExists(
+  libraryPackage.name,
+  libraryPackage.version,
+);
+
 if (shouldPatch) {
   runNpm(['run', 'patch', '--no-git-tag-version']);
 
-  const libraryPackagePath = resolve(
-    root,
-    'projects',
-    'ng-swiper-element',
-    'package.json',
-  );
-  const versionPackagePath = resolve(
-    root,
-    'angular-version-package',
-    `package-${angularVersion}.json`,
-  );
-  const [libraryPackage, versionPackage] = await Promise.all([
+  const [patchedLibraryPackage, versionPackage] = await Promise.all([
     readJson(libraryPackagePath),
     readJson(versionPackagePath),
   ]);
-  versionPackage.version = libraryPackage.version;
+  versionPackage.version = patchedLibraryPackage.version;
   await writeFile(
     versionPackagePath,
     `${JSON.stringify(versionPackage, null, 2)}\n`,
@@ -92,4 +137,34 @@ await Promise.all([
   ),
   copyFile(resolve(root, 'LICENSE'), resolve(outputDirectory, 'LICENSE')),
 ]);
-runNpm(['publish', '--tag', `angular-${angularVersion}`], outputDirectory);
+
+const packageFiles = [
+  'package.json',
+  'projects/ng-swiper-element/package.json',
+  `angular-version-package/package-${angularVersion}.json`,
+];
+const packageChanges = spawnSync(
+  'git',
+  ['diff', '--quiet', 'HEAD', '--', ...packageFiles],
+  { cwd: root },
+);
+if (packageChanges.error) {
+  throw packageChanges.error;
+}
+if (packageChanges.status === 1) {
+  runGit(['add', '--', ...packageFiles]);
+  runGit([
+    'commit',
+    '--only',
+    '-m',
+    'Publishing Angular version number',
+    '--',
+    ...packageFiles,
+  ]);
+} else if (packageChanges.status !== 0) {
+  throw new Error(
+    `git diff --quiet HEAD failed with status ${packageChanges.status}`,
+  );
+}
+
+// runNpm(['publish', '--tag', `angular-${angularVersion}`], outputDirectory);
