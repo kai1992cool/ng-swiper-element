@@ -2,6 +2,18 @@ name: Deploy Storybook to GitHub Pages
 
 on:
   workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the Angular package after deploying Storybook?
+        required: true
+        type: choice
+        options:
+          - yes
+          - no
+      angular-major-versions:
+        description: Angular major versions to publish, comma-separated. Leave blank for all versions.
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -51,6 +63,10 @@ jobs:
           publish_branch: gh-pages
           destination_dir: v${{ matrix.angular-version }}
           keep_files: true
+
+      - name: Publish Angular package
+        if: ${{ github.event.inputs.publish == 'yes' && (github.event.inputs.angular-major-versions == '' || contains(fromJson(format('["{0}"]', join(github.event.inputs.angular-major-versions, ','))), format('{0}', matrix.angular-version))) }}
+        run: node scripts/publish-angular.mjs ${{ matrix.angular-version }}
 
   deploy-demo-app:
     runs-on: ubuntu-latest
