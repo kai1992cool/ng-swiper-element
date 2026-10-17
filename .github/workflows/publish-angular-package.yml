@@ -51,7 +51,20 @@ jobs:
       - name: Install dependencies (Old angular packages have peer dependency issues, so using --legacy-peer-deps)
         run: npm install --no-package-lock --legacy-peer-deps
 
-      - name: Build and publish Angular package
+      - name: Build Angular package
+        run: npm run publish-package ${{ matrix.angular-version }}
+
+      - name: Setup latest Node.js for publishing
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Update npm to latest
+        run: npm install --global npm@latest
+
+      - name: Publish Angular package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm run publish-package ${{ matrix.angular-version }} --provenance --access public
+        run: npm stage publish --tag angular-${{ matrix.angular-version }} --provenance --access public
+        working-directory: dist/ng-swiper-element

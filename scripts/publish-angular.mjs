@@ -201,9 +201,3 @@ if (packageChanges.status === 1) {
     `git diff --quiet HEAD failed with status ${packageChanges.status}`,
   );
 }
-
-const publishArgs = ["publish", "--tag", `angular-${angularVersion}`];
-if (process.argv.includes("--provenance")) {
-  publishArgs.push("--provenance");
-}
-runNpm(publishArgs, outputDirectory);
