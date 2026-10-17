@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 
 const [angularVersion, ...extraArgs] = process.argv.slice(2);
-const supportedVersions = ["18", "19", "20", "21", "22"];
+const supportedVersions = ["14", "15", "16", "17"];
 if (extraArgs.length > 0 || !supportedVersions.includes(angularVersion)) {
-  throw new Error("Usage: node scripts/publish-angular.mjs <18|19|20|21|22>");
+  throw new Error("Usage: node scripts/publish-angular.mjs <14|15|16|17>");
 }
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
@@ -202,4 +202,8 @@ if (packageChanges.status === 1) {
   );
 }
 
-runNpm(["publish", "--tag", `angular-${angularVersion}`, '--provenance'], outputDirectory);
+const publishArgs = ["stage", "publish", "--tag", `angular-${angularVersion}`];
+if (process.argv.includes("--provenance")) {
+  publishArgs.push("--provenance");
+}
+runNpm(publishArgs, outputDirectory);

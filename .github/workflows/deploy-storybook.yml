@@ -3,14 +3,8 @@ name: Deploy Storybook to GitHub Pages
 on:
   workflow_dispatch:
     inputs:
-      publish:
-        description: Publish the Angular package after deploying Storybook?
-        required: true
-        # covert to checkbox
-        type: boolean
-        default: false
       angular-major-versions:
-        description: Angular major versions to publish, comma-separated. Leave blank for all versions.
+        description: Angular major versions to deploy, comma-separated. Leave blank for all versions.
         required: false
         type: string
 permissions:
@@ -25,23 +19,28 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        include:
-          - angular-version: 17
-            node-version: '20.19.0'
-          - angular-version: 16
-            node-version: '18.20.8'
-          - angular-version: 15
-            node-version: '18.20.8'
-          - angular-version: 14
-            node-version: '16.20.2'
+        angular-version: ${{ fromJson(github.event.inputs.angular-major-versions == '' && '[14,15,16,17]' || format('[{0}]', join(github.event.inputs.angular-major-versions, ','))) }}
     steps:
+      - name: Validate Angular version
+        env:
+          ANGULAR_VERSION: ${{ matrix.angular-version }}
+        shell: python
+        run: |
+          import os
+
+          version = os.environ['ANGULAR_VERSION']
+          if version not in {'14', '15', '16', '17'}:
+              raise SystemExit(
+                  f"Invalid Angular version: {version}. Allowed values are 14,15,16,17."
+              )
+
       - name: Checkout branch
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.angular-version == 17 && '20.19.0' || (matrix.angular-version == 16 && '18.20.8' || (matrix.angular-version == 15 && '18.20.8' || '16.20.2')) }}
           cache: npm
 
       - name: Apply Angular version dependencies
@@ -64,8 +63,3 @@ jobs:
           publish_branch: gh-pages
           destination_dir: v${{ matrix.angular-version }}
           keep_files: true
-      - name: Publish Angular package
-        if: ${{ github.event.inputs.publish == 'true' && (github.event.inputs.angular-major-versions == '' || contains(fromJson(format('["{0}"]', join(github.event.inputs.angular-major-versions, ','))), format('{0}', matrix.angular-version))) }}
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: node scripts/publish-angular.mjs ${{ matrix.angular-version }}
