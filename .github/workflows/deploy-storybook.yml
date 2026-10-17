@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
   deploy:
-    environment: DEV
+    environment: github-pages
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
