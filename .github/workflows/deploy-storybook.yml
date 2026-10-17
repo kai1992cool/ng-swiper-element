@@ -15,7 +15,8 @@ on:
         type: string
 
 permissions:
-  contents: write
+  contents: read
+  id-token: write   # ← required for --provenance
 
 concurrency:
   group: github-pages
