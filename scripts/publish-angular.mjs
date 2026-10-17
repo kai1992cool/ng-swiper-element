@@ -202,7 +202,7 @@ if (packageChanges.status === 1) {
   );
 }
 
-const publishArgs = ["publish", "--tag", `angular-${angularVersion}`];
+const publishArgs = ["stage", "publish", "--tag", `angular-${angularVersion}`];
 if (process.argv.includes("--provenance")) {
   publishArgs.push("--provenance");
 }
