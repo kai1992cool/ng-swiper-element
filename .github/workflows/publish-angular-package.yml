@@ -62,4 +62,4 @@ jobs:
       - name: Build and publish Angular package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm run publish-package -- ${{ matrix.angular-version }} --provenance
+        run: npm run publish-package ${{ matrix.angular-version }}
