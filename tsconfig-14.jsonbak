@@ -12,7 +12,7 @@
     "sourceMap": true,
     "paths": {
       "ng-swiper-element": [
-        "./dist/ng-swiper-element"
+        "dist/ng-swiper-element"
       ]
     },
     "declaration": false,
