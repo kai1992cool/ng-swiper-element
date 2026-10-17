@@ -15,8 +15,7 @@ on:
         type: string
 
 permissions:
-  contents: read
-  id-token: write   # ← required for --provenance
+  contents: write
 
 concurrency:
   group: github-pages
@@ -24,7 +23,9 @@ concurrency:
 
 jobs:
   deploy:
-    environment: github-pages
+    environment: DEV
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
