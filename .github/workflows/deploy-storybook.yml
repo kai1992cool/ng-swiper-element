@@ -21,7 +21,7 @@ jobs:
       - name: Select Angular and Node.js versions
         id: select
         env:
-          ANGULAR_MAJOR_VERSIONS: ${{ github.event.inputs.angular-major-versions }}
+          ANGULAR_MAJOR_VERSIONS: ${{ fromJson(github.event.inputs.angular-major-versions == '' && '[14,15,16,17]' || format('[{0}]', join(github.event.inputs.angular-major-versions, ','))) }}
         shell: python
         run: |
           import json
