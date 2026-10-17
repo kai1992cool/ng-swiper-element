@@ -30,7 +30,7 @@ const storybookPath = resolve(
   'ng-swiper-element',
   '.storybook',
 );
-const previewVariant = version === '18' ? '18' : version === '19' ? '19' : '20';
+const previewVariant = version;
 
 const [packageJson, versionPackage, libraryPackage] = await Promise.all([
   readJson(packagePath),
