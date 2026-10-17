@@ -24,13 +24,13 @@ const libraryPackagePath = resolve(
   'ng-swiper-element',
   'package.json',
 );
-const storybookPath = resolve(
-  root,
-  'projects',
-  'ng-swiper-element',
-  '.storybook',
-);
-const previewVariant = version === '18' ? '18' : version === '19' ? '19' : '20';
+// const storybookPath = resolve(
+//   root,
+//   'projects',
+//   'ng-swiper-element',
+//   '.storybook',
+// );
+// const previewVariant = version === '18' ? '18' : version === '19' ? '19' : '20';
 
 const [packageJson, versionPackage, libraryPackage] = await Promise.all([
   readJson(packagePath),
@@ -73,21 +73,21 @@ if (swiperVersion) {
   libraryPackage.peerDependencies.swiper = swiperVersion;
   libraryPackage.devDependencies.swiper = swiperVersion;
 }
-const previewUpdates =
-  Number(version) <= 20
-    ? [
-        copyFile(
-          resolve(
-            storybookPath,
-            `preview-${previewVariant}.tsbak`,
-          ),
-          resolve(storybookPath, 'preview.ts'),
-        ),
-      ]
-    : [];
+// const previewUpdates =
+//   Number(version) <= 20
+//     ? [
+//         copyFile(
+//           resolve(
+//             storybookPath,
+//             `preview-${previewVariant}.tsbak`,
+//           ),
+//           resolve(storybookPath, 'preview.ts'),
+//         ),
+//       ]
+//     : [];
 
 await Promise.all([
   writeJson(packagePath, packageJson),
   writeJson(libraryPackagePath, libraryPackage),
-  ...previewUpdates,
+  // ...previewUpdates,
 ]);
