@@ -202,4 +202,8 @@ if (packageChanges.status === 1) {
   );
 }
 
-runNpm(["publish", "--tag", `angular-${angularVersion}`, '--provenance'], outputDirectory);
+const publishArgs = ["publish", "--tag", `angular-${angularVersion}`];
+if (process.argv.includes("--provenance")) {
+  publishArgs.push("--provenance");
+}
+runNpm(publishArgs, outputDirectory);
