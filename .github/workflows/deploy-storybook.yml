@@ -65,6 +65,8 @@ jobs:
 
       - name: Publish Angular package
         if: ${{ github.event.inputs.publish == 'true' && (github.event.inputs.angular-major-versions == '' || contains(fromJson(format('["{0}"]', join(github.event.inputs.angular-major-versions, ','))), format('{0}', matrix.angular-version))) }}
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: node scripts/publish-angular.mjs ${{ matrix.angular-version }}
 
   deploy-demo-app:
