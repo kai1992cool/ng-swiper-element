@@ -13,66 +13,35 @@ permissions:
   id-token: write
 
 jobs:
-  select-versions:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.select.outputs.matrix }}
-    steps:
-      - name: Select Angular and Node.js versions
-        id: select
-        env:
-          ANGULAR_MAJOR_VERSIONS: ${{ fromJson(github.event.inputs.angular-major-versions == '' && '[14,15,16,17]' || format('[{0}]', join(github.event.inputs.angular-major-versions, ','))) }}
-        shell: python
-        run: |
-          import json
-          import os
-
-          versions_by_angular = {
-              '17': {'angular-version': 17, 'node-version': '20.19.0'},
-              '16': {'angular-version': 16, 'node-version': '18.20.8'},
-              '15': {'angular-version': 15, 'node-version': '18.20.8'},
-              '14': {'angular-version': 14, 'node-version': '16.20.2'},
-          }
-
-          raw = os.environ.get('ANGULAR_MAJOR_VERSIONS', '').strip()
-          versions = (
-              [item.strip() for item in raw.split(',') if item.strip()]
-              if raw
-              else list(versions_by_angular)
-          )
-          if not versions:
-              raise SystemExit('Select at least one Angular version.')
-
-          invalid = [item for item in versions if item not in versions_by_angular]
-
-          if invalid:
-              raise SystemExit(
-                  f"Invalid angular-major-versions value(s): {', '.join(invalid)}. Allowed values are 14,15,16,17 or blank."
-              )
-
-          selected_versions = list(dict.fromkeys(versions))
-          matrix = {
-              'include': [versions_by_angular[version] for version in selected_versions]
-          }
-          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
-              output.write(f"matrix={json.dumps(matrix, separators=(',', ':'))}\n")
-
   publish:
-    needs: select-versions
     environment: DEV
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 1
-      matrix: ${{ fromJson(needs.select-versions.outputs.matrix) }}
+      matrix:
+        angular-version: ${{ fromJson(github.event.inputs.angular-major-versions == '' && '[14,15,16,17]' || format('[{0}]', join(github.event.inputs.angular-major-versions, ','))) }}
     steps:
+      - name: Validate Angular version
+        env:
+          ANGULAR_VERSION: ${{ matrix.angular-version }}
+        shell: python
+        run: |
+          import os
+
+          version = os.environ['ANGULAR_VERSION']
+          if version not in {'14', '15', '16', '17'}:
+              raise SystemExit(
+                  f"Invalid Angular version: {version}. Allowed values are 14,15,16,17."
+              )
+
       - name: Checkout branch
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.angular-version == 17 && '20.19.0' || (matrix.angular-version == 16 && '18.20.8' || (matrix.angular-version == 15 && '18.20.8' || '16.20.2')) }}
           registry-url: 'https://registry.npmjs.org'
           cache: npm
 
