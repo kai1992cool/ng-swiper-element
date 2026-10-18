@@ -2,6 +2,11 @@ name: Deploy Storybook to GitHub Pages
 
 on:
   workflow_dispatch:
+    inputs:
+      angular-major-versions:
+        description: Angular major versions to publish, comma-separated. Leave blank for all versions.
+        required: false
+        type: string
 
 permissions:
   contents: write
