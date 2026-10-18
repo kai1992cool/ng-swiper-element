@@ -50,6 +50,7 @@ packageJson.version = versionPackage.version;
 libraryPackage.version = versionPackage.version;
 packageJson.dependencies = versionPackage.dependencies;
 packageJson.devDependencies = versionPackage.devDependencies;
+packageJson.overrides = versionPackage.overrides;
 
 for (const dependency of ['@angular/common', '@angular/core']) {
   const versionValue = packageJson.dependencies[dependency];
