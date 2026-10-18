@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 
 const [angularVersion, ...extraArgs] = process.argv.slice(2);
 const supportedVersions = ["18", "19", "20", "21", "22"];
+const latest = supportedVersions[supportedVersions.length - 1];
 if (extraArgs.length > 0 || !supportedVersions.includes(angularVersion)) {
   throw new Error("Usage: node scripts/publish-angular.mjs <18|19|20|21|22>");
 }
@@ -202,7 +203,9 @@ if (packageChanges.status === 1) {
   );
 }
 
-const publishArgs = ["stage", "publish", "--tag", `angular-${angularVersion}`];
+const publishTag =
+  angularVersion === latest ? "latest" : `angular-${angularVersion}`;
+const publishArgs = ["stage", "publish", "--tag", publishTag];
 if (process.argv.includes("--provenance")) {
   publishArgs.push("--provenance");
 }
