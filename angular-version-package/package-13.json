@@ -18,9 +18,9 @@
     "@angular-devkit/build-angular": "~13.3.11",
     "@angular/cli": "~13.3.11",
     "@angular/compiler-cli": "~13.3.0",
+    "@compodoc/compodoc": "1.1.19",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
-    "@compodoc/compodoc": "^2.0.0",
     "@storybook/addon-actions": "^9.0.8",
     "@storybook/addon-essentials": "^8.6.14",
     "@storybook/addon-links": "^10.6.2",
@@ -32,6 +32,7 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "ng-packagr": "^13.0.0",
+    "cheerio": "1.0.0-rc.12",
     "typescript": "~4.6.2"
   }
 }
