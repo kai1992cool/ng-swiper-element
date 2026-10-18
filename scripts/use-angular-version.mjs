@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 const version = process.argv[2];
 
-if (!['17', '16', '15', '14'].includes(version)) {
+if (!['10', '11', '12', '13'].includes(version)) {
   throw new Error(`Unsupported Angular version: ${version ?? '(missing)'}`);
 }
 
