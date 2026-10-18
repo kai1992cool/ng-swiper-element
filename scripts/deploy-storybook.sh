@@ -34,7 +34,7 @@ git -C "$repo_root" remote get-url origin >/dev/null 2>&1 ||
 printf 'Installing dependencies...\n'
 (
   cd "$repo_root"
-  node scripts/use-angular-version.mjs "$version"
+  node scripts/use-angular-version.js "$version"
   npm install --no-package-lock
   npx ng build ng-swiper-element
   npm run build-storybook

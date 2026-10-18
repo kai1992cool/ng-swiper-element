@@ -278,7 +278,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 To build and publish the library for a supported Angular version, run:
 
 ```bash
-node scripts/publish-angular.mjs 22 no
+node scripts/publish-angular.js 22 no
 ```
 
 Pass `yes` as the second argument to run `npm run patch` before publishing. The
@@ -286,7 +286,7 @@ selected `angular-version-package/package-<version>.json` then retains the new
 library version for the next publish:
 
 ```bash
-node scripts/publish-angular.mjs 22 yes
+node scripts/publish-angular.js 22 yes
 ```
 
 The script selects the Angular dependencies, installs them, builds the library,

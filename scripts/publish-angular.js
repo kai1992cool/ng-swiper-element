@@ -1,7 +1,6 @@
-import { spawnSync } from "child_process";
-import fs from "fs";
-import { fileURLToPath } from "url";
-import { resolve } from "path";
+const { spawnSync } = require("child_process");
+const fs = require("fs");
+const { resolve } = require("path");
 
 const { copyFile, readFile, writeFile } = fs.promises;
 
@@ -9,10 +8,10 @@ async function main() {
   const [angularVersion, ...extraArgs] = process.argv.slice(2);
   const supportedVersions = ["10", "11", "12", "13"];
   if (extraArgs.length > 0 || !supportedVersions.includes(angularVersion)) {
-    throw new Error("Usage: node scripts/publish-angular.mjs <10|11|12|13>");
+    throw new Error("Usage: node scripts/publish-angular.js <10|11|12|13>");
   }
 
-  const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
+  const root = resolve(__dirname, "..");
   const readJson = async (path) => JSON.parse(await readFile(path, "utf8"));
 
   function npmVersionExists(packageName, version) {
@@ -117,7 +116,7 @@ async function main() {
   const useAngularVersionScript = resolve(
     root,
     "scripts",
-    "use-angular-version.mjs",
+    "use-angular-version.js",
   );
   const useAngularVersion = spawnSync(
     process.execPath,

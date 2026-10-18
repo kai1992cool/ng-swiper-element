@@ -44,7 +44,7 @@ jobs:
           cache: npm
 
       - name: Apply Angular version dependencies
-        run: node scripts/use-angular-version.mjs ${{ matrix.angular-version }}
+        run: node scripts/use-angular-version.js ${{ matrix.angular-version }}
 
       - name: Install dependencies (Old angular packages have peer dependency issues, so using --legacy-peer-deps)
         run: npm install --no-package-lock --legacy-peer-deps

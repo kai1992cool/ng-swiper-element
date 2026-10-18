@@ -1,5 +1,5 @@
-import fs from 'fs';
-import { resolve } from 'path';
+const fs = require('fs');
+const { resolve } = require('path');
 
 const { readFile, writeFile } = fs.promises;
 
