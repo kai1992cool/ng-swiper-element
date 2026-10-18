@@ -1,6 +1,6 @@
 {
   "name": "ng-swiper-element",
-  "version": "22.0.0",
+  "version": "18.0.2",
   "description": "Angular wrapper for Swiper Element with components, directives, and event bindings for responsive carousels.",
   "keywords": [
     "angular",
@@ -27,8 +27,8 @@
   "license": "MIT",
   "author": "Naren",
   "peerDependencies": {
-    "@angular/common": "^22.0.0",
-    "@angular/core": "^22.0.0",
+    "@angular/common": "^18.0.0",
+    "@angular/core": "^18.0.0",
     "swiper": "^14.2.0"
   },
   "dependencies": {
