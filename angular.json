@@ -39,13 +39,6 @@
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
-            "assets": [
-              {
-                "glob": "**/**/*.min.css",
-                "input": "node_modules/swiper",
-                "output": "/swiper/css"
-              }
-            ],
             "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
             "configDir": "projects/ng-swiper-element/.storybook",
             "browserTarget": "storybook:build",
@@ -57,18 +50,6 @@
         "build-storybook": {
           "builder": "@storybook/angular:build-storybook",
           "options": {
-            "assets": [
-              {
-                "glob": "README.md",
-                "input": "projects/ng-swiper-element",
-                "output": "/"
-              },
-              {
-                "glob": "**/**/*.min.css",
-                "input": "node_modules/swiper",
-                "output": "/swiper/css"
-              }
-            ],
             "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
             "configDir": "projects/ng-swiper-element/.storybook",
             "browserTarget": "storybook:build",
@@ -92,7 +73,18 @@
             "main": "projects/ng-swiper-element/src/public-api.ts",
             "polyfills": "projects/ng-swiper-element/polyfills.ts",
             "tsConfig": "projects/ng-swiper-element/.storybook/tsconfig.json",
-            "assets": [],
+            "assets": [
+              {
+                "glob": "README.md",
+                "input": "projects/ng-swiper-element",
+                "output": "/"
+              },
+              {
+                "glob": "**/**/*.min.css",
+                "input": "node_modules/swiper",
+                "output": "/swiper/css"
+              }
+            ],
             "styles": ["projects/ng-swiper-element/src/styles/styles.css"],
             "scripts": []
           }
