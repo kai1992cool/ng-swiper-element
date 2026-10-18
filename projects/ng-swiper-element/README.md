@@ -272,4 +272,3 @@ Use `initEmitter` instead of `init` because `init` is a reserved Angular output 
 ## License
 
 MIT
-
