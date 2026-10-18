@@ -7,11 +7,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { fn } from '@storybook/test';
-import {
-  NgSwiperSlideDirective,
-    SwiperElementComponent,
-  NgSwiperButtonDirective,
-} from 'ng-swiper-element';
+import { NgSwiperElementModule } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
 
 const args: any = {};
@@ -65,9 +61,7 @@ export const mousewheelSharedMeta: Meta = {
     moduleMetadata({
       imports: [
         CommonModule,
-        SwiperElementComponent,
-        NgSwiperSlideDirective,
-        NgSwiperButtonDirective,
+        NgSwiperElementModule,
         FormsModule,
       ],
     }),

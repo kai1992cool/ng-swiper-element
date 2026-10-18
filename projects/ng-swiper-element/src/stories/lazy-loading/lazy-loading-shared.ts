@@ -6,11 +6,7 @@ import {
 } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  NgSwiperSlideDirective,
-    SwiperElementComponent,
-  NgSwiperButtonDirective,
-} from 'ng-swiper-element';
+import { NgSwiperElementModule } from 'ng-swiper-element';
 
 export const lazyLoadingArgTypes = {
   lazyPreloaderClass: {
@@ -29,9 +25,7 @@ export const lazyLoadingSharedMeta: Meta = {
     moduleMetadata({
       imports: [
         CommonModule,
-        SwiperElementComponent,
-        NgSwiperSlideDirective,
-        NgSwiperButtonDirective,
+        NgSwiperElementModule,
         FormsModule,
       ],
     }),

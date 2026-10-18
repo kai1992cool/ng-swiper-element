@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SwiperElementComponent } from './ng-swiper-element.component';
+import { NgSwiperElementModule } from './ng-swiper-element.module';
 
 describe('SwiperElementComponent', () => {
   let component: SwiperElementComponent;
@@ -8,7 +9,7 @@ describe('SwiperElementComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SwiperElementComponent]
+      imports: [NgSwiperElementModule]
     })
       .compileComponents();
 

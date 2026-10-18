@@ -6,20 +6,14 @@ import {
 } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  NgSwiperSlideDirective,
-  SwiperElementComponent,
-  NgSwiperButtonDirective,
-} from 'ng-swiper-element';
+import { NgSwiperElementModule } from 'ng-swiper-element';
 export const a11ySharedMeta: Meta = {
   tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       imports: [
         CommonModule,
-        SwiperElementComponent,
-        NgSwiperSlideDirective,
-        NgSwiperButtonDirective,
+        NgSwiperElementModule,
         FormsModule,
       ],
     }),

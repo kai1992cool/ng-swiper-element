@@ -7,11 +7,7 @@ import {
 } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
 import { fn } from '@storybook/test';
-import {
-  NgSwiperSlideDirective,
-    SwiperElementComponent,
-  NgSwiperButtonDirective,
-} from 'ng-swiper-element';
+import { NgSwiperElementModule } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
 import { Component } from '@angular/core';
 const args: any = {};
@@ -26,9 +22,7 @@ export const navigationSharedMeta: Meta = {
   decorators: [
     moduleMetadata({
       imports: [
-        SwiperElementComponent,
-        NgSwiperSlideDirective,
-        NgSwiperButtonDirective,
+        NgSwiperElementModule,
         FormsModule
       ],
     }),

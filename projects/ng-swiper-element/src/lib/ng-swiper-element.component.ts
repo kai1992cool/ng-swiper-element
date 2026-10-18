@@ -1,7 +1,6 @@
-import { Component, ContentChildren, CUSTOM_ELEMENTS_SCHEMA, ElementRef, HostListener, Input, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ContentChildren, ElementRef, HostListener, Input, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { SwiperContainerEvents, swiperEvents } from './ng-swiper-element-events.class';
-import { Swiper, SwiperEvents, SwiperOptions } from 'swiper/types';
-import { CommonModule } from '@angular/common';
+import { SwiperEvents, SwiperOptions } from 'swiper/types';
 import { NgSwiperSlideDirective } from './directive/ng-swiper-slide.directive';
 import { NgSwiperButtonDirective } from './directive/ng-swiper-button.directive';
 
@@ -16,7 +15,6 @@ export type BreakPointsType = {
 };
 @Component({
   selector: 'ng-swiper-element',
-  imports: [CommonModule],
   template: `
    <div  style="position: relative !important;">
     <swiper-container
@@ -53,8 +51,6 @@ export type BreakPointsType = {
     </div>
   `,
   exportAs: 'ngSwiperElement',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  standalone: true,
 })
 export class SwiperElementComponent extends SwiperContainerEvents {
   @Input() swiperClasses: string | undefined;

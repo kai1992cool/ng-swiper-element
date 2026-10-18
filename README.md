@@ -2,7 +2,7 @@
 
 An Angular wrapper for [Swiper Element](https://swiperjs.com/element), Swiper's Web Component implementation. Build responsive, touch-enabled carousels in Angular templates using native custom elements.
 
-The library supports Angular 22 and later, using decorator-based inputs and outputs, `@ViewChild`/`@ContentChildren`, and `*ngIf`/`*ngFor` for compatibility with Angular 17 and below.
+The library supports Angular 10 and later and is distributed as an NgModule for compatibility with Angular versions that do not support standalone declarations.
 
 
 [![npm version](https://img.shields.io/npm/v/ng-swiper-element.svg)](https://www.npmjs.com/package/ng-swiper-element)
@@ -88,89 +88,27 @@ Use the matching `*-element.min.css` file for the feature you need. For styles o
 
 Choose the setup that matches your Angular application. Both APIs register Swiper's custom elements once. They default to bundle registration; pass `'core'` to register Swiper Element core instead.
 
-### Standalone application
+### NgModule setup
 
-Register Swiper with `provideSwiper()` in the providers passed to `bootstrapApplication()`:
-
-```ts
-import { bootstrapApplication } from '@angular/platform-browser';
-import { provideSwiper } from 'ng-swiper-element';
-import { AppComponent } from './app/app.component';
-
-bootstrapApplication(AppComponent, {
-  providers: [provideSwiper()],
-});
-```
-
-To register Swiper Element core instead of the bundle, use `provideSwiper('core')`.
-
-Import `SwiperElementComponent` and `NgSwiperSlideDirective` in the `imports` array of each standalone component that uses them:
-
-```ts
-import { Component } from '@angular/core';
-import {
-  NgSwiperSlideDirective,
-  SwiperElementComponent,
-} from 'ng-swiper-element';
-
-@Component({
-  selector: 'app-carousel',
-  imports: [SwiperElementComponent, NgSwiperSlideDirective],
-  standalone: true,
-  template: `
-    <ng-swiper-element
-      [swiperOptions]="swiperOptions"
-      (slideChange)="onSlideChange($event)"
-    >
-      <ng-template ngSwiperSlide>
-        <article>First slide</article>
-      </ng-template>
-      <ng-template ngSwiperSlide>
-        <article>Second slide</article>
-      </ng-template>
-    </ng-swiper-element>
-  `,
-})
-export class CarouselComponent {
-  swiperOptions = {
-    slidesPerView: 1,
-    spaceBetween: 16,
-    pagination: { clickable: true },
-  };
-
-  onSlideChange(event: unknown) {
-    console.log('Swiper slide changed', event);
-  }
-}
-```
-
-`swiperOptions` accepts Swiper configuration. You can also bind supported Swiper options directly as Angular inputs. See the [Swiper API](https://swiperjs.com/swiper-api) for available options.
-
-### NgModule application
-
-Call `enableSwiper()` once at the top of `app.module.ts`, before the module declaration. It uses bundle registration by default; pass `'core'` to register Swiper Element core. The application component should be non-standalone and listed in `declarations`.
+Import `NgSwiperElementModule` into your application module. It declares and exports the wrapper component and both slide/button directives. Call `enableSwiper()` once to register Swiper's custom elements; it uses bundle registration by default, or pass `'core'` to register Swiper Element core.
 
 ```ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  enableSwiper,
-  NgSwiperSlideDirective,
-  SwiperElementComponent,
-} from 'ng-swiper-element';
+import { enableSwiper, NgSwiperElementModule } from 'ng-swiper-element';
 import { AppComponent } from './app.component';
 
 enableSwiper();
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, SwiperElementComponent, NgSwiperSlideDirective],
+  imports: [BrowserModule, NgSwiperElementModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
 
-Add the `ng-swiper-element` markup to the template of a component declared in the module. The slide directive marks each slide:
+Add the `ng-swiper-element` markup to the template of any component declared in the module. The slide directive marks each slide:
 
 ```html
 <ng-swiper-element
@@ -184,6 +122,10 @@ Add the `ng-swiper-element` markup to the template of a component declared in th
   </ng-template>
 </ng-swiper-element>
 ```
+
+For an application using standalone components, import `NgSwiperElementModule` into the standalone component's `imports` instead of importing the component or directives individually.
+
+`swiperOptions` accepts Swiper configuration. You can also bind supported Swiper options directly as Angular inputs. See the [Swiper API](https://swiperjs.com/swiper-api) for available options.
 
 ### Configure options with Angular property bindings
 

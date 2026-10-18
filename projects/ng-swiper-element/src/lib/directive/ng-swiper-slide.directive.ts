@@ -2,7 +2,6 @@ import { Directive, Input } from '@angular/core';
 
 @Directive({
   selector: '[ngSwiperSlide]',
-  standalone: true,
 })
 export class NgSwiperSlideDirective {
   @Input() lazy: string | boolean | undefined = false;
