@@ -4,9 +4,9 @@ import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 
 const [angularVersion, ...extraArgs] = process.argv.slice(2);
-const supportedVersions = ["14", "15", "16", "17"];
+const supportedVersions = ["10", "11", "12", "13"];
 if (extraArgs.length > 0 || !supportedVersions.includes(angularVersion)) {
-  throw new Error("Usage: node scripts/publish-angular.mjs <14|15|16|17>");
+  throw new Error("Usage: node scripts/publish-angular.mjs <10|11|12|13>");
 }
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));

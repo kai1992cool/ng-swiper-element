@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        angular-version: ${{ fromJson(github.event.inputs.angular-major-versions == '' && '[14,15,16,17]' || format('[{0}]', join(github.event.inputs.angular-major-versions, ','))) }}
+        angular-version: ${{ fromJson(github.event.inputs.angular-major-versions == '' && '[10,11,12,13]' || format('[{0}]', join(github.event.inputs.angular-major-versions, ','))) }}
     steps:
       - name: Validate Angular version
         env:
@@ -29,9 +29,9 @@ jobs:
           import os
 
           version = os.environ['ANGULAR_VERSION']
-          if version not in {'14', '15', '16', '17'}:
+          if version not in {'10', '11', '12', '13'}:
               raise SystemExit(
-                  f"Invalid Angular version: {version}. Allowed values are 14,15,16,17."
+                  f"Invalid Angular version: {version}. Allowed values are 10,11,12,13."
               )
 
       - name: Checkout branch
@@ -40,7 +40,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.angular-version == 17 && '20.19.0' || (matrix.angular-version == 16 && '18.20.8' || (matrix.angular-version == 15 && '18.20.8' || '16.20.2')) }}
+          node-version: ${{ matrix.angular-version == 13 && '12.20.0' || (matrix.angular-version == 12 && '12.14.0' || (matrix.angular-version == 11 && '10.13.0' || '10.13.0')) }}
           cache: npm
 
       - name: Apply Angular version dependencies
