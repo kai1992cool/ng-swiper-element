@@ -110,6 +110,7 @@ function runGit(args) {
   }
 }
 
+runGit(["pull"]);
 const useAngularVersionScript = resolve(
   root,
   "scripts",
@@ -174,8 +175,6 @@ await Promise.all([
 ]);
 
 const packageFiles = [
-  "package.json",
-  "projects/ng-swiper-element/package.json",
   `angular-version-package/package-${angularVersion}.json`,
 ];
 const packageChanges = spawnSync(
@@ -196,6 +195,7 @@ if (packageChanges.status === 1) {
     "--",
     ...packageFiles,
   ]);
+  runGit(["push"]);
 } else if (packageChanges.status !== 0) {
   throw new Error(
     `git diff --quiet HEAD failed with status ${packageChanges.status}`,
