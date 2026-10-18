@@ -197,6 +197,7 @@ if (packageChanges.status === 1) {
     "--",
     ...packageFiles,
   ]);
+  runGit(["push"]);
 } else if (packageChanges.status !== 0) {
   throw new Error(
     `git diff --quiet HEAD failed with status ${packageChanges.status}`,
