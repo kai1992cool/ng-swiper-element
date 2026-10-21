@@ -27,6 +27,18 @@ async function main() {
     'ng-swiper-element',
     'package.json',
   );
+  const tsconfigPath = resolve(root, 'tsconfig.json');
+  const storybookDirectory = resolve(
+    root,
+    'projects',
+    'ng-swiper-element',
+    '.storybook',
+  );
+  const managerPath = resolve(storybookDirectory, 'manager.ts');
+  const managerVariantPath = resolve(
+    storybookDirectory,
+    `manager-${Number(version) <= 11 ? 'legacy' : 'modern'}.ts`,
+  );
   // const storybookPath = resolve(
   //   root,
   //   'projects',
@@ -35,10 +47,13 @@ async function main() {
   // );
   // const previewVariant = version === '18' ? '18' : version === '19' ? '19' : '20';
 
-  const [packageJson, versionPackage, libraryPackage] = await Promise.all([
+  const [packageJson, versionPackage, libraryPackage, tsconfig, managerConfig] =
+    await Promise.all([
     readJson(packagePath),
     readJson(versionPackagePath),
     readJson(libraryPackagePath),
+    readJson(tsconfigPath),
+    readFile(managerVariantPath, 'utf8'),
   ]);
 
   if (!versionPackage.dependencies || !versionPackage.devDependencies) {
@@ -77,23 +92,20 @@ async function main() {
     libraryPackage.peerDependencies.swiper = swiperVersion;
     libraryPackage.devDependencies.swiper = swiperVersion;
   }
-  // const previewUpdates =
-  //   Number(version) <= 20
-  //     ? [
-  //         copyFile(
-  //           resolve(
-  //             storybookPath,
-  //             `preview-${previewVariant}.tsbak`,
-  //           ),
-  //           resolve(storybookPath, 'preview.ts'),
-  //         ),
-  //       ]
-  //     : [];
+
+  if (Number(version) <= 11) {
+    delete tsconfig.compilerOptions.noImplicitOverride;
+    delete tsconfig.compilerOptions.noPropertyAccessFromIndexSignature;
+  } else {
+    tsconfig.compilerOptions.noImplicitOverride = true;
+    tsconfig.compilerOptions.noPropertyAccessFromIndexSignature = true;
+  }
 
   await Promise.all([
     writeJson(packagePath, packageJson),
     writeJson(libraryPackagePath, libraryPackage),
-    // ...previewUpdates,
+    writeJson(tsconfigPath, tsconfig),
+    writeFile(managerPath, managerConfig),
   ]);
 }
 

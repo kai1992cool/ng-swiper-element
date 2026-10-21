@@ -1,19 +1,18 @@
 import {
-  applicationConfig,
   componentWrapperDecorator,
   moduleMetadata,
   type Meta,
   type StoryObj,
 } from '@storybook/angular';
 import { FormsModule } from '@angular/forms';
-import { fn } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 import { NgSwiperElementModule } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
 import { Component } from '@angular/core';
 const args: any = {};
 
 swiperEvents.forEach((eventName: string) => {
-  args[eventName] = fn();
+  args[eventName] = action(eventName);
 });
 
 export const navigationSharedMeta: Meta = {

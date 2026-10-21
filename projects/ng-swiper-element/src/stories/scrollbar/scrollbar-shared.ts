@@ -1,5 +1,4 @@
 import {
-  applicationConfig,
   componentWrapperDecorator,
   moduleMetadata,
   type Meta,
@@ -7,13 +6,13 @@ import {
 } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { fn } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 import { NgSwiperElementModule } from 'ng-swiper-element';
 import { swiperEvents } from '../../lib/ng-swiper-element-events.class';
 const args: any = {};
 
 swiperEvents.forEach((eventName: string) => {
-  args[eventName] = fn();
+  args[eventName] = action(eventName);
 });
 
 export const scrollbarArgTypes = {
