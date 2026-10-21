@@ -46,6 +46,9 @@
   "overrides": {
     "@compodoc/live-server": {
       "send": "0.19.2"
+    },
+    "@compodoc/compodoc": {
+      "@compodoc/ngd-transformer": "2.1.0"
     }
   }
 }
