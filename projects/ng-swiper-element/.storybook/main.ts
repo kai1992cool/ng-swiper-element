@@ -10,7 +10,7 @@ const config = {
     options: {}
   },
   // 👇 Add this configuration to change the main document title
-  managerHead: (head) => `
+  managerHead: (head: any) => `
     ${head}
     <script>
       document.title = 'NG Swiper Element';
