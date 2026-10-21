@@ -1,6 +1,4 @@
-import type { StorybookConfig } from '@storybook/angular';
-
-const config: StorybookConfig = {
+const config = {
   "stories": [
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
@@ -22,4 +20,4 @@ const config: StorybookConfig = {
     sidebarOnboardingChecklist: false,
   },
 };
-export default config;
+module.exports = config;
