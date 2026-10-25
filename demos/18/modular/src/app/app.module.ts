@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   enableSwiper,
@@ -13,5 +13,6 @@ enableSwiper();
   declarations: [AppComponent],
   imports: [BrowserModule, SwiperElementComponent, NgSwiperSlideDirective],
   bootstrap: [AppComponent],
+  providers: [provideExperimentalZonelessChangeDetection()],
 })
 export class AppModule {}

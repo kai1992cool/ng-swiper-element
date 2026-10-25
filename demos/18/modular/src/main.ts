@@ -1,9 +1,6 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { platformBrowser } from '@angular/platform-browser';
 import { AppModule } from './app/app.module';
-import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule, {
-    providers: [provideExperimentalZonelessChangeDetection()],
-  })
+platformBrowser()
+  .bootstrapModule(AppModule)
   .catch((error: unknown) => console.error(error));
